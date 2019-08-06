@@ -5,19 +5,19 @@ const QueryEngineComunica = require('graphql-ld-comunica').QueryEngineComunica;
 const context = {
     "@context": {
         "Film": "http://dbpedia.org/ontology/Film",
-        "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+        "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
         "starring": "http://dbpedia.org/ontology/starring"
     }
 };
 // Create a GraphQL-LD client based on a client-side Comunica engine over 3 sources
 const comunicaConfig = {
     sources: [
-        { type: "sparql", value: "http://dbpedia.org/sparql" },
-        { type: "file", value: "https://ruben.verborgh.org/profile/" },
-        { type: "hypermedia", value: "https://fragments.linkedsoftwaredependencies.org/npm" },
+        {type: "sparql", value: "http://dbpedia.org/sparql"},
+        {type: "file", value: "https://ruben.verborgh.org/profile/"},
+        {type: "hypermedia", value: "https://fragments.linkedsoftwaredependencies.org/npm"},
     ],
 };
-const client = new Client({ context, queryEngine: new QueryEngineComunica(comunicaConfig) });
+const client = new Client({context, queryEngine: new QueryEngineComunica(comunicaConfig)});
 
 // Define a query
 const query = `{
@@ -29,7 +29,7 @@ const query = `{
 
 // Execute the query
 const der = async () => {
-    const { data } = await client.query({ query });
+    const {data} = await client.query({query});
     console.log(data);
 };
 der();

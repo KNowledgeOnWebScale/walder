@@ -60,9 +60,13 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.sb.appendLine(GraphQLLD.COMUNICA_EXECUTION_FUNCTION);
     }
 
-    writeQueryExecution(sb) {
+    writeQueryExecutionStart(sb) {
         const graphQLLD = this.queries.slice(-1).pop();
 
-        sb.appendFormat(GraphQLLD.COMUNICA_EXECUTE_QUERY, graphQLLD.name);
+        sb.appendFormat(GraphQLLD.COMUNICA_EXECUTE_QUERY_START, graphQLLD.name);
+    }
+
+    writeQueryExecutionEnd(sb) {
+        sb.appendLine(GraphQLLD.COMUNICA_EXECUTE_QUERY_END);
     }
 };

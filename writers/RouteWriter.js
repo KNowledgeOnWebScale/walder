@@ -9,18 +9,24 @@ module.exports = class RouteWriter extends Writer {
 
     preWrite() {
         this.sb.append(Routes.GRAPHQLLD_IMPORT);
-
+        this.sb.append(Routes.PIPE_MODULES_IMPORT);
         fs.appendFileSync(this.output, this.sb.toString());
 
         this.sb.clear();
     }
 
-    write(route, graphQLLDWriter) {
+    write(route, graphQLLDWriter, pipeModuleWriter) {
         this.sb.appendFormat(Routes.FIRST_LINE, route.method, route.path);
 
         this.sb.appendLine(Routes.BODY);
+
         // Write query code
-        graphQLLDWriter.writeQueryExecution(this.sb);
+        graphQLLDWriter.writeQueryExecutionStart(this.sb);
+
+        // Write pipe modules code
+        pipeModuleWriter.writePipeExecution(this.sb);
+
+        graphQLLDWriter.writeQueryExecutionEnd(this.sb);
 
         this.sb.appendLine(Routes.LAST_LINE);
 
@@ -29,5 +35,6 @@ module.exports = class RouteWriter extends Writer {
         this.sb.clear();
     }
 
-    postWrite() {}
+    postWrite() {
+    }
 };

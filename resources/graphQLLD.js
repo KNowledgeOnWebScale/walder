@@ -10,9 +10,9 @@ const COMUNICA_EXECUTION_FUNCTION = `const ${COMUNICA_EXECUTION_FUNCTION_NAME} =
     const client = new Client({ context: graphQLLD.context, queryEngine: new QueryEngineComunica(comunicaConfig) });
     return await client.query({ query: graphQLLD.query })
 };\n`;
-const COMUNICA_EXECUTE_QUERY = '    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.{0}).then( (data) =>\n' +
-    '        res.send(data)\n' +
-    '    ).catch(\n' +
+const COMUNICA_EXECUTE_QUERY_START = '    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.{0}).then( (data) => {';
+const COMUNICA_EXECUTE_QUERY_END = '        res.send(pipeResult);\n\n' +
+    '    }).catch(\n' +
     '        res.send(\'FAILED\')\n' +
     '    )';
 
@@ -26,6 +26,7 @@ module.exports = {
     COMUNICA_CONFIG,
     COMUNICA_EXECUTION_FUNCTION_NAME,
     COMUNICA_EXECUTION_FUNCTION,
-    COMUNICA_EXECUTE_QUERY,
+    COMUNICA_EXECUTE_QUERY_START,
+    COMUNICA_EXECUTE_QUERY_END,
     QUERY
 };
