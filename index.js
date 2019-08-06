@@ -62,3 +62,4 @@ for (let path in yamlData.paths) {
 }
 
 graphQLLWriter.postWrite();
+pipeModulesWriter.postWrite();

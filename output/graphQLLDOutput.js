@@ -12,8 +12,11 @@ const executeQuery = async (comunicaConfig, graphQLLD) => {
 
 const getmoviesbradpitt = {"name":"getmoviesbradpitt","query":"{ id @single ... on Film { starring(label: \"Brad Pitt\") @single }}","context":{"@context":{"Film":"http://dbpedia.org/ontology/Film","label":{"@id":"http://www.w3.org/2000/01/rdf-schema#label","@language":"en"},"starring":"http://dbpedia.org/ontology/starring"}}};
 
+const getdevelopersbelgian = {"name":"getdevelopersbelgian","query":"{ softwareName: label @single developer @single(scope: all) { label country(label_en: \"Belgium\") }}","context":{"@context":{"label":{"@id":"http://www.w3.org/2000/01/rdf-schema#label"},"label_en":{"@id":"http://www.w3.org/2000/01/rdf-schema#label","@language":"en"},"developer":{"@id":"http://dbpedia.org/ontology/developer"},"country":{"@id":"http://dbpedia.org/ontology/locationCountry"}}}};
+
 module.exports = {
     executeQuery,
     comunicaConfig,
     getmoviesbradpitt,
+    getdevelopersbelgian,
 };
