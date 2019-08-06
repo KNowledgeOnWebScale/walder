@@ -15,8 +15,10 @@ module.exports = class PipeModuleWriter extends Writer {
         await pipeModules;
         pipeModules.then(modules => {
             modules.forEach(pipeModule => {
-                this.pipeModules.push(pipeModule.name);
-                this.sb.appendFormat(PipeModules.PIPEMODULE, pipeModule.name, pipeModule.code);
+                if (!this.pipeModules.includes(pipeModule.name)) {
+                    this.pipeModules.push(pipeModule.name);
+                    this.sb.appendFormat(PipeModules.PIPEMODULE, pipeModule.name, pipeModule.code);
+                }
             });
 
             fs.appendFileSync(this.output, this.sb.toString());
