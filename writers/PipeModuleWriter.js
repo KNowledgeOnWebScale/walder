@@ -8,16 +8,25 @@ module.exports = class PipeModuleWriter extends Writer {
     constructor(output) {
         super(output);
         this.pipeModules = [];
+        this.prevModules = [];
     }
 
-    async write(pipeModules) {
-        this.pipeModules = this.pipeModules.concat(pipeModules);
-        await pipeModules;
-        pipeModules.then(modules => {
+    preWrite() {
+        this.sb.append(PipeModules.PIPE_FUNCTION);
+        this.sb.appendLine();
+        fs.appendFileSync(this.output, this.sb.toString());
+        this.sb.clear();
+    }
+
+    async write(pipeModules, loadingPipeModules) {
+        this.prevModules = pipeModules;
+        this.pipeModules = this.pipeModules.concat(loadingPipeModules);
+        await loadingPipeModules;
+        loadingPipeModules.then(modules => {
             modules.forEach(pipeModule => {
                 if (!this.pipeModules.includes(pipeModule.name)) {
                     this.pipeModules.push(pipeModule.name);
-                    this.sb.appendFormat(PipeModules.PIPEMODULE, pipeModule.name, pipeModule.code);
+                    this.sb.appendFormat(PipeModules.PIPE_MODULE, pipeModule.name, pipeModule.code);
                 }
             });
 
@@ -38,6 +47,8 @@ module.exports = class PipeModuleWriter extends Writer {
 
             this.sb.appendLine(Global.EXPORTS_START);
 
+            this.sb.appendFormat(Global.EXPORT_OBJECT, PipeModules.PIPE_FUNCTION_NAME);
+
             pipeModules.forEach((pipeModule) => {
                 this.sb.appendFormat(Global.EXPORT_OBJECT, pipeModule)
             });
@@ -48,5 +59,13 @@ module.exports = class PipeModuleWriter extends Writer {
 
             this.sb.clear();
         });
+    }
+
+    writePipeExecution(sb) {
+        sb.appendLine(PipeModules.PIPE_START);
+        this.prevModules.forEach(module => {
+            sb.appendFormat(PipeModules.PIPE_OBJECT, module.name);
+        });
+        sb.appendFormat(PipeModules.PIPE_END, 'data');
     }
 };

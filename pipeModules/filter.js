@@ -1,4 +1,4 @@
- function filter(data, regex) {
+function filter(data, regex) {
     let filteredData = [];
     for (const o in data.data) {
         if (o.id.match(regex)) {
@@ -6,4 +6,4 @@
         }
     }
     return filteredData;
- }
+}

@@ -41,6 +41,7 @@ const pipeModulesWriter = new PipeModuleWriter(pipeModulesOuput);
 
 routeWriter.preWrite();
 graphQLLWriter.preWrite();
+pipeModulesWriter.preWrite();
 
 for (let path in yamlData.paths) {
     for (let method in yamlData.paths[path]) {
@@ -48,14 +49,14 @@ for (let path in yamlData.paths) {
         const graphQLLD = new GraphQLLDParser(method, path, yamlData).parse();
         graphQLLWriter.write(graphQLLD);
 
-        // Route
-        const route = new RouteParser(method, path, yamlData).parse();
-        routeWriter.write(route, graphQLLWriter);
-
         // Pipe modules
         const pipeModules = new PipeModuleParser(yamlData.paths[path][method].postprocessing).parse();
-        const loadedPipeModules = new PipeModuleLoader(pipeModules).load();
-        pipeModulesWriter.write(loadedPipeModules);
+        const loadingPipeModules = new PipeModuleLoader(pipeModules).load();
+        pipeModulesWriter.write(pipeModules, loadingPipeModules);
+
+        // Routes
+        const route = new RouteParser(method, path, yamlData).parse();
+        routeWriter.write(route, graphQLLWriter, pipeModulesWriter);
 
         // HTMLTemplate
     }

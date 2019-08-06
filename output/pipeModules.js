@@ -1,3 +1,5 @@
+pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);
+
 const filter = function filter(data, regex) {
     let filteredData = [];
     for (const o in data.data) {
@@ -9,5 +11,6 @@ const filter = function filter(data, regex) {
  };
 
 module.exports = {
+    pipe,
     filter,
 };

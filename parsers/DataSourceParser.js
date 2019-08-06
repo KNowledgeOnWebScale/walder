@@ -10,7 +10,7 @@ module.exports = class DataSourceParser extends Parser {
 
         for (let type in this.data.datasources) {
             for (let source in this.data.datasources[type]) {
-                datasources.push({ type: type, value: this.data.datasources[type][source]});
+                datasources.push({type: type, value: this.data.datasources[type][source]});
             }
         }
 
