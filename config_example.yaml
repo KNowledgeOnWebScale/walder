@@ -20,4 +20,7 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
+      postprocessing:
+        filter:
+          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
       html: TBD

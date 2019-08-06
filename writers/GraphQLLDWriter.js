@@ -7,8 +7,8 @@ const Global = require('../resources/global');
 
 
 module.exports = class GraphQLLDWriter extends Writer {
-    constructor(file, dataSources) {
-        super(file);
+    constructor(output, dataSources) {
+        super(output);
         this.dataSources = dataSources;
         this.queries = [];
     }
@@ -17,7 +17,7 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.imports();
         this.initialiseComunica();
 
-        fs.appendFileSync(this.file, this.sb.toString());
+        fs.appendFileSync(this.output, this.sb.toString());
 
         this.sb.clear();
     }
@@ -28,7 +28,7 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.sb.appendLine();
         this.sb.appendFormat(GraphQLLD.QUERY, data.name, JSON.stringify(data));
 
-        fs.appendFileSync(this.file, this.sb.toString());
+        fs.appendFileSync(this.output, this.sb.toString());
 
         this.sb.clear();
     }
@@ -44,7 +44,7 @@ module.exports = class GraphQLLDWriter extends Writer {
 
         this.sb.appendLine(Global.EXPORTS_END);
 
-        fs.appendFileSync(this.file, this.sb.toString());
+        fs.appendFileSync(this.output, this.sb.toString());
 
         this.sb.clear();
     }
