@@ -6,6 +6,5 @@ Walter eats YAML config files and spits out [NodeJS](https://nodejs.org/en/)/[Ex
 
 ## Current functionality (v0.0.2)
 * Generate routes
-* Generate and execute [GraphQL-LD](https://comunica.github.io/Article-ISWC2018-Demo-GraphQlLD/) queries
+* Generate GraphQL-LD queries and execution code
 * Load PipeModules
-
