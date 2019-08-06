@@ -1,0 +1,15 @@
+{
+	"type" : "object",
+	"properties" : {
+		"method" : {
+			"type" : "string",
+			"enum" : ["GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT", "OPTIONS"],
+			"optional" : true
+		},
+		
+		"headers" : {
+			"type" : "object",
+			"additionalProperties" : { "type" : "string" }
+		}
+	}
+}

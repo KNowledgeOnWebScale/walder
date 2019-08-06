@@ -1,0 +1,40 @@
+{
+	"type" : "array",
+	"items" : {
+		"type" : "object",
+		"properties" : {
+			"method" : {
+				"type" : "string",
+				"enum" : ["GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT", "OPTIONS"],
+				"optional" : true
+			},
+			"type" : {
+				"type" : "string",
+				"optional" : true
+			},
+			"language" : {
+				"type" : "string",
+				"optional" : true
+			},
+			"charset" : {
+				"type" : "string",
+				"optional" : true
+			},
+			"encoding" : {
+				"type" : "string",
+				"optional" : true
+			},
+			"quality" : {
+				"type" : "number",
+				"minimum" : 0,
+				"maximum" : 1,
+				"optional" : true
+			},
+			"length" : {
+				"type" : "integer",
+				"minimum" : 0,
+				"optional" : true
+			}
+		}
+	}
+}

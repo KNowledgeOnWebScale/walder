@@ -1,0 +1,12 @@
+Config Parser Notes
+
+	TODO
+		Basic
+			- Add data sources
+
+		Extra
+			- Make one global writer who uses the other writers
+			- Move all code strings to resource file
+			- Make a CodeWriter class
+
+	QUESTIONS
