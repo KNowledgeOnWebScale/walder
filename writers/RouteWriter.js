@@ -10,7 +10,7 @@ module.exports = class RouteWriter extends Writer {
     preWrite() {
         this.sb.append(Routes.GRAPHQLLD_IMPORT);
 
-        fs.appendFileSync(this.file, this.sb.toString());
+        fs.appendFileSync(this.output, this.sb.toString());
 
         this.sb.clear();
     }
@@ -24,7 +24,7 @@ module.exports = class RouteWriter extends Writer {
 
         this.sb.appendLine(Routes.LAST_LINE);
 
-        fs.appendFileSync(this.file, this.sb.toString());
+        fs.appendFileSync(this.output, this.sb.toString());
 
         this.sb.clear();
     }

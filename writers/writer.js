@@ -1,8 +1,8 @@
 const StringBuilder = require('string-builder');
 
 module.exports = class Writer {
-    constructor(file) {
-        this.file = file;
+    constructor(output) {
+        this.output = output;
         this.sb = new StringBuilder();
     }
 

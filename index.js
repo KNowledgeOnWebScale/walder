@@ -6,9 +6,11 @@ const YAML = require('yaml');
 // Output files
 const routesOutput = './output/routes.js';
 const graphQLLDOutput = './output/graphQLLDOutput.js';
+const pipeModulesOuput = './output/pipeModules.js';
 
 fs.writeFileSync(routesOutput, '');
 fs.writeFileSync(graphQLLDOutput, '');
+fs.writeFileSync(pipeModulesOuput, '');
 
 // Data sources
 const DataSourceParser = require('./parsers/DataSourceParser');
@@ -21,6 +23,11 @@ const RouteWriter = require('./writers/RouteWriter');
 const GraphQLLDParser = require('./parsers/GraphQLLDParser');
 const GraphQLLDWriter = require('./writers/GraphQLLDWriter');
 
+// Pipe modules
+const PipeModuleParser = require('./parsers/PipeModuleParser');
+const PipeModuleLoader = require('./loaders/PipeModuleLoader');
+const PipeModuleWriter = require('./writers/PipeModuleWriter');
+
 // Parse the config file
 const configFilePath = 'config_example.yaml';
 const file = fs.readFileSync(configFilePath, 'utf8');
@@ -30,6 +37,7 @@ const dataSources = new DataSourceParser(yamlData).parse();
 
 const routeWriter = new RouteWriter(routesOutput);
 const graphQLLWriter = new GraphQLLDWriter(graphQLLDOutput, dataSources);
+const pipeModulesWriter = new PipeModuleWriter(pipeModulesOuput);
 
 routeWriter.preWrite();
 graphQLLWriter.preWrite();
@@ -45,6 +53,9 @@ for (let path in yamlData.paths) {
         routeWriter.write(route, graphQLLWriter);
 
         // Pipe modules
+        const pipeModules = new PipeModuleParser(yamlData.paths[path][method].postprocessing).parse();
+        const loadedPipeModules = new PipeModuleLoader(pipeModules).load();
+        pipeModulesWriter.write(loadedPipeModules);
 
         // HTMLTemplate
     }

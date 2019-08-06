@@ -1,13 +1,18 @@
 const Parser = require('./parser');
 
 module.exports = class PipeModuleParser extends Parser {
-    constructor(method, path, data) {
+    constructor(data) {
         super(data);
-        this.method = method;
-        this.path = path;
     }
 
     parse() {
-
+        let pipeModules = [];
+        for (const pipeModule in this.data) {
+            pipeModules.push({
+                name: pipeModule,
+                source: this.data[pipeModule].source
+            })
+        }
+        return pipeModules;
     }
-}
+};
