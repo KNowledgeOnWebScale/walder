@@ -11,5 +11,9 @@
     "url": "https://gitlab.ilabt.imec.be/KNoWS/walter.git"
   },
   "author": "Dries Marzougui",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "string-builder": "^0.1.6",
+    "yaml": "^1.6.0"
+  }
 }
