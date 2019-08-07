@@ -1,13 +1,40 @@
 'use strict';
 
+const program = require('commander');
 const fs = require('fs');
 const YAML = require('yaml');
 
-// Output files
-const routesOutput = './meta/exampleOutput/routes.js';
-const graphQLLDOutput = './meta/exampleOutput/graphQLLDOutput.js';
-const pipeModulesOuput = './meta/exampleOutput/pipeModuleExamples.js';
+// CLI
+program
+    .version('0.0.1', '-v, --version')
+    .option('-i, --input <configFile>', 'YAML configuration file input.')
+    .option('-o, --output [outputDirectory]', 'output directory. Default: CWD')
+    .parse(process.argv);
 
+if (!program.input) {
+    console.error('\nError:\n\t--input <configFile> required. Use -h for more info.\n');
+    process.exit(1);
+}
+
+// Output files
+let outputDirectory = '.';
+if (program.output) {
+    if (program.output.endsWith('/')) {
+        outputDirectory = program.output.slice(0, -1);
+    } else {
+        outputDirectory = program.output;
+    }
+
+    // Create directory if it does not exist yet
+    if (!fs.existsSync(outputDirectory)){
+        fs.mkdirSync(outputDirectory, { recursive: true });
+    }
+}
+const routesOutput = outputDirectory + '/routes.js';
+const graphQLLDOutput = outputDirectory + '/graphQLLD.js';
+const pipeModulesOuput = outputDirectory + '/pipeModules.js';
+
+// Create/Clear output files
 fs.writeFileSync(routesOutput, '');
 fs.writeFileSync(graphQLLDOutput, '');
 fs.writeFileSync(pipeModulesOuput, '');
