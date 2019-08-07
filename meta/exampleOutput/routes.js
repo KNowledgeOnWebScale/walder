@@ -1,6 +1,6 @@
 const express = require('express');
 const GraphQLLD = require('./graphQLLDOutput.js');
-const PipeModules = require('./pipeModules');
+const PipeModules = require('./pipeModuleExamples');
 
 const app = express();
 

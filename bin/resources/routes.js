@@ -1,6 +1,6 @@
 const EXPRESS_IMPORT = 'const express = require(\'express\');\n';
 const GRAPHQLLD_IMPORT = 'const GraphQLLD = require(\'./graphQLLDOutput.js\');\n';
-const PIPE_MODULES_IMPORT = 'const PipeModules = require(\'./pipeModules\');\n\n';
+const PIPE_MODULES_IMPORT = 'const PipeModules = require(\'./pipeModuleExamples\');\n\n';
 
 const CREATE_APP = 'const app = express();\n\n';
 const START_APP = 'app.listen(5656, () => {\n' +

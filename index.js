@@ -4,32 +4,32 @@ const fs = require('fs');
 const YAML = require('yaml');
 
 // Output files
-const routesOutput = './output/routes.js';
-const graphQLLDOutput = './output/graphQLLDOutput.js';
-const pipeModulesOuput = './output/pipeModules.js';
+const routesOutput = './meta/exampleOutput/routes.js';
+const graphQLLDOutput = './meta/exampleOutput/graphQLLDOutput.js';
+const pipeModulesOuput = './meta/exampleOutput/pipeModuleExamples.js';
 
 fs.writeFileSync(routesOutput, '');
 fs.writeFileSync(graphQLLDOutput, '');
 fs.writeFileSync(pipeModulesOuput, '');
 
 // Data sources
-const DataSourceParser = require('./parsers/DataSourceParser');
+const DataSourceParser = require('./bin/parsers/DataSourceParser');
 
 // Routes
-const RouteParser = require('./parsers/RouteParser');
-const RouteWriter = require('./writers/RouteWriter');
+const RouteParser = require('./bin/parsers/RouteParser');
+const RouteWriter = require('./bin/writers/RouteWriter');
 
 // GraphQL-LD
-const GraphQLLDParser = require('./parsers/GraphQLLDParser');
-const GraphQLLDWriter = require('./writers/GraphQLLDWriter');
+const GraphQLLDParser = require('./bin/parsers/GraphQLLDParser');
+const GraphQLLDWriter = require('./bin/writers/GraphQLLDWriter');
 
 // Pipe modules
-const PipeModuleParser = require('./parsers/PipeModuleParser');
-const PipeModuleLoader = require('./loaders/PipeModuleLoader');
-const PipeModuleWriter = require('./writers/PipeModuleWriter');
+const PipeModuleParser = require('./bin/parsers/PipeModuleParser');
+const PipeModuleLoader = require('./bin/loaders/PipeModuleLoader');
+const PipeModuleWriter = require('./bin/writers/PipeModuleWriter');
 
 // Parse the config file
-const configFilePath = 'config_example.yaml';
+const configFilePath = './meta/config_example.yaml';
 const file = fs.readFileSync(configFilePath, 'utf8');
 const yamlData = YAML.parse(file);
 

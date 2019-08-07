@@ -1,6 +1,5 @@
 const Parser = require('./parser');
 const util = require('util');
-const myUtils = require('../myUtils');
 
 class GraphQLLD {
     constructor(name, query, context) {
