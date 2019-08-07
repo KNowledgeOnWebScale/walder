@@ -63,6 +63,7 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.sb.appendLine(GraphQLLD.COMUNICA_EXECUTION_FUNCTION);
 
         this.sb.appendLine(GraphQLLD.VARIABLE_SUBSTITUTION_FUNCTION);
+        this.sb.appendLine(GraphQLLD.QUERY_PARAMETER_SUBSTITUTION_FUNCTION);
     }
 
     writeQueryExecutionStart(sb) {

@@ -21,16 +21,32 @@ const VARIABLE_SUBSTITUTION_FUNCTION = `const ${VARIABLE_SUBSTITUTION_FUNCTION_N
     }
 };\n`;
 
+const QUERY_PARAMETER_SUBSTITUTION_FUNCTION_NAME = 'substituteQueryParams';
+const QUERY_PARAMETER_SUBSTITUTION_FUNCTION = `const ${QUERY_PARAMETER_SUBSTITUTION_FUNCTION_NAME} = (query, params) => {
+  if (!isEmpty(params)) {
+      const keys = Object.keys(params);
+      if (keys.includes('page') && keys.includes('limit')) {
+          params.offset = Number(params.page) * params.limit;
+      }
+      delete params.page;
+      delete params.limit;
+
+      return substituteVariables(query, params);
+  } else {
+      return query;
+  }
+};\n`;
+
 const COMUNICA_EXECUTION_FUNCTION_NAME = 'executeQuery';
-const COMUNICA_EXECUTION_FUNCTION = `const ${COMUNICA_EXECUTION_FUNCTION_NAME} = async (comunicaConfig, graphQLLD, variables) => {
-    const newQuery = ${VARIABLE_SUBSTITUTION_FUNCTION_NAME}(graphQLLD.query, variables);
+const COMUNICA_EXECUTION_FUNCTION = `const ${COMUNICA_EXECUTION_FUNCTION_NAME} = async (comunicaConfig, graphQLLD, variables, queryParams) => {
+    let newQuery = ${VARIABLE_SUBSTITUTION_FUNCTION_NAME}(graphQLLD.query, variables);
+    newQuery = ${QUERY_PARAMETER_SUBSTITUTION_FUNCTION_NAME}(newQuery, queryParams);
     const client = new Client({ context: graphQLLD.context, queryEngine: new QueryEngineComunica(comunicaConfig) });
     return await client.query({ query: newQuery })
 };\n`;
 
 
-
-const COMUNICA_EXECUTE_QUERY_START = '    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.{0}, req.params).then( (data) => {';
+const COMUNICA_EXECUTE_QUERY_START = '    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.{0}, req.params, req.query).then( (data) => {';
 const COMUNICA_EXECUTE_QUERY_END = '        res.send(pipeResult);\n\n' +
     '    }).catch(error => {\n' +
     '        res.send(error.message)\n' +
@@ -48,6 +64,8 @@ module.exports = {
     COMUNICA_EXECUTION_FUNCTION,
     VARIABLE_SUBSTITUTION_FUNCTION_NAME,
     VARIABLE_SUBSTITUTION_FUNCTION,
+    QUERY_PARAMETER_SUBSTITUTION_FUNCTION_NAME,
+    QUERY_PARAMETER_SUBSTITUTION_FUNCTION,
     COMUNICA_EXECUTE_QUERY_START,
     COMUNICA_EXECUTE_QUERY_END,
     QUERY
