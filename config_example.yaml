@@ -4,12 +4,25 @@ datasources:
 paths:
   /movies/brad_pitt:
     get:
-      summary: Returns a list of the all movies Brad Pitt stars in
+      summary: Returns a paginated list of all movies Brad Pitt stars in
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: The page that must be shown.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+          description: Maximum number of elements to be shown on the current page.
       graphql-query: >
         {
           id @single
-          ... on Film {
-            starring(label: "Brad Pitt") @single
+          ... on Film{
+            starring(label: "Brad Pitt" first: $limit offset: $offset) @single
           }
         }
       json-ld-context: >
@@ -59,24 +72,3 @@ paths:
             }
           }
         html: TBD
-  /developers/belgian:
-    get:
-      summary: Returns a list of all Belgian software developers
-      graphql-query: >
-        {
-          softwareName: label @single
-          developer @single(scope: all) {
-            label
-            country(label_en: "Belgium")
-          }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label" },
-            "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "developer": { "@id": "http://dbpedia.org/ontology/developer" },
-            "country": { "@id": "http://dbpedia.org/ontology/locationCountry" }
-          }
-        }
-      html: TBD

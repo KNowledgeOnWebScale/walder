@@ -12,8 +12,11 @@ const VARIABLE_SUBSTITUTION_FUNCTION = `const ${VARIABLE_SUBSTITUTION_FUNCTION_N
         let newQuery = query;
         Object.keys(variables).forEach(key => {
             // Replace underscores with spaces
-            const val = variables[key].replace(/_/g, ' ');
-            newQuery = newQuery.replace('$' + key, '"' + val + '"');
+            let val = variables[key];
+            if (typeof val === 'string' || val instanceof String) {
+                val = '"' + val.replace(/_/g, ' ') + '"';
+            }
+            newQuery = newQuery.replace('$' + key, val);
         });
         return newQuery;
     } else {
@@ -26,10 +29,10 @@ const QUERY_PARAMETER_SUBSTITUTION_FUNCTION = `const ${QUERY_PARAMETER_SUBSTITUT
   if (!isEmpty(params)) {
       const keys = Object.keys(params);
       if (keys.includes('page') && keys.includes('limit')) {
+          params.limit = Number(params.limit);
           params.offset = Number(params.page) * params.limit;
       }
       delete params.page;
-      delete params.limit;
 
       return substituteVariables(query, params);
   } else {

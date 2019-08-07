@@ -43,19 +43,6 @@ app.get('/movies', function(req, res, next) {
     })
 });
 
-app.get('/developers/belgian', function(req, res, next) {
-    // Callback body
-    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.getdevelopersbelgian, req.params, req.query).then( (data) => {
-        const pipeResult = PipeModules.pipe(
-        )(data);
-
-        res.send(pipeResult);
-
-    }).catch(error => {
-        res.send(error.message)
-    })
-});
-
 app.listen(5656, () => {
     console.log('Listening on http://localhost:5656')
 });
