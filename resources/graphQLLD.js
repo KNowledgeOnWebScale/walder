@@ -12,9 +12,9 @@ const COMUNICA_EXECUTION_FUNCTION = `const ${COMUNICA_EXECUTION_FUNCTION_NAME} =
 };\n`;
 const COMUNICA_EXECUTE_QUERY_START = '    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.{0}).then( (data) => {';
 const COMUNICA_EXECUTE_QUERY_END = '        res.send(pipeResult);\n\n' +
-    '    }).catch(\n' +
-    '        res.send(\'FAILED\')\n' +
-    '    )';
+    '    }).catch(error => {\n' +
+    '        res.send(error.message)\n' +
+    '    })';
 
 const QUERY = 'const {0} = {1};\n';
 

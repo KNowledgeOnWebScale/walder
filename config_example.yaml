@@ -20,9 +20,6 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      postprocessing:
-        filter:
-          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
       html: TBD
   /developers/belgian:
     get:
@@ -44,7 +41,4 @@ paths:
             "country": { "@id": "http://dbpedia.org/ontology/locationCountry" }
           }
         }
-      postprocessing:
-        filter:
-          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
       html: TBD
