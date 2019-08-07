@@ -20,15 +20,12 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      postprocessing:
-        filter:
-          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
       html: TBD
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
       graphql-query: >
-        query MoviesActor($actor: String!){
+        {
           id @single
           ... on Film {
             starring(label: $actor) @single
@@ -63,7 +60,4 @@ paths:
             "country": { "@id": "http://dbpedia.org/ontology/locationCountry" }
           }
         }
-      postprocessing:
-        filter:
-          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
       html: TBD

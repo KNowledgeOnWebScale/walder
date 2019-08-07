@@ -18,7 +18,6 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.initialiseComunica();
 
         fs.appendFileSync(this.output, this.sb.toString());
-
         this.sb.clear();
     }
 
@@ -36,7 +35,10 @@ module.exports = class GraphQLLDWriter extends Writer {
     postWrite() {
         this.sb.appendLine(Global.EXPORTS_START);
         this.sb.appendFormat(Global.EXPORT_OBJECT, GraphQLLD.COMUNICA_EXECUTION_FUNCTION_NAME);
+        this.sb.appendFormat(Global.EXPORT_OBJECT, GraphQLLD.VARIABLE_SUBSTITUTION_FUNCTION_NAME);
+
         this.sb.appendFormat(Global.EXPORT_OBJECT, GraphQLLD.COMUNICA_CONFIG_NAME);
+
 
         this.queries.forEach((graphQLLD) => {
             this.sb.appendFormat(Global.EXPORT_OBJECT, graphQLLD.name)
@@ -50,6 +52,7 @@ module.exports = class GraphQLLDWriter extends Writer {
     }
 
     imports() {
+        this.sb.append(Global.IS_EMPTY_IMPORT);
         this.sb.append(GraphQLLD.GRAPHQLLD_CLIENT_IMPORT);
         this.sb.append(GraphQLLD.COMUNICA_QE_IMPORT);
     }
@@ -58,6 +61,8 @@ module.exports = class GraphQLLDWriter extends Writer {
         // util used for formatting because of string-builder bug
         this.sb.appendLine(util.format(GraphQLLD.COMUNICA_CONFIG, JSON.stringify(this.dataSources)));
         this.sb.appendLine(GraphQLLD.COMUNICA_EXECUTION_FUNCTION);
+
+        this.sb.appendLine(GraphQLLD.VARIABLE_SUBSTITUTION_FUNCTION);
     }
 
     writeQueryExecutionStart(sb) {

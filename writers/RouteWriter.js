@@ -8,10 +8,15 @@ module.exports = class RouteWriter extends Writer {
     }
 
     preWrite() {
+        // Imports
+        this.sb.append(Routes.EXPRESS_IMPORT);
         this.sb.append(Routes.GRAPHQLLD_IMPORT);
         this.sb.append(Routes.PIPE_MODULES_IMPORT);
-        fs.appendFileSync(this.output, this.sb.toString());
 
+        // Basic app structure
+        this.sb.append(Routes.CREATE_APP);
+
+        fs.appendFileSync(this.output, this.sb.toString());
         this.sb.clear();
     }
 
@@ -36,5 +41,10 @@ module.exports = class RouteWriter extends Writer {
     }
 
     postWrite() {
+        // Basic app structure
+        this.sb.append(Routes.START_APP);
+
+        fs.appendFileSync(this.output, this.sb.toString());
+        this.sb.clear();
     }
 };
