@@ -6,7 +6,20 @@ const app = express();
 
 app.get('/movies/brad_pitt', function(req, res, next) {
     // Callback body
-    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.getmoviesbradpitt).then( (data) => {
+    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.getmoviesbradpitt, req.params).then( (data) => {
+        const pipeResult = PipeModules.pipe(
+        )(data);
+
+        res.send(pipeResult);
+
+    }).catch(error => {
+        res.send(error.message)
+    })
+});
+
+app.get('/movies/:actor', function(req, res, next) {
+    // Callback body
+    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.getmoviesactor, req.params).then( (data) => {
         const pipeResult = PipeModules.pipe(
         )(data);
 
@@ -19,7 +32,7 @@ app.get('/movies/brad_pitt', function(req, res, next) {
 
 app.get('/developers/belgian', function(req, res, next) {
     // Callback body
-    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.getdevelopersbelgian).then( (data) => {
+    GraphQLLD.executeQuery(GraphQLLD.comunicaConfig, GraphQLLD.getdevelopersbelgian, req.params).then( (data) => {
         const pipeResult = PipeModules.pipe(
         )(data);
 

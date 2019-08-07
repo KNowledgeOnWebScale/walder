@@ -13,10 +13,14 @@
   "author": "Dries Marzougui",
   "license": "ISC",
   "dependencies": {
+    "@rdfjs/data-model": "^1.1.2",
     "axios": "^0.19.0",
     "express": "^4.17.1",
     "graphql-ld": "^1.0.0",
     "graphql-ld-comunica": "^1.0.0",
+    "immutable": "^4.0.0-rc.12",
+    "is-empty": "^1.2.0",
+    "rdf-js": "^1.0.2",
     "string-builder": "^0.1.6",
     "yaml": "^1.6.0"
   }
