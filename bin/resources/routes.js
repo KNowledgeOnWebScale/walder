@@ -1,15 +1,24 @@
-const EXPRESS_IMPORT = 'const express = require(\'express\');\n';
-const GRAPHQLLD_IMPORT = 'const GraphQLLD = require(\'./graphQLLD.js\');\n';
-const PIPE_MODULES_IMPORT = 'const PipeModules = require(\'./pipeModules\');\n\n';
+const EXPRESS_IMPORT =
+    `const express = require('express');\n`;
+const GRAPHQLLD_IMPORT =
+    `const GraphQLLD = require('./graphQLLD.js');\n`;
+const PIPE_MODULES_IMPORT =
+    `const PipeModules = require('./pipeModules');\n\n`;
 
-const CREATE_APP = 'const app = express();\n\n';
-const START_APP = 'app.listen(5656, () => {\n' +
-    '    console.log(\'Listening on http://localhost:5656\')\n' +
-    '});';
+const CREATE_APP =
+    `const app = express();\n\n`;
+const START_APP =
+    `// Start the app
+app.listen(5656, () => {
+    console.log('Listening on http://localhost:5656')
+});`;
 
-const FIRST_LINE = 'app.{0}(\'{1}\', function(req, res, next) {';
-const BODY = '    // Callback body\n';
-const LAST_LINE = '});\n\n';
+const FIRST_LINE =
+    `app.{0}('{1}', function(req, res, next) {`;
+const BODY =
+    `    // Callback body\n`;
+const LAST_LINE =
+    `});\n\n`;
 
 
 module.exports = {
