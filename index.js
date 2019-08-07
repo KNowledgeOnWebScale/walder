@@ -8,12 +8,18 @@ const YAML = require('yaml');
 program
     .version('0.0.1', '-v, --version')
     .option('-i, --input <configFile>', 'YAML configuration file input.')
-    .option('-o, --output [outputDirectory]', 'output directory. Default: CWD')
+    .option('-o, --output <outputDirectory>', 'output directory. Default: CWD')
+    .option('-p, --port <portNumber>', 'application port number. Default: 5656')
     .parse(process.argv);
 
 if (!program.input) {
     console.error('\nError:\n\t--input <configFile> required. Use -h for more info.\n');
     process.exit(1);
+}
+
+let portNumber = 5656; // Default port number
+if (program.port) {
+    portNumber = program.port;
 }
 
 // Output files
@@ -62,7 +68,7 @@ const yamlData = YAML.parse(file);
 
 const dataSources = new DataSourceParser(yamlData).parse();
 
-const routeWriter = new RouteWriter(routesOutput);
+const routeWriter = new RouteWriter(routesOutput, portNumber);
 const graphQLLWriter = new GraphQLLDWriter(graphQLLDOutput, dataSources);
 const pipeModulesWriter = new PipeModuleWriter(pipeModulesOuput);
 

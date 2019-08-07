@@ -9,8 +9,8 @@ const CREATE_APP =
     `const app = express();\n\n`;
 const START_APP =
     `// Start the app
-app.listen(5656, () => {
-    console.log('Listening on http://localhost:5656')
+app.listen(%d, () => {
+    console.log('Listening on http://localhost:%d')
 });`;
 
 const FIRST_LINE =

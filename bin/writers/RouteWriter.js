@@ -1,10 +1,12 @@
 const Writer = require('./writer');
 const fs = require('fs');
 const Routes = require('../resources/routes');
+const util = require('util');
 
 module.exports = class RouteWriter extends Writer {
-    constructor(file) {
+    constructor(file, portNumber) {
         super(file);
+        this.portNumber = portNumber;
     }
 
     preWrite() {
@@ -42,7 +44,7 @@ module.exports = class RouteWriter extends Writer {
 
     postWrite() {
         // Basic app structure
-        this.sb.append(Routes.START_APP);
+        this.sb.append(util.format(Routes.START_APP, this.portNumber, this.portNumber));
 
         fs.appendFileSync(this.output, this.sb.toString());
         this.sb.clear();
