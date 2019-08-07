@@ -4,7 +4,7 @@ This is Walter
 
 Walter eats YAML config files and spits out [NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/) server side code.
 
-## Current functionality (v0.0.1)
+## Current functionality
 * Generate routes
 * Generate and execute [GraphQL-LD](https://comunica.github.io/Article-ISWC2018-Demo-GraphQlLD/) queries
 
