@@ -114,7 +114,6 @@ pipeModulesWriter.postWrite();
 routeWriter.postWrite();
 
 // Format output code
-
 outputFiles.forEach(file => {
     fs.readFile(file, 'utf8', (err, data) => {
         if (err) {
