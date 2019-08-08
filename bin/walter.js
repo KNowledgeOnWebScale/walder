@@ -42,7 +42,7 @@ if (program.output) {
 }
 
 if (program.generate) {
-    spawn('sh', ['lib/npmPackageInstaller.sh', outputDirectory], {
+    spawn('bash', ['lib/npmPackageInstaller.sh', outputDirectory], {
         stdio: 'inherit',
         cwd: process.cwd()
     });
