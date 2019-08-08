@@ -21,7 +21,10 @@ if (!program.input) {
 }
 
 if (program.generate) {
-    spawn('sh', ['/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/lib/npmPackageInstaller.sh'], { stdio: 'inherit', cwd: './lib' });
+    spawn('sh', ['/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/lib/npmPackageInstaller.sh'], {
+        stdio: 'inherit',
+        cwd: './lib'
+    });
 }
 
 let portNumber = 5656; // Default port number
@@ -39,8 +42,8 @@ if (program.output) {
     }
 
     // Create directory if it does not exist yet
-    if (!fs.existsSync(outputDirectory)){
-        fs.mkdirSync(outputDirectory, { recursive: true });
+    if (!fs.existsSync(outputDirectory)) {
+        fs.mkdirSync(outputDirectory, {recursive: true});
     }
 }
 const routesOutput = outputDirectory + '/routes.js';
