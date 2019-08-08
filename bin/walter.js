@@ -4,6 +4,8 @@ const program = require('commander');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
 const generate = require('../lib/generator');
+const npm = require('npm');
+
 
 // CLI
 program
@@ -36,8 +38,9 @@ if (program.output) {
 }
 
 if (program.generate) {
-    spawn('sh', ['/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/lib/npmPackageInstaller.sh', outputDirectory], {
-        stdio: 'inherit'
+    spawn('sh', ['lib/npmPackageInstaller.sh', outputDirectory], {
+        stdio: 'inherit',
+        cwd: process.cwd()
     });
 }
 
