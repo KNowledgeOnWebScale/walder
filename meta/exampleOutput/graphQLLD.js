@@ -4,7 +4,10 @@ const QueryEngineComunica = require('graphql-ld-comunica').QueryEngineComunica;
 
 // Comunica engine configuration
 const comunicaConfig = {
-    sources: [{"type": "sparql", "value": "http://dbpedia.org/sparql"}]
+    sources: [{
+        "type": "sparql",
+        "value": "http://dbpedia.org/sparql"
+    }]
 };
 
 /**
@@ -21,14 +24,19 @@ const executeQuery = async (comunicaConfig, graphQLLD, variables, queryParams) =
     let newQuery = substituteVariables(graphQLLD.query, variables);
     newQuery = substituteQueryParams(newQuery, queryParams);
 
-    const client = new Client({context: graphQLLD.context, queryEngine: new QueryEngineComunica(comunicaConfig)});
+    const client = new Client({
+        context: graphQLLD.context,
+        queryEngine: new QueryEngineComunica(comunicaConfig)
+    });
 
-    return await client.query({query: newQuery})
+    return await client.query({
+        query: newQuery
+    })
 };
 
 /**
  * Instantiates the given variables in the query.
- *
+ * 
  * @param query
  * @param variables
  * @returns newQuery
@@ -81,7 +89,10 @@ const getmoviesbradpitt = {
     "context": {
         "@context": {
             "Film": "http://dbpedia.org/ontology/Film",
-            "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
+            "label": {
+                "@id": "http://www.w3.org/2000/01/rdf-schema#label",
+                "@language": "en"
+            },
             "starring": "http://dbpedia.org/ontology/starring"
         }
     }
@@ -93,7 +104,10 @@ const getmoviesactor = {
     "context": {
         "@context": {
             "Film": "http://dbpedia.org/ontology/Film",
-            "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
+            "label": {
+                "@id": "http://www.w3.org/2000/01/rdf-schema#label",
+                "@language": "en"
+            },
             "starring": "http://dbpedia.org/ontology/starring"
         }
     }
@@ -105,7 +119,10 @@ const getmovies = {
     "context": {
         "@context": {
             "Film": "http://dbpedia.org/ontology/Film",
-            "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
+            "label": {
+                "@id": "http://www.w3.org/2000/01/rdf-schema#label",
+                "@language": "en"
+            },
             "starring": "http://dbpedia.org/ontology/starring"
         }
     }

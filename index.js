@@ -4,6 +4,7 @@ const program = require('commander');
 const fs = require('fs');
 const YAML = require('yaml');
 const spawn = require('child_process').spawn;
+const beautify = require('js-beautify');
 
 // CLI
 program
@@ -46,9 +47,12 @@ if (program.output) {
         fs.mkdirSync(outputDirectory, {recursive: true});
     }
 }
+
 const routesOutput = outputDirectory + '/routes.js';
 const graphQLLDOutput = outputDirectory + '/graphQLLD.js';
 const pipeModulesOuput = outputDirectory + '/pipeModules.js';
+const outputFiles = [routesOutput, graphQLLDOutput, pipeModulesOuput];
+
 
 // Create/Clear output files
 fs.writeFileSync(routesOutput, '');
@@ -108,3 +112,14 @@ for (let path in yamlData.paths) {
 graphQLLWriter.postWrite();
 pipeModulesWriter.postWrite();
 routeWriter.postWrite();
+
+// Format output code
+
+outputFiles.forEach(file => {
+    fs.readFile(file, 'utf8', (err, data) => {
+        if (err) {
+            throw err;
+        }
+        fs.writeFileSync(file, beautify(data));
+    })
+});

@@ -21,6 +21,7 @@
     "graphql-ld-comunica": "^1.0.0",
     "immutable": "^4.0.0-rc.12",
     "is-empty": "^1.2.0",
+    "js-beautify": "^1.10.2",
     "rdf-js": "^1.0.2",
     "shelljs": "^0.8.3",
     "string-builder": "^0.1.6",
