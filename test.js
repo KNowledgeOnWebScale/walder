@@ -1,1 +1,0 @@
-const walter = require('./index').walter;
