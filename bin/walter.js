@@ -4,8 +4,6 @@ const program = require('commander');
 const fs = require('fs');
 const spawn = require('child_process').spawn;
 const generate = require('../lib/generator');
-const npm = require('npm');
-
 
 // CLI
 program
@@ -17,10 +15,16 @@ program
     .parse(process.argv);
 
 
+// Config file check
 if (!program.input) {
     console.error('\nError:\n\t--input <configFile> required. Use -h for more info.\n');
     process.exit(1);
 }
+if (!fs.existsSync(program.input)) {
+    console.error('\nError:\n\tGiven config file does not exist!\n');
+    process.exit(1);
+}
+
 
 // Output files
 let outputDirectory = '.';
@@ -38,6 +42,7 @@ if (program.output) {
 }
 
 if (program.generate) {
+    console.log('STARTING SCRIPT');
     spawn('sh', ['lib/npmPackageInstaller.sh', outputDirectory], {
         stdio: 'inherit',
         cwd: process.cwd()
