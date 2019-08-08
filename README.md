@@ -6,12 +6,12 @@ Walter eats YAML config files and spits out [NodeJS](https://nodejs.org/en/)/[Ex
 
 ## CLI
 ```
-Usage: index [options]
+Usage: walter [options]
 
 Options:
   -v, --version                   output the version number
-  -i, --input <configFile>        YAML configuration file input (required)
-  -o, --output <outputDirectory>  output directory. Default: CWD
+  -i, --input <configFile>        path to input YAML configuration file (required)
+  -o, --output <outputDirectory>  path to desired output directory (default: CWD)
   -p, --port <portNumber>         application port number. Default: 5656
   -g, --generate                  generate a package.json file
   -h, --help                      output usage information
