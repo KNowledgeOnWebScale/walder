@@ -42,7 +42,6 @@ if (program.output) {
 }
 
 if (program.generate) {
-    console.log('STARTING SCRIPT');
     spawn('sh', ['lib/npmPackageInstaller.sh', outputDirectory], {
         stdio: 'inherit',
         cwd: process.cwd()
