@@ -3,18 +3,25 @@
 const program = require('commander');
 const fs = require('fs');
 const YAML = require('yaml');
+const spawn = require('child_process').spawn;
 
 // CLI
 program
     .version('0.0.1', '-v, --version')
-    .option('-i, --input <configFile>', 'YAML configuration file input.')
+    .option('-i, --input <configFile>', 'YAML configuration file input (required)')
     .option('-o, --output <outputDirectory>', 'output directory. Default: CWD')
     .option('-p, --port <portNumber>', 'application port number. Default: 5656')
+    .option('-g, --generate', 'generate a package.json file')
     .parse(process.argv);
+
 
 if (!program.input) {
     console.error('\nError:\n\t--input <configFile> required. Use -h for more info.\n');
     process.exit(1);
+}
+
+if (program.generate) {
+    spawn('sh', ['/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/lib/npmPackageInstaller.sh'], { stdio: 'inherit', cwd: './lib' });
 }
 
 let portNumber = 5656; // Default port number
