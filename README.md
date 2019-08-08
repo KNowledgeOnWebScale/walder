@@ -28,7 +28,7 @@ Options:
 
 ### Programmatic API
 
-```apple js
+```js
 const walter = require('./index').walter;
 
 const configFile = '...';           // (String) path to input YAML configuration file
