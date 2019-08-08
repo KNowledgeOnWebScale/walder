@@ -6,11 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.1] - 06/08/2019
+## [0.0.1] - 09/08/2019
 ### Added
-- Route parsing and writing
-- GraphQL-LD parsing and writing
-- Datasource parsing and writing
-
+* Generate routes
+* Generate GraphQL-LD queries and execution code
+* Load PipeModules and generate execution code
+* Generate package.json and auto install packages
 
 [0.0.1]: https://gitlab.ilabt.imec.be/KNoWS/walter/-/tags/v0.0.1

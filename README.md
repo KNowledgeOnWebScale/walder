@@ -10,9 +10,10 @@ Usage: index [options]
 
 Options:
   -v, --version                   output the version number
-  -i, --input <configFile>        YAML configuration file input.
+  -i, --input <configFile>        YAML configuration file input (required)
   -o, --output <outputDirectory>  output directory. Default: CWD
   -p, --port <portNumber>         application port number. Default: 5656
+  -g, --generate                  generate a package.json file
   -h, --help                      output usage information
 ```
 
@@ -20,3 +21,4 @@ Options:
 * Generate routes
 * Generate GraphQL-LD queries and execution code
 * Load PipeModules and generate execution code
+* Generate package.json and auto install packages
