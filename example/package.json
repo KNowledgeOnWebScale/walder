@@ -1,7 +1,7 @@
 {
-  "name": "exampleoutput",
+  "name": "example",
   "version": "1.0.0",
-  "description": "Example Walter output",
+  "description": "Walter output example.",
   "main": "routes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -60,11 +60,11 @@ path:  # The path linked to this query
 ```
 
 ### Example
-An example can be found in `meta/exampleOutput`.
+An example can be found in `example/`.
 
 Command used: 
 
-`$ node bin/walter.js -i meta/exampleOutput/config_example.yaml -o meta/exampleOutput/ -g`
+`$ node bin/walter.js -i example/config_example.yaml -o example/ -g`
 
 
 ## Current functionality (v0.0.1)
