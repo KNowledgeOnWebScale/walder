@@ -1,0 +1,17 @@
+{
+  "name": "exampleoutput",
+  "version": "1.0.0",
+  "description": "Example Walter output",
+  "main": "routes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dries Marzougui",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "graphql-ld": "^1.0.0",
+    "graphql-ld-comunica": "^1.0.0",
+    "is-empty": "^1.2.0"
+  }
+}

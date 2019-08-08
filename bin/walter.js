@@ -10,7 +10,7 @@ program
     .version('0.0.1', '-v, --version')
     .option('-i, --input <configFile>', 'path to input YAML configuration file (required)')
     .option('-o, --output <outputDirectory>', 'path to desired output directory (default: CWD)')
-    .option('-p, --port <portNumber>', 'application port number. Default: 5656')
+    .option('-p, --port <portNumber>', 'application port number (default: 5656)')
     .option('-g, --generate', 'generate a package.json file')
     .parse(process.argv);
 
@@ -18,18 +18,6 @@ program
 if (!program.input) {
     console.error('\nError:\n\t--input <configFile> required. Use -h for more info.\n');
     process.exit(1);
-}
-
-if (program.generate) {
-    spawn('sh', ['/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/lib/npmPackageInstaller.sh'], {
-        stdio: 'inherit',
-        cwd: './lib'
-    });
-}
-
-let portNumber = 5656; // Default port number
-if (program.port) {
-    portNumber = program.port;
 }
 
 // Output files
@@ -45,6 +33,17 @@ if (program.output) {
     if (!fs.existsSync(outputDirectory)) {
         fs.mkdirSync(outputDirectory, {recursive: true});
     }
+}
+
+if (program.generate) {
+    spawn('sh', ['/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/lib/npmPackageInstaller.sh', outputDirectory], {
+        stdio: 'inherit'
+    });
+}
+
+let portNumber = 5656; // Default port number
+if (program.port) {
+    portNumber = program.port;
 }
 
 generate(program.input, outputDirectory, portNumber);

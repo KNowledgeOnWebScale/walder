@@ -1,1 +1,1 @@
-export * from "./lib/generator";
+module.exports.walter = require('./lib/generator');
