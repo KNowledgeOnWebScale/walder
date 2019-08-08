@@ -1,3 +1,5 @@
+// Global code strings
+
 const EXPORTS_START =
     'module.exports = {';
 const EXPORT_OBJECT =

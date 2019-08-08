@@ -47,6 +47,6 @@ app.get('/movies', function(req, res, next) {
 });
 
 // Start the app
-app.listen(4200, () => {
-    console.log('Listening on http://localhost:4200')
+app.listen(5656, () => {
+    console.log('Listening on http://localhost:5656')
 });

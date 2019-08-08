@@ -1,3 +1,5 @@
+// Code strings used by the PipeModuleWriter
+
 const PIPE_FUNCTION_NAME =
     `pipe`;
 const PIPE_FUNCTION_DOC =
@@ -9,7 +11,7 @@ const PIPE_FUNCTION_DOC =
  */`;
 const PIPE_FUNCTION =
     `${PIPE_FUNCTION_DOC}
-const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);`;
+const pipe = (...fns) => (x) => fns.reduce((v, f) => f(v), x);\n`;
 
 const PIPE_MODULE =
     `const {0} = {1};\n`;

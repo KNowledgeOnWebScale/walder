@@ -1,3 +1,5 @@
+// Code strings used by the RouteWriter
+
 const EXPRESS_IMPORT =
     `const express = require('express');\n`;
 const GRAPHQLLD_IMPORT =

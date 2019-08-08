@@ -9,6 +9,11 @@ class GraphQLLD {
     }
 }
 
+/**
+ * Parses the GraphQL-LD sections and converts them into GraphQLLD objects.
+ *
+ * @type {module.GraphQLLDParser}
+ */
 module.exports = class GraphQLLDParser extends Parser {
     constructor(method, path, data) {
         super(data);

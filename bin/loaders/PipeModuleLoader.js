@@ -1,7 +1,11 @@
 const Loader = require('./loader');
 const axios = require('axios');
-const fs = require('fs');
 
+/**
+ * Loads pipe modules.
+ *
+ * @type {module.PipeModuleLoader}
+ */
 module.exports = class PipeModuleLoader extends Loader {
     constructor(data) {
         super(data);

@@ -3,6 +3,11 @@ const fs = require('fs');
 const Routes = require('../resources/routes');
 const util = require('util');
 
+/**
+ * Writes the express app/routing code.
+ *
+ * @type {module.RouteWriter}
+ */
 module.exports = class RouteWriter extends Writer {
     constructor(file, portNumber) {
         super(file);
@@ -18,8 +23,7 @@ module.exports = class RouteWriter extends Writer {
         // Basic app structure
         this.sb.append(Routes.CREATE_APP);
 
-        fs.appendFileSync(this.output, this.sb.toString());
-        this.sb.clear();
+        super.preWrite();
     }
 
     write(route, graphQLLDWriter, pipeModuleWriter) {
@@ -37,16 +41,13 @@ module.exports = class RouteWriter extends Writer {
 
         this.sb.appendLine(Routes.LAST_LINE);
 
-        fs.appendFileSync(this.output, this.sb.toString());
-
-        this.sb.clear();
+        super.write();
     }
 
     postWrite() {
         // Basic app structure
         this.sb.append(util.format(Routes.START_APP, this.portNumber, this.portNumber));
 
-        fs.appendFileSync(this.output, this.sb.toString());
-        this.sb.clear();
+        super.postWrite();
     }
 };

@@ -4,6 +4,11 @@ const fs = require('fs');
 const Global = require('../resources/global');
 const PipeModules = require('../resources/pipeModules');
 
+/**
+ * Writes the pipe module sections.
+ *
+ * @type {module.PipeModuleWriter}
+ */
 module.exports = class PipeModuleWriter extends Writer {
     constructor(output) {
         super(output);
@@ -13,9 +18,8 @@ module.exports = class PipeModuleWriter extends Writer {
 
     preWrite() {
         this.sb.append(PipeModules.PIPE_FUNCTION);
-        this.sb.appendLine();
-        fs.appendFileSync(this.output, this.sb.toString());
-        this.sb.clear();
+
+        super.preWrite();
     }
 
     async write(pipeModules, loadingPipeModules) {
@@ -30,8 +34,7 @@ module.exports = class PipeModuleWriter extends Writer {
                 }
             });
 
-            fs.appendFileSync(this.output, this.sb.toString());
-            this.sb.clear();
+            super.write();
         });
     }
 
@@ -55,9 +58,7 @@ module.exports = class PipeModuleWriter extends Writer {
 
             this.sb.appendLine(Global.EXPORTS_END);
 
-            fs.appendFileSync(this.output, this.sb.toString());
-
-            this.sb.clear();
+            super.postWrite();
         });
     }
 

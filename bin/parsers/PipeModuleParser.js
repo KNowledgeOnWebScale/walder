@@ -1,5 +1,10 @@
 const Parser = require('./parser');
 
+/**
+ * Parses the pipe module sections.
+ *
+ * @type {module.PipeModuleParser}
+ */
 module.exports = class PipeModuleParser extends Parser {
     constructor(data) {
         super(data);

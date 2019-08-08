@@ -1,3 +1,5 @@
+// Code strings used by the GraphQLLDWriter
+
 const GRAPHQLLD_CLIENT_IMPORT =
     `const Client = require('graphql-ld').Client;\n`;
 

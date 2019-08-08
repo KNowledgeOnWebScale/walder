@@ -14,6 +14,11 @@ class Route {
     }
 }
 
+/**
+ * Parses the routing information.
+ *
+ * @type {module.RouteParser}
+ */
 module.exports = class RouteParser extends Parser {
     constructor(method, path, data) {
         super(data);

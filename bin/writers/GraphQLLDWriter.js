@@ -5,7 +5,11 @@ const util = require('util');
 const GraphQLLD = require('../resources/graphQLLD');
 const Global = require('../resources/global');
 
-
+/**
+ *
+ *
+ * @type {module.GraphQLLDWriter}
+ */
 module.exports = class GraphQLLDWriter extends Writer {
     constructor(output, dataSources) {
         super(output);
@@ -17,8 +21,7 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.imports();
         this.initialiseComunica();
 
-        fs.appendFileSync(this.output, this.sb.toString());
-        this.sb.clear();
+        super.preWrite();
     }
 
     write(data) {
@@ -27,15 +30,12 @@ module.exports = class GraphQLLDWriter extends Writer {
         this.sb.appendLine();
         this.sb.appendFormat(GraphQLLD.QUERY, data.name, JSON.stringify(data));
 
-        fs.appendFileSync(this.output, this.sb.toString());
-
-        this.sb.clear();
+        super.write();
     }
 
     postWrite() {
         this.sb.appendLine(Global.EXPORTS_START);
         this.sb.appendFormat(Global.EXPORT_OBJECT, GraphQLLD.COMUNICA_EXECUTION_FUNCTION_NAME);
-
         this.sb.appendFormat(Global.EXPORT_OBJECT, GraphQLLD.COMUNICA_CONFIG_NAME);
 
 
@@ -45,17 +45,17 @@ module.exports = class GraphQLLDWriter extends Writer {
 
         this.sb.appendLine(Global.EXPORTS_END);
 
-        fs.appendFileSync(this.output, this.sb.toString());
-
-        this.sb.clear();
+        super.postWrite();
     }
 
+    // Import statements
     imports() {
         this.sb.append(Global.IS_EMPTY_IMPORT);
         this.sb.append(GraphQLLD.GRAPHQLLD_CLIENT_IMPORT);
         this.sb.append(GraphQLLD.COMUNICA_QE_IMPORT);
     }
 
+    // Comunica query execution functions
     initialiseComunica() {
         // util used for formatting because of string-builder bug
         this.sb.appendLine(util.format(GraphQLLD.COMUNICA_CONFIG, JSON.stringify(this.dataSources)));
