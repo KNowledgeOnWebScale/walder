@@ -13,7 +13,7 @@ packagesList="${cwd}/lib/packages.txt"
 cd "${cwd}/${1}"
 
 
-read -p "Is this project require a package.json file? [yes]" initRequirement
+read -p "Is this project require a package.json file? (yes)" initRequirement
 initRequirement=${initRequirement:-yes}
 
 while [[ ${initRequirement} != "y" ]] && [[ ${initRequirement} != "n" ]] && [[ ${initRequirement} != "yes" ]] && [[ ${initRequirement} != "no" ]]
