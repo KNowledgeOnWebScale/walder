@@ -1,31 +1,21 @@
 {
   "name": "walter",
-  "version": "0.0.1",
-  "description": "YAML Config file to NodeJS/Express server code",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.ilabt.imec.be/KNoWS/walter.git"
-  },
-  "author": "Dries Marzougui",
-  "license": "ISC",
   "dependencies": {
-    "@rdfjs/data-model": "^1.1.2",
     "axios": "^0.19.0",
-    "commander": "^2.20.0",
-    "express": "^4.17.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
     "graphql-ld": "^1.0.0",
     "graphql-ld-comunica": "^1.0.0",
-    "immutable": "^4.0.0-rc.12",
+    "http-errors": "~1.6.3",
     "is-empty": "^1.2.0",
-    "js-beautify": "^1.10.2",
-    "npm": "^6.10.3",
-    "rdf-js": "^1.0.2",
-    "shelljs": "^0.8.3",
-    "string-builder": "^0.1.6",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
     "yaml": "^1.6.0"
   }
 }
