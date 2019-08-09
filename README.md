@@ -2,40 +2,18 @@
 This is Walter  
 ![](https://mattermost.ilabt.imec.be/files/gcsbmwrq4p86zmoismi6iz3brh/public?h=pTxrBbD5nCLDZtZIaXOv8dUGwLzqRu8gtLRZNLyD8U8)
 
-Walter eats YAML config files and spits out [NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/) server side code intended for Linked Data based web applications.
+Walter reads YAML config files and starts a [NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/) server intended for Linked Data based web applications.
 
 ## Installation
 1. Clone the repository.
 2. Run `npm install` 
 
 ## Usage
-Walter can be invoked using the CLI or via the programmatic API.
-
+TODO
 ### CLI
-Always run from the root folder of the project.
-
-```
-Usage: node walter [options]
-
-Options:
-  -v, --version                   output the version number
-  -i, --input <configFile>        path to input YAML configuration file (required)
-  -o, --output <outputDirectory>  path to desired output directory (default: CWD)
-  -p, --port <portNumber>         application port number (default: 5656)
-  -g, --generate                  generate a package.json file
-  -h, --help                      output usage information
-```
-
+TODO
 ### Programmatic API
-
-```js
-const walter = require('./index').walter;
-
-const configFile = '...';           // (String) path to input YAML configuration file
-const outputDirectory = '...';      // (String) path to desired output directory (default: CWD)
-const portNumber = 5656;            // (Number) application port number (default: 5656)
-walter(configFile, outputDirectory, portNumber);
-```
+TODO
 
 ### Config file structure
 * The config file is written in YAML somewhat following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
@@ -60,15 +38,18 @@ path:  # The path linked to this query
 ```
 
 ### Example
-An example can be found in `example/`.
-
-Command used: 
-
-`$ node bin/walter.js -i example/config_example.yaml -o example/ -g`
+TODO
 
 
-## Current functionality (v0.0.1)
-* Generate routes
-* Generate GraphQL-LD queries and execution code
-* Load PipeModules and generate execution code
-* Generate package.json and auto install packages
+## Current functionality &rarr; v0.0.1
+- [X]  Routing
+    - [X]  Parse routing information from the config file
+    - [X]  Set up express routes
+- [X]  GraphQL-LD
+    - [X]  Parse GraphQL-LD querying information from the config file
+    - [X]  Add GraphQL-LD query execution to routing callback
+- [ ]  Pipe modules
+    - [X]  Parse pipe modules information from the config file
+    - [X]  Load pipe modules
+    - [ ]  Add pipe modules to routing callback
+ 
