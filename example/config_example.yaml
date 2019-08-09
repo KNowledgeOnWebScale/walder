@@ -18,6 +18,10 @@ paths:
             type: integer
             minimum: 1
           description: Maximum number of elements to be shown on the current page.
+      postprocessing:
+              filter:
+                source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
+
       graphql-query: >
         {
           id @single

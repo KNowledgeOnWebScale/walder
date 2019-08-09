@@ -1,1 +1,0 @@
-module.exports.walter = require('./lib/generator');
