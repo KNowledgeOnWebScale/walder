@@ -52,4 +52,4 @@ TODO
     - [X]  Parse pipe modules information from the config file
     - [X]  Load pipe modules
     - [ ]  Add pipe modules to routing callback
- 
+- [ ]  CLI
