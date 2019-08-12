@@ -6,18 +6,48 @@ Walter reads YAML config files and starts a [NodeJS](https://nodejs.org/en/)/[Ex
 
 ## Installation
 1. Clone the repository.
-2. Run `npm install` 
+2. Run `npm install` in the project's root.
 
 ## Usage
-TODO
+Walter is supposed to be used using the CLI but can also be activated using the programmatic API.
+
 ### CLI
-TODO
+```
+Usage: node walter [options]
+
+Options:
+  -v, --version             output the version number
+  -i, --input <configFile>  YAML configuration file input
+  -p, --port <portNumber>   server port number (default: 3000)
+  -h, --help                output usage information
+```
 ### Programmatic API
-TODO
+```js
+const walter = require('../lib/walter');
+
+const configFilePath = '.../...';
+const portNumber = 9000;
+
+walter.activate(configFilePath, portNumber);
+```
 
 ### Config file structure
 * The config file is written in YAML somewhat following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
-* A config file entry defines a route and has the following structure:
+* The config file must have the following structure:
+
+```yaml
+datasources:  # Used datasources grouped by type
+  type:  # Types are defined by which comunica engine it can be used with
+    - url  # E.g. link to SPARQL endpoint
+paths:  # List of path entries.
+  config-file-entry-1:
+    ...
+  config-file-entry-2:
+    ...
+```
+
+#### Path entry 
+A path entry defines a route and has the following structure:
 
 ```yaml
 path:  # The path linked to this query
@@ -38,8 +68,9 @@ path:  # The path linked to this query
 ```
 
 ### Example
-TODO
+The following command starts a server on port 9000 using an example config file.
 
+`$ node bin/walter.js -i example/config_example.yaml -p 9000`
 
 ## Current functionality &rarr; v0.0.1
 - [X]  Routing
@@ -48,8 +79,8 @@ TODO
 - [X]  GraphQL-LD
     - [X]  Parse GraphQL-LD querying information from the config file
     - [X]  Add GraphQL-LD query execution to routing callback
-- [ ]  Pipe modules
+- [X]  Pipe modules
     - [X]  Parse pipe modules information from the config file
-    - [X]  Load pipe modules
-    - [ ]  Add pipe modules to routing callback
-- [ ]  CLI
+    - [X]  Load local and remote pipe modules
+    - [X]  Add pipe modules to routing callback
+- [X]  CLI
