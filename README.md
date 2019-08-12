@@ -73,6 +73,15 @@ The following command starts a server on port 9000 using an example config file.
 
 `$ node bin/walter.js -i example/config_example.yaml -p 9000`
 
+This will start a server on `localhost:9000` with the following routes:
+
+* `/movies/brad_pitt?page=X&limit=X` - Returns a paginated list of all movies Brad Pitt stars in
+* `/movies/brad_pitt/{actor}` - Returns a list of the all movies the given actor stars in
+
+
+#### Config file examples
+
+
 ## Current functionality &rarr; v0.0.1
 - [X]  Routing
     - [X]  Parse routing information from the config file
