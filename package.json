@@ -15,7 +15,6 @@
     "graphql-ld-comunica": "^1.0.0",
     "http-errors": "~1.6.3",
     "is-empty": "^1.2.0",
-    "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "string-builder": "^0.1.6",
     "yaml": "^1.6.0"
