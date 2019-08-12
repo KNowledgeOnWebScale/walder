@@ -21,7 +21,6 @@ paths:
       postprocessing:
               filter:
                 source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
-
       graphql-query: >
         {
           id @single
