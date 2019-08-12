@@ -19,8 +19,10 @@ paths:
             minimum: 1
           description: Maximum number of elements to be shown on the current page.
       postprocessing:
-              filter:
+              filterA:
                 source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
+              filterB:
+                source: /Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/example/filterB.js
       graphql-query: >
         {
           id @single
