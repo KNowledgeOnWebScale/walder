@@ -55,11 +55,11 @@ path:  # The path linked to this query
   request:  # The HTTP request type (GET, POST, etc.)
     summary: ...  # Short description
      parameters:  # Path variables/Query parameters
-          - in: ...  # 'path' or 'query'
-            name: ...  # Name of the parameter
-            schema:
-              type: ... # Type of the parameter
-            description: ...  # Description of the parameter
+        - in: ...  # 'path' or 'query'
+          name: ...  # Name of the parameter
+          schema:
+            type: ... # Type of the parameter
+          description: ...  # Description of the parameter
     graphql-query: ...  # The GraphQL query
     json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
     postprocessing:  # The (list of) pipe modules used for postprocessing
@@ -71,7 +71,7 @@ path:  # The path linked to this query
 ### Example
 The following command starts a server on port 9000 using an example config file.
 
-`$ node bin/walter.js -i example/config_example.yaml -p 9000`
+`$ node bin/Walter.js -i example/config_example.yaml -p 9000`
 
 This will start a server on `localhost:9000` with the following routes:
 

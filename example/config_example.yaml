@@ -75,5 +75,5 @@ paths:
           filterA:
             source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
           filterT:
-            source: walter/example/filterT.js
+            source: walter/example/FilterT.js
         html: TBD
