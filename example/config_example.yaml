@@ -18,11 +18,6 @@ paths:
             type: integer
             minimum: 1
           description: Maximum number of elements to be shown on the current page.
-      postprocessing:
-              filterA:
-                source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
-              filterB:
-                source: walter/example/filterB.js
       graphql-query: >
         {
           id @single
@@ -58,3 +53,27 @@ paths:
           }
         }
       html: TBD
+  /movies/{actor}/postprocessed:
+      get:
+        summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+        postprocessing:
+          filterA:
+            source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
+          filterT:
+            source: walter/example/filterT.js
+        html: TBD
