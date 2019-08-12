@@ -22,7 +22,7 @@ paths:
               filterA:
                 source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
               filterB:
-                source: /Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/example/filterB.js
+                source: walter/example/filterB.js
       graphql-query: >
         {
           id @single
