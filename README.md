@@ -40,9 +40,9 @@ datasources:  # Used datasources grouped by type
   type:  # Types are defined by which comunica engine it can be used with
     - url  # E.g. link to SPARQL endpoint
 paths:  # List of path entries.
-  config-file-entry-1:
+  path-entry-1:
     ...
-  config-file-entry-2:
+  path-entry-2:
     ...
 ```
 
