@@ -75,9 +75,9 @@ The following command starts a server on port 9000 using an example config file.
 
 This will start a server on `localhost:9000` with the following routes:
 
-* `/movies/brad_pitt?page=X&limit=X` - Returns a paginated list of all movies Brad Pitt stars in
-* `/movies/{actor}` - Returns a list of all movies the given actor stars in
-* `/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
+* `localhost:9000/movies/brad_pitt?page=0&limit=8` - Returns a paginated list of all movies Brad Pitt stars in
+* `localhost:9000/movies/{actor}` - Returns a list of all movies the given actor stars in
+* `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 
 #### Config file examples
