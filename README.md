@@ -80,7 +80,9 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 
-#### Config file examples
+## Testing
+* Test framework: [Mocha](https://mochajs.org)
+* Assertion library: [Chai](https://www.chaijs.com/)
 
 
 ## Current functionality &rarr; v0.0.1
