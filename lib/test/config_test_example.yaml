@@ -2,38 +2,6 @@ datasources:
   sparql:
     - http://dbpedia.org/sparql
 paths:
-  /movies/brad_pitt:
-    get:
-      summary: Returns a paginated list of all movies Brad Pitt stars in
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: integer
-            minimum: 0
-          description: The page that must be shown.
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            minimum: 1
-          description: Maximum number of elements to be shown on the current page.
-      graphql-query: >
-        {
-          id @single
-          ... on Film{
-            starring(label: "Brad Pitt" first: $limit offset: $offset) @single
-          }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "Film": "http://dbpedia.org/ontology/Film",
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "starring": "http://dbpedia.org/ontology/starring"
-          }
-        }
-      html: TBD
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
@@ -52,28 +20,9 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
+      postprocessing:
+        filterA:
+          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
+        filterT:
+          source: walter/example/filterT.js
       html: TBD
-  /movies/{actor}/postprocessed:
-      get:
-        summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
-        graphql-query: >
-          {
-            id @single
-            ... on Film {
-              starring(label: $actor) @single
-            }
-          }
-        json-ld-context: >
-          {
-            "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
-            }
-          }
-        postprocessing:
-          filterA:
-            source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
-          filterT:
-            source: walter/example/FilterT.js
-        html: TBD
