@@ -13,9 +13,4 @@ if (!program.input) {
   process.exit(1);
 }
 
-let port = 3000;
-if (program.port) {
-  port = program.port;
-}
-
-walter.activate(program.input, port);
+walter.activate(program.input, program.port);
