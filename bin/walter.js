@@ -1,4 +1,4 @@
-const walter = require('../lib/Walter');
+const Walter = require('../lib/walter');
 const program = require('commander');
 
 // CLI
@@ -18,4 +18,5 @@ if (program.port) {
   port = program.port;
 }
 
-walter.activate(program.input, port);
+const walter = new Walter(program.input, port);
+walter.activate();
