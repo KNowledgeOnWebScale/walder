@@ -14,7 +14,7 @@ Walter is supposed to be used using the CLI but can also be activated using the 
 
 ### CLI
 ```
-Usage: node walter [options]
+Usage: node bin/walter.js [options]
 
 Options:
   -v, --version             output the version number
@@ -24,7 +24,8 @@ Options:
 ```
 ### Programmatic API
 ```js
-const Walter = require('../lib/walter');
+// From the root directory
+const Walter = require('./lib/walter');
 
 const configFilePath = '.../...';
 const portNumber = 9000;
