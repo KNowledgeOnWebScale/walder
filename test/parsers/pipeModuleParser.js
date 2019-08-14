@@ -12,7 +12,7 @@ describe('PipeModuleParser', function () {
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
 
-      const PipeModuleParser = require('../../parsers/pipeModuleParser');
+      const PipeModuleParser = require('../../lib/parsers/pipeModuleParser');
       const pipeModuleParser = new PipeModuleParser(yamlData);
       this.output = pipeModuleParser.parse('/movies/{actor}', 'get');
     });
@@ -23,7 +23,7 @@ describe('PipeModuleParser', function () {
           [
           {
             "name": "filterT",
-            "source": "walter/lib/test/resources/filterT.js"
+            "source": "walter/test/resources/filterT.js"
           }]
         )
       });

@@ -12,7 +12,7 @@ describe('DataSourceParser', function() {
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
     const yamlData = YAML.parse(file);
 
-    const DataSourceParser = require('../../parsers/dataSourceParser');
+    const DataSourceParser = require('../../lib/parsers/dataSourceParser');
     this.output = new DataSourceParser(yamlData).parse();
   });
 

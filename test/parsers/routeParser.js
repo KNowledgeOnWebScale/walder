@@ -11,7 +11,7 @@ describe('RouteParser', function() {{
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
     const yamlData = YAML.parse(file);
 
-    const RouteParser = require('../../parsers/routeParser');
+    const RouteParser = require('../../lib/parsers/routeParser');
     const routeParser = new RouteParser(yamlData);
     this.output = routeParser.parse('/movies/{actor}', 'get');
   });

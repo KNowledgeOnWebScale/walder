@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 require('chai').should();
 const request = require('supertest');
 const path = require('path');
-const Walter = require('../../lib/walter');
+const Walter = require('../lib/walter');
 
 const CONFIG_FILE = './resources/config_test_example.yaml';
 

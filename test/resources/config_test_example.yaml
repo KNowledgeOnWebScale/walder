@@ -22,5 +22,5 @@ paths:
         }
       postprocessing:
         filterT:
-          source: walter/lib/test/resources/filterT.js
+          source: walter/test/resources/filterT.js
       html: TBD

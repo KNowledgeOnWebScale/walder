@@ -13,7 +13,7 @@ describe('GraphQLLDParser', function () {
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
     const yamlData = YAML.parse(file);
 
-    const GraphQLLDParser = require('../../parsers/graphQLLDParser');
+    const GraphQLLDParser = require('../../lib/parsers/graphQLLDParser');
     const graphQLLDParser = new GraphQLLDParser(yamlData);
 
     this.output = graphQLLDParser.parse('/movies/{actor}', 'get');
