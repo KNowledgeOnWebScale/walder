@@ -86,6 +86,7 @@ This will start a server on `localhost:9000` with the following routes:
 
 ## Dependencies
 * [axios](https://www.npmjs.com/package/axios) - MIT
+* [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
 * [cookie-parser](https://www.npmjs.com/package/cookie-parser) - MIT
 * [debug](https://www.npmjs.com/package/debug) - MIT
@@ -94,14 +95,10 @@ This will start a server on `localhost:9000` with the following routes:
 * [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) - MIT
 * [http-errors](https://www.npmjs.com/package/http-errors) - MIT
 * [is-empty](https://www.npmjs.com/package/is-empty) - MIT
+* [Mocha](https://www.npmjs.com/package/mocha) - MIT
 * [morgan](https://www.npmjs.com/package/morgan) - MIT
+* [SuperTest](https://www.npmjs.com/package/supertest) - MIT
 * [yaml](https://www.npmjs.com/package/yaml) - ISC
-
-
-### Testing
-* Test framework: [Mocha](https://www.npmjs.com/package/mocha) - MIT
-* BDD / assertion library: [Chai](https://www.npmjs.com/package/chai) - MIT
-* HTTP assertions: [SuperTest](https://www.npmjs.com/package/supertest) - MIT
 
 
 ## Current functionality &rarr; v0.0.1
@@ -118,6 +115,11 @@ This will start a server on `localhost:9000` with the following routes:
 - [X]  CLI
 
 ## Tests
+* Test framework: [Mocha](https://www.npmjs.com/package/mocha)
+* BDD / assertion library: [Chai](https://www.npmjs.com/package/chai)
+* HTTP assertions: [SuperTest](https://www.npmjs.com/package/supertest)
+
+
 * [x]  Test parsers
     * [x]  DataSourceParser
     * [x]  GraphQLLDParser
