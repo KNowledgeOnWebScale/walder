@@ -20,6 +20,7 @@
     "mocha": "^6.2.0",
     "morgan": "~1.9.1",
     "string-builder": "^0.1.6",
+    "supertest": "^4.0.2",
     "yaml": "^1.6.0"
   }
 }

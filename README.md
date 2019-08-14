@@ -86,6 +86,7 @@ This will start a server on `localhost:9000` with the following routes:
 ## Testing
 * Test framework: [Mocha](https://mochajs.org)
 * Assertion library: [Chai](https://www.chaijs.com/)
+* HTTP assertions: [SuperTest](https://github.com/visionmedia/supertest)
 
 
 ## Current functionality &rarr; v0.0.1

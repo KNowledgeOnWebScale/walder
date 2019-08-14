@@ -21,8 +21,6 @@ paths:
           }
         }
       postprocessing:
-        filterA:
-          source: https://raw.githubusercontent.com/driesmarzougui/random/master/filter.js
         filterT:
-          source: walter/example/filterT.js
+          source: walter/lib/test/resources/filterT.js
       html: TBD
