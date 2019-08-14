@@ -25,7 +25,7 @@ Options:
 ### Programmatic API
 ```js
 // From the root directory
-const Walter = require('./lib/walter');
+const Walter = require('.');
 
 const configFilePath = '.../...';
 const portNumber = 9000;

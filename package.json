@@ -2,6 +2,7 @@
   "name": "walter",
   "version": "0.0.0",
   "private": true,
+  "main": "./lib/walter",
   "scripts": {
     "start": "node ./bin/walter",
     "test": "mocha --recursive \"./test/\""
