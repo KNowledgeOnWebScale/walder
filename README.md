@@ -116,3 +116,18 @@ This will start a server on `localhost:9000` with the following routes:
     - [X]  Load local pipe modules
     - [X]  Add pipe modules to routing callback
 - [X]  CLI
+
+## Tests
+* [x]  Test parsers
+    * [x]  DataSourceParser
+    * [x]  GraphQLLDParser
+    * [x]  PipeModuleParser
+    * [x]  RouteParser
+* [x]  Test loaders
+    * [x]  PipeModuleLoader
+* [x]  Test server
+    * [x]  Server runs
+    * [x]  Routes correctly initialised according to config file
+* [x]  Test functionality
+    * [x]  GraphQL-LD queries get executed
+    * [x]  PipeModules are applied
