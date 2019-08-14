@@ -13,10 +13,5 @@ if (!program.input) {
   process.exit(1);
 }
 
-let port = 3000;
-if (program.port) {
-  port = program.port;
-}
-
-const walter = new Walter(program.input, port);
+const walter = new Walter(program.input, program.port);
 walter.activate();
