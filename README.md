@@ -83,10 +83,25 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 
-## Testing
-* Test framework: [Mocha](https://mochajs.org)
-* Assertion library: [Chai](https://www.chaijs.com/)
-* HTTP assertions: [SuperTest](https://github.com/visionmedia/supertest)
+
+## Dependencies
+* [axios](https://www.npmjs.com/package/axios) - MIT
+* [commander](https://www.npmjs.com/package/commander) - MIT
+* [cookie-parser](https://www.npmjs.com/package/cookie-parser) - MIT
+* [debug](https://www.npmjs.com/package/debug) - MIT
+* [express](https://www.npmjs.com/package/express) - MIT
+* [graphql-ld](https://www.npmjs.com/package/graphql-ld) - MIT
+* [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) - MIT
+* [http-errors](https://www.npmjs.com/package/http-errors) - MIT
+* [is-empty](https://www.npmjs.com/package/is-empty) - MIT
+* [morgan](https://www.npmjs.com/package/morgan) - MIT
+* [yaml](https://www.npmjs.com/package/yaml) - ISC
+
+
+### Testing
+* Test framework: [Mocha](https://www.npmjs.com/package/mocha) - MIT
+* BDD / assertion library: [Chai](https://www.npmjs.com/package/chai) - MIT
+* HTTP assertions: [SuperTest](https://www.npmjs.com/package/supertest) - MIT
 
 
 ## Current functionality &rarr; v0.0.1
@@ -98,6 +113,6 @@ This will start a server on `localhost:9000` with the following routes:
     - [X]  Add GraphQL-LD query execution to routing callback
 - [X]  Pipe modules
     - [X]  Parse pipe modules information from the config file
-    - [X]  Load local and remote pipe modules
+    - [X]  Load local pipe modules
     - [X]  Add pipe modules to routing callback
 - [X]  CLI
