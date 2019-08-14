@@ -24,12 +24,15 @@ Options:
 ```
 ### Programmatic API
 ```js
-const walter = require('../lib/walter');
+const Walter = require('../lib/walter');
 
 const configFilePath = '.../...';
 const portNumber = 9000;
 
-walter.activate(configFilePath, portNumber);
+const walter = new Walter(configFilePath, portNumber);
+
+walter.activate();    // Starts the server
+walter.deactivate();  // Stops the server
 ```
 
 ### Config file structure
