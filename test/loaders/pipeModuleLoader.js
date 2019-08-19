@@ -1,4 +1,5 @@
 require('chai').should();
+const Path = require('path');
 const PipeModuleLoader = require('../../lib/loaders/pipeModuleLoader');
 
 describe('PipeModuleLoader', function() {
@@ -6,7 +7,7 @@ describe('PipeModuleLoader', function() {
     const pipeModules = [
       {
         "name": "filterT",
-        "source": "walter/test/resources/filterT.js"
+        "source": Path.resolve(__dirname, '../resources/filterT.js')
       }];
 
     const pipeModuleLoader = new PipeModuleLoader();
