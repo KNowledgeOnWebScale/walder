@@ -1,6 +1,6 @@
 meta:
   resources:
-    path: /Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/example
+    path: ./
     views: views
     pipe-modules: pipeModules
     public: public

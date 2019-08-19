@@ -1,6 +1,12 @@
-datasources:
-  sparql:
-    - http://dbpedia.org/sparql
+meta:
+  resources:
+    path: ../../example
+    views: views
+    pipe-modules: pipeModules
+    public: public
+  datasources:
+    sparql:
+      - http://dbpedia.org/sparql
 paths:
   /movies/{actor}:
     get:
@@ -22,5 +28,5 @@ paths:
         }
       postprocessing:
         filterT:
-          source: walter/test/resources/filterT.js
+          source: filterT.js
       html: TBD
