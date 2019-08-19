@@ -1,3 +1,13 @@
+meta:
+  resources:
+    path: /Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/example
+    views: views
+    pipe-modules: pipeModules
+    public:
+      path: public
+      images: images
+      stylesheets: stylesheets
+      javascripts: javascripts
 datasources:
   sparql:
     - http://dbpedia.org/sparql
@@ -33,7 +43,7 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      html: TBD
+      html: list.handlebars
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
@@ -52,26 +62,26 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      html: TBD
+      html: list.pug
   /movies/{actor}/postprocessed:
-      get:
-        summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
-        graphql-query: >
-          {
-            id @single
-            ... on Film {
-              starring(label: $actor) @single
-            }
+    get:
+      summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
+      graphql-query: >
+        {
+          id @single
+          ... on Film {
+            starring(label: $actor) @single
           }
-        json-ld-context: >
-          {
-            "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
-            }
+        }
+      json-ld-context: >
+        {
+          "@context": {
+            "Film": "http://dbpedia.org/ontology/Film",
+            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+            "starring": "http://dbpedia.org/ontology/starring"
           }
-        postprocessing:
-          filterT:
-            source: walter/example/filterT.js
-        html: TBD
+        }
+      postprocessing:
+        filterT:
+          source: filterT.js
+      html: list.pug
