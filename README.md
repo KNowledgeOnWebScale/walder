@@ -89,12 +89,17 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}` - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
+### HTML templates
+Template engine is retrieved using [consolidate](https://www.npmjs.com/package/consolidate).
+
+[Supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines)
 
 
 ## Dependencies
 * [axios](https://www.npmjs.com/package/axios) - MIT
 * [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
+* [consolidate](https://www.npmjs.com/package/consolidate) - MIT
 * [cookie-parser](https://www.npmjs.com/package/cookie-parser) - MIT
 * [debug](https://www.npmjs.com/package/debug) - MIT
 * [express](https://www.npmjs.com/package/express) - MIT
