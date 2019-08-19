@@ -41,6 +41,12 @@ walter.deactivate();  // Stops the server
 * The config file must have the following structure:
 
 ```yaml
+meta:  # Meta data
+  resources:  # Directories used by Walter
+    path:  # Path to the root folder of the directory tree used by Walter
+    views:  # Child directory of root, containing all template (view) files
+    pipe-modules:  # Child directory of root, containing all local pipe modules
+    public:  # Child directory of root, containing all files that should be available statically (e.g. stylesheets)
 datasources:  # Used datasources grouped by type
   type:  # Types are defined by which comunica engine it can be used with
     - url  # E.g. link to SPARQL endpoint

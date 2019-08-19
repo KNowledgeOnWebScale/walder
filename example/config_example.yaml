@@ -3,14 +3,10 @@ meta:
     path: /Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/example
     views: views
     pipe-modules: pipeModules
-    public:
-      path: public
-      images: images
-      stylesheets: stylesheets
-      javascripts: javascripts
-datasources:
-  sparql:
-    - http://dbpedia.org/sparql
+    public: public
+  datasources:
+    sparql:
+      - http://dbpedia.org/sparql
 paths:
   /movies/brad_pitt:
     get:
