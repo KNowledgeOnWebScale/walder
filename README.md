@@ -43,7 +43,7 @@ walter.deactivate();  // Stops the server
 ```yaml
 meta:  # Meta data
   resources:  # Directories used by Walter
-    path:  # Absolute (or relative from the directory containing the config file) path to the root folder of the directories used by Walter
+    path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file)
     views:  # Child directory of root, containing all template (view) files
     pipe-modules:  # Child directory of root, containing all local pipe modules
     public:  # Child directory of root, containing all files that should be available statically (e.g. stylesheets)
@@ -74,9 +74,11 @@ path:  # The path linked to this query
     json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
     postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
-        soure: ...  # Path or URL leading to source code of the pipe module
-    htmlTemplate: ...   # File containing the html template to visualise the data
+        soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
+    htmlTemplate: ...   # File containing the html template to visualise the data (absolute path or relative to the views directory)
 ```
+
+Paths should be written absolute or relative to the ``
 
 ### Example
 The following command starts a server on port 9000 using an example config file.
