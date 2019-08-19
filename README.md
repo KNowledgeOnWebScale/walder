@@ -94,7 +94,7 @@ This will start a server on `localhost:9000` with the following routes:
 ### HTML templates
 Required template engine is retrieved dynamically using [consolidate](https://www.npmjs.com/package/consolidate).
 
-gDifferent pages can use different template engines.
+Different pages can use different template engines.
 
 [Supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines)
 
