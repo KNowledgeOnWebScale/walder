@@ -8,8 +8,9 @@ meta:
     sparql:
       - http://dbpedia.org/sparql
 paths:
-  /test:
+  /movies/brad_pitt_directors:
     get:
+      summary: Returns a list of all movies Brad Pitt stars in with their directors
       graphql-query: >
         {
           label @single @id
@@ -27,7 +28,7 @@ paths:
            "starring": "http://dbpedia.org/ontology/starring"
          }
         }
-      html: list.handlebars
+      html: movies.handlebars
   /movies/brad_pitt:
     get:
       summary: Returns a paginated list of all movies Brad Pitt stars in
@@ -59,7 +60,7 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      html: list.handlebars
+      html: movies.handlebars
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
@@ -78,7 +79,7 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      html: list.pug
+      html: movies.pug
   /movies/{actor}/postprocessed:
     get:
       summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
@@ -100,4 +101,4 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: list.pug
+      html: movies.pug
