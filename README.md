@@ -91,7 +91,134 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}` - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
-### HTML templates
+### Content negotiation
+Using content negotiation, Walter makes the following output formats available:
+
+* 'text/html'
+* 'application/ld+json'
+* 'application/rdf+xml'
+* 'text/turtle'
+* 'application/n-triples'
+* 'application/n-quads'
+
+#### RDF
+Since Walter uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) to execute the GraphQL queries, which returns JSON data, Walter first converts it into JSON-LD. This enables easy conversion to other RDF formats.
+
+Walter converts JSON to JSON-LD by adding the corresponding context, given by the user, to the JSON result. For example the following query and context result into:
+
+query:
+
+```graphql
+{
+  label @single
+  director @single(scope: all) {
+   label
+  }
+  starring(label_en: "Brad Pitt")  @single
+}
+```
+
+context:
+
+```json
+{
+ "@context": {
+   "label": "http://www.w3.org/2000/01/rdf-schema#label",
+   "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+   "director": "http://dbpedia.org/ontology/director",
+   "starring": "http://dbpedia.org/ontology/starring"
+ }
+}
+```
+
+(partial) result: 
+
+```json
+{
+  "data": [
+    {
+      "label": "12 Monkeys",
+      "director": {
+        "label": "Terry Gilliam"
+      },
+      "starring": "http://dbpedia.org/resource/Brad_Pitt"
+    },
+    {
+      "label": "Sleepers",
+      "director": {
+        "label": "Barry Levinson"
+      },
+      "starring": "http://dbpedia.org/resource/Brad_Pitt"
+    }
+  ]
+}
+```
+
+becomes
+
+```json
+{
+  "@context": {
+    "label": "http://www.w3.org/2000/01/rdf-schema#label",
+    "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+    "director": "http://dbpedia.org/ontology/director",
+    "starring": "http://dbpedia.org/ontology/starring"
+  },
+  "@graph": [
+    {
+      "label": "12 Monkeys",
+      "director": {
+        "label": "Terry Gilliam"
+      },
+      "starring": "http://dbpedia.org/resource/Brad_Pitt"
+    },
+    {
+      "label": "Sleepers",
+      "director": {
+        "label": "Barry Levinson"
+      },
+      "starring": "http://dbpedia.org/resource/Brad_Pitt"
+    }
+  ]
+}
+```
+
+which can be easily converted to the following turtle:
+
+```ttl
+@prefix ns0: <http://dbpedia.org/ontology/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[]
+  ns0:director [ rdfs:label "Terry Gilliam"^^xsd:string ] ;
+  ns0:starring "http://dbpedia.org/resource/Brad_Pitt"^^xsd:string ;
+  rdfs:label "12 Monkeys"^^xsd:string .
+
+[]
+  ns0:director [ rdfs:label "Barry Levinson"^^xsd:string ] ;
+  ns0:starring "http://dbpedia.org/resource/Brad_Pitt"^^xsd:string ;
+  rdfs:label "Sleepers"^^xsd:string .
+```
+
+As we can see, this leads to blank nodes. This can be avoided by adding the `@id` annotation to the identifying field of the GraphQL query. For example by modifying  the query to:
+
+```graphql
+{
+  label @single @id
+  director @single(scope: all) {
+   label
+  }
+  starring(label_en: "Brad Pitt")  @single
+}
+```
+
+we can get the following turtle result:
+
+
+
+
+#### HTML templates
 Required template engine is retrieved dynamically using [consolidate](https://www.npmjs.com/package/consolidate).
 
 Different pages can use different template engines.

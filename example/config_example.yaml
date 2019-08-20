@@ -8,6 +8,26 @@ meta:
     sparql:
       - http://dbpedia.org/sparql
 paths:
+  /test:
+    get:
+      graphql-query: >
+        {
+          label @single @id
+          director @single(scope: all) {
+           label
+          }
+          starring(label_en: "Brad Pitt")  @single
+        }
+      json-ld-context: >
+        {
+         "@context": {
+           "label": "http://www.w3.org/2000/01/rdf-schema#label",
+           "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+           "director": "http://dbpedia.org/ontology/director",
+           "starring": "http://dbpedia.org/ontology/starring"
+         }
+        }
+      html: list.handlebars
   /movies/brad_pitt:
     get:
       summary: Returns a paginated list of all movies Brad Pitt stars in
