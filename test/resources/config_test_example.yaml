@@ -29,4 +29,4 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: TBD
+      html: list.pug
