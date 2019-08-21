@@ -92,12 +92,9 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 ### HTML templates
-Required template engine is retrieved dynamically using [consolidate](https://www.npmjs.com/package/consolidate).
+Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
 
-Different pages can use different template engines.
-
-[Supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines)
-
+Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
 ## Dependencies
 * [axios](https://www.npmjs.com/package/axios) - MIT
@@ -142,6 +139,9 @@ Different pages can use different template engines.
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
+    * [ ]  MetaParser
+    * [ ]  ResourceParser
+    * [ ]  HtmlParser
 * [x]  Test loaders
     * [x]  PipeModuleLoader
 * [x]  Test server
