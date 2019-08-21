@@ -112,6 +112,7 @@ Different pages can use different template engines.
 
 
 ## Dependencies
+* [accepts](https://www.npmjs.com/package/accepts) - MIT
 * [axios](https://www.npmjs.com/package/axios) - MIT
 * [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
@@ -123,8 +124,10 @@ Different pages can use different template engines.
 * [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) - MIT
 * [http-errors](https://www.npmjs.com/package/http-errors) - MIT
 * [is-empty](https://www.npmjs.com/package/is-empty) - MIT
+* [jsonld](https://www.npmjs.com/package/jsonld) - BSD-3-Clause
 * [Mocha](https://www.npmjs.com/package/mocha) - MIT
 * [morgan](https://www.npmjs.com/package/morgan) - MIT
+* [N3](https://www.npmjs.com/package/n3) - MIT
 * [SuperTest](https://www.npmjs.com/package/supertest) - MIT
 * [yaml](https://www.npmjs.com/package/yaml) - ISC
 
@@ -141,6 +144,12 @@ Different pages can use different template engines.
     - [X]  Load local pipe modules
     - [X]  Add pipe modules to routing callback
 - [X]  CLI
+- [X]  Content negotiation
+	- [X]  'text/html'
+	- [X]  'application/ld+json'
+	- [X]  'text/turtle'
+	- [X]  'application/n-triples'
+	- [X]  'application/n-quads'
 
 ## Tests
 * Test framework: [Mocha](https://www.npmjs.com/package/mocha)
