@@ -13,7 +13,7 @@ describe('DataSourceParser', function() {
     const yamlData = YAML.parse(file);
 
     const DataSourceParser = require('../../lib/parsers/dataSourceParser');
-    this.output = new DataSourceParser(yamlData.meta.datasources).parse();
+    this.output = new DataSourceParser(yamlData.datasources).parse();
   });
 
   describe('#functionality()', function() {

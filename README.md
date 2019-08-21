@@ -101,7 +101,6 @@ Different template engines can be used for different routes, e.g. one route's HT
 * [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
 * [consolidate](https://www.npmjs.com/package/consolidate) - MIT
-* [cookie-parser](https://www.npmjs.com/package/cookie-parser) - MIT
 * [debug](https://www.npmjs.com/package/debug) - MIT
 * [express](https://www.npmjs.com/package/express) - MIT
 * [graphql-ld](https://www.npmjs.com/package/graphql-ld) - MIT
