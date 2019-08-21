@@ -43,9 +43,9 @@ walter.deactivate();  // Stops the server
 ```yaml
 resources:  # Directories used by Walter - OPTIONAL
   path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
-  views:  # Child directory of root, containing all template (view) files - OPTIONAL
-  pipe-modules:  # Child directory of root, containing all local pipe modules - OPTIONAL
-  public:  # Child directory of root, containing all files that should be available statically (e.g. stylesheets) - OPTIONAL
+  views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
+  pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
+  public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
 datasources:  # Used datasources grouped by type
   type:  # Types are defined by which comunica engine it can be used with
     - url  # E.g. link to SPARQL endpoint
