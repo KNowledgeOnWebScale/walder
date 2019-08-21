@@ -25,6 +25,7 @@ describe('ResourceParser', function() {{
         }
       )
     });
+
     it('should be able to handle config files without a resources section and use default values instead');
 
     it('should be able to handle empty resource fields and use default values instead');
@@ -38,7 +39,9 @@ describe('ResourceParser', function() {{
       this.output.should.have.property('views');
       this.output.should.have.property('pipeModules');
       this.output.should.have.property('public');
-    })
+    });
+
+    it('output object\'s values should always be absolute paths');
   });
 
 }});
