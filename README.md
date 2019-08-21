@@ -41,12 +41,11 @@ walter.deactivate();  // Stops the server
 * The config file must have the following structure:
 
 ```yaml
-meta:  # Meta data
-  resources:  # Directories used by Walter
-    path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file)
-    views:  # Child directory of root, containing all template (view) files
-    pipe-modules:  # Child directory of root, containing all local pipe modules
-    public:  # Child directory of root, containing all files that should be available statically (e.g. stylesheets)
+resources:  # Directories used by Walter - OPTIONAL
+  path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
+  views:  # Child directory of root, containing all template (view) files - OPTIONAL
+  pipe-modules:  # Child directory of root, containing all local pipe modules - OPTIONAL
+  public:  # Child directory of root, containing all files that should be available statically (e.g. stylesheets) - OPTIONAL
 datasources:  # Used datasources grouped by type
   type:  # Types are defined by which comunica engine it can be used with
     - url  # E.g. link to SPARQL endpoint
@@ -56,6 +55,14 @@ paths:  # List of path entries.
   path-entry-2:
     ...
 ```
+
+#### Resources
+The resources section of the config file is meant to contain paths to directories used by Walter.
+
+##### Defaults
+The resources section and it's field are optional. If no paths are given, default values are used which lead to using the current working directory as the resource directory.
+
+To prevent the wrong files from being made public by Walter, when no path is given to the `public` field, Walter creates a new directory `public` if none is found in the CWD and uses that one.
 
 #### Path entry 
 A path entry defines a route and has the following structure:
