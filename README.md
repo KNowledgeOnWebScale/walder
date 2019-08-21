@@ -158,16 +158,17 @@ Different pages can use different template engines.
 
 <!-- -->
 
-* [x]  Test parsers
+* [x]  Parsers
     * [x]  DataSourceParser
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
-* [x]  Test loaders
+* [x]  Loaders
     * [x]  PipeModuleLoader
-* [x]  Test server
+* [x]  Server
     * [x]  Server runs
     * [x]  Routes correctly initialised according to config file
-* [x]  Test functionality
+    * [ ]  Content negotiation
+* [x]  Functionality
     * [x]  GraphQL-LD queries get executed
     * [x]  PipeModules are applied

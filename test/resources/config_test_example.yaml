@@ -5,8 +5,8 @@ meta:
     pipe-modules: pipeModules
     public: public
   datasources:
-    sparql:
-      - http://dbpedia.org/sparql
+    hypermedia:
+      - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:
     get:
@@ -29,4 +29,4 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: TBD
+      html: movies.pug
