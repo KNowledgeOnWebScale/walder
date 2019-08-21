@@ -1,12 +1,11 @@
-meta:
-  resources:
-    path: ./
-    views: views
-    pipe-modules: pipeModules
-    public: public
-  datasources:
-    sparql:
-      - http://dbpedia.org/sparql
+resources:
+  path: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+datasources:
+  sparql:
+    - http://dbpedia.org/sparql
 paths:
   /movies/brad_pitt:
     get:
