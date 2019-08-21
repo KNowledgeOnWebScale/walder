@@ -145,9 +145,8 @@ Different template engines can be used for different routes, e.g. one route's HT
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
-    * [ ]  MetaParser
-    * [ ]  ResourceParser
-    * [ ]  HtmlParser
+    * [x]  ResourceParser
+    * [x]  HtmlParser
 * [x]  Test loaders
     * [x]  PipeModuleLoader
 * [x]  Test server
