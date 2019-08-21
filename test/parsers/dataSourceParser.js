@@ -2,9 +2,9 @@ require('chai').should();
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 
-describe('DataSourceParser', function() {
+describe('DataSourceParser', function () {
 
-  before (function() {
+  before(function () {
     const YAML = require('yaml');
     const fs = require('fs');
     const path = require('path');
@@ -16,14 +16,14 @@ describe('DataSourceParser', function() {
     this.output = new DataSourceParser(yamlData.datasources).parse();
   });
 
-  describe('#functionality()', function() {
-    it('should be able to parse and extract datasources correctly from a YAML config file', function() {
+  describe('#functionality()', function () {
+    it('should be able to parse and extract datasources correctly from a YAML config file', function () {
       this.output.should.eql([{type: 'sparql', value: 'http://dbpedia.org/sparql'}])
     });
   });
 
-  describe('#outputFormat()', function() {
-    it('output should be a list of objects with {type, value} properties', function() {
+  describe('#outputFormat()', function () {
+    it('output should be a list of objects with {type, value} properties', function () {
       this.output.should.be.a('Array');
       this.output.forEach((o) => {
         o.should.have.property('type');

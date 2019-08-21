@@ -21,10 +21,10 @@ describe('PipeModuleParser', function () {
       it('should be able to parse and extract pipe modules correctly from a YAML config file', function () {
         this.output.should.eql(
           [
-          {
-            "name": "filterT",
-            "source": Path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules'], 'filterT.js')
-          }]
+            {
+              "name": "filterT",
+              "source": Path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules'], 'filterT.js')
+            }]
         )
       });
     });
