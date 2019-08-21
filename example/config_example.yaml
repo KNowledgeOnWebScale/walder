@@ -5,8 +5,8 @@ meta:
     pipe-modules: pipeModules
     public: public
   datasources:
-    sparql:
-      - http://dbpedia.org/sparql
+    hypermedia:
+      - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/brad_pitt_directors:
     get:

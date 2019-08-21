@@ -1,0 +1,60 @@
+Arguments: 
+  /usr/local/Cellar/node/12.8.1/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js
+
+PATH: 
+  /Users/driesmarzougui/anaconda3/bin:/anaconda3/bin:/anaconda3/condabin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Library/Frameworks/Python.framework/Versions/2.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin
+
+Yarn version: 
+  1.17.3
+
+Node version: 
+  12.8.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/node_modules/cliui/node_modules'
+
+npm manifest: 
+  {
+    "name": "walter",
+    "version": "0.0.1",
+    "private": true,
+    "main": "./lib/walter",
+    "scripts": {
+      "start": "node ./bin/walter",
+      "test": "mocha --recursive \"./test/\""
+    },
+    "dependencies": {
+      "accepts": "^1.3.7",
+      "atpl": "^0.9.3",
+      "axios": "^0.19.0",
+      "chai": "^4.2.0",
+      "commander": "^3.0.0",
+      "consolidate": "^0.15.1",
+      "cookie-parser": "^1.4.4",
+      "debug": "~2.6.9",
+      "express": "~4.16.1",
+      "graphql-ld": "^1.0.0",
+      "graphql-ld-comunica": "^1.0.0",
+      "handlebars": "^4.1.2",
+      "http-errors": "~1.6.3",
+      "is-empty": "^1.2.0",
+      "jade-to-handlebars": "^2.3.0",
+      "jsonld": "^1.6.2",
+      "jsonld-streaming-parser": "^1.1.0",
+      "mocha": "^6.2.0",
+      "morgan": "~1.9.1",
+      "n3": "^1.2.0",
+      "pug": "^2.0.4",
+      "supertest": "^4.0.2",
+      "yaml": "^1.6.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
