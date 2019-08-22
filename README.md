@@ -54,6 +54,10 @@ paths:  # List of path entries.
     ...
   path-entry-2:
     ...
+errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
+  404: ...
+  500: ...
+  ...
 ```
 
 #### Resources
@@ -82,10 +86,11 @@ path:  # The path linked to this query
     postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
         soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
-    htmlTemplate: ...   # File containing the html template to visualise the data (absolute path or relative to the views directory)
+    responses:  # Status codes with files containing the html template (absolute path or relative to the views directory)
+    	200: ...  # (REQUIRED)
+    	500: ...  # (OPTIONAL)
 ```
 
-Paths should be written absolute or relative to the ``
 
 ### Example
 The following command starts a server on port 9000 using an example config file.

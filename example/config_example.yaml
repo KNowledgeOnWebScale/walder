@@ -27,7 +27,8 @@ paths:
            "starring": "http://dbpedia.org/ontology/starring"
          }
         }
-      html: movies.handlebars
+      responses:
+        200: movies.handlebars
   /movies/brad_pitt:
     get:
       summary: Returns a paginated list of all movies Brad Pitt stars in
@@ -59,7 +60,8 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      html: movies.handlebars
+      responses:
+        200: movies.handlebars
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
@@ -78,7 +80,8 @@ paths:
             "starring": "http://dbpedia.org/ontology/starring"
           }
         }
-      html: movies.pug
+      responses:
+        200: movies.pug
   /movies/{actor}/postprocessed:
     get:
       summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
@@ -100,8 +103,8 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: movies.pug
-  \*:
-    get:
-      summary: Page not found - error 404 page
-      html: error404.html
+      responses:
+        200: movies.pug
+errors:
+  404:  error404.html
+  500:  error500.html
