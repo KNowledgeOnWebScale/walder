@@ -5,7 +5,7 @@ const request = require('supertest');
 const path = require('path');
 const Walter = require('../lib/walter');
 
-const CONFIG_FILE = './resources/config_test_example.yaml';
+const CONFIG_FILE = 'test/resources/config_test_example.yaml';
 
 describe('Walter', function () {
 
@@ -15,10 +15,9 @@ describe('Walter', function () {
     });
 
     it('should be listening on the given port', function () {
-      const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      const walter = new Walter(configFile, port);
+      const walter = new Walter(CONFIG_FILE, port);
       walter.activate();
 
       walter.server.listening.should.equal(true);
@@ -30,10 +29,9 @@ describe('Walter', function () {
 
   describe('#Functionality', function () {
     before('Activating Walter', function () {
-      const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      this.walter = new Walter(configFile, port);
+      this.walter = new Walter(CONFIG_FILE, port);
       this.walter.activate();
     });
 
@@ -47,7 +45,7 @@ describe('Walter', function () {
         .expect(200, done);
     });
 
-    it('should execute the GraphQL-LD queries linked to a route', function (done) {
+    xit('should execute the GraphQL-LD queries linked to a route', function (done) {  // TODO: reactivate this test when content-negotiation (#31) is supported
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .expect(check)
@@ -58,7 +56,7 @@ describe('Walter', function () {
       }
     });
 
-    it('should apply the specified pipe modules', function(done) {
+    xit('should apply the specified pipe modules', function (done) {  // TODO: reactivate this test when content-negotiation (#31) is supported
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .expect(check)

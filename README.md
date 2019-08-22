@@ -41,6 +41,11 @@ walter.deactivate();  // Stops the server
 * The config file must have the following structure:
 
 ```yaml
+resources:  # Directories used by Walter - OPTIONAL
+  path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
+  views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
+  pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
+  public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
 datasources:  # Used datasources grouped by type
   type:  # Types are defined by which comunica engine it can be used with
     - url  # E.g. link to SPARQL endpoint
@@ -50,6 +55,14 @@ paths:  # List of path entries.
   path-entry-2:
     ...
 ```
+
+#### Resources
+The resources section of the config file is meant to contain paths to directories used by Walter.
+
+##### Defaults
+The resources section and it's field are optional. If no paths are given, default values are used which lead to using the current working directory as the resource directory.
+
+To prevent the wrong files from being made public by Walter, when no path is given to the `public` field, Walter creates a new directory `public` if none is found in the CWD and uses that one.
 
 #### Path entry 
 A path entry defines a route and has the following structure:
@@ -68,9 +81,11 @@ path:  # The path linked to this query
     json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
     postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
-        soure: ...  # Path or URL leading to source code of the pipe module
-    htmlTemplate: ...   # File containing the html template to visualise the data
+        soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
+    htmlTemplate: ...   # File containing the html template to visualise the data (absolute path or relative to the views directory)
 ```
+
+Paths should be written absolute or relative to the ``
 
 ### Example
 The following command starts a server on port 9000 using an example config file.
@@ -83,13 +98,16 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}` - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
+### HTML templates
+Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
 
+Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
 ## Dependencies
 * [axios](https://www.npmjs.com/package/axios) - MIT
 * [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
-* [cookie-parser](https://www.npmjs.com/package/cookie-parser) - MIT
+* [consolidate](https://www.npmjs.com/package/consolidate) - MIT
 * [debug](https://www.npmjs.com/package/debug) - MIT
 * [express](https://www.npmjs.com/package/express) - MIT
 * [graphql-ld](https://www.npmjs.com/package/graphql-ld) - MIT
@@ -127,6 +145,8 @@ This will start a server on `localhost:9000` with the following routes:
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
+    * [x]  ResourceParser
+    * [x]  HtmlParser
 * [x]  Test loaders
     * [x]  PipeModuleLoader
 * [x]  Test server

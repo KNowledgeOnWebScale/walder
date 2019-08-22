@@ -1,6 +1,5 @@
 resources:
   path: ../../example
-  views: views
   pipe-modules: pipeModules
   public: public
 datasources:
