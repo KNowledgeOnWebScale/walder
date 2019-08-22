@@ -45,10 +45,10 @@ describe('ResourceParser', function () {
         const resourceParser = new ResourceParser(yamlData, CONFIG_FILE_NO_RESOURCES);
         const output = resourceParser.parse();
         output.should.eql({
-          path: '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter',
-          views: '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter',
-          'pipe-modules': '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter',
-          public: '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/public'
+          path: Path.resolve('./'),
+          views: Path.resolve('./'),
+          'pipe-modules': Path.resolve('./'),
+          public: Path.resolve('public')
         })
       });
 
@@ -59,10 +59,10 @@ describe('ResourceParser', function () {
         const resourceParser = new ResourceParser(yamlData, CONFIG_FILE_PARTIAL_RESOURCES);
         const output = resourceParser.parse();
         output.should.eql({
-          path: '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter',
-          views: '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter',
-          'pipe-modules': '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter',
-          public: '/Users/driesmarzougui/Documents/work/IDLab/KNoWS/walter/public'
+          path: Path.resolve('./'),
+          views: Path.resolve('./'),
+          'pipe-modules': Path.resolve('./'),
+          public: Path.resolve('public')
         })
       });
 
