@@ -101,3 +101,7 @@ paths:
         filterT:
           source: filterT.js
       html: movies.pug
+  \*:
+    get:
+      summary: Page not found - error 404 page
+      html: error404.html
