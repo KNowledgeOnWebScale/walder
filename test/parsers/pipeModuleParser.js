@@ -13,7 +13,7 @@ describe('PipeModuleParser', function () {
       this.yamlData = YAML.parse(file);
 
       const PipeModuleParser = require('../../lib/parsers/pipeModuleParser');
-      const pipeModuleParser = new PipeModuleParser(this.yamlData, path.resolve(this.yamlData.meta.resources.path, this.yamlData.meta.resources['pipe-modules']));
+      const pipeModuleParser = new PipeModuleParser(this.yamlData, path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules']));
       this.output = pipeModuleParser.parse('/movies/{actor}', 'get');
     });
 
@@ -21,10 +21,10 @@ describe('PipeModuleParser', function () {
       it('should be able to parse and extract pipe modules correctly from a YAML config file', function () {
         this.output.should.eql(
           [
-          {
-            "name": "filterT",
-            "source": Path.resolve(this.yamlData.meta.resources.path, this.yamlData.meta.resources['pipe-modules'], 'filterT.js')
-          }]
+            {
+              "name": "filterT",
+              "source": Path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules'], 'filterT.js')
+            }]
         )
       });
     });

@@ -1,12 +1,11 @@
-meta:
-  resources:
-    path: ./
-    views: views
-    pipe-modules: pipeModules
-    public: public
-  datasources:
-    hypermedia:
-      - http://fragments.dbpedia.org/2016-04/en
+resources:
+  path: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+datasources:
+  hypermedia:
+    - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/brad_pitt_directors:
     get:

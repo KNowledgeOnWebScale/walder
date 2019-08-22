@@ -41,12 +41,11 @@ walter.deactivate();  // Stops the server
 * The config file must have the following structure:
 
 ```yaml
-meta:  # Meta data
-  resources:  # Directories used by Walter
-    path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file)
-    views:  # Child directory of root, containing all template (view) files
-    pipe-modules:  # Child directory of root, containing all local pipe modules
-    public:  # Child directory of root, containing all files that should be available statically (e.g. stylesheets)
+resources:  # Directories used by Walter - OPTIONAL
+  path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
+  views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
+  pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
+  public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
 datasources:  # Used datasources grouped by type
   type:  # Types are defined by which comunica engine it can be used with
     - url  # E.g. link to SPARQL endpoint
@@ -56,6 +55,14 @@ paths:  # List of path entries.
   path-entry-2:
     ...
 ```
+
+#### Resources
+The resources section of the config file is meant to contain paths to directories used by Walter.
+
+##### Defaults
+The resources section and it's field are optional. If no paths are given, default values are used which lead to using the current working directory as the resource directory.
+
+To prevent the wrong files from being made public by Walter, when no path is given to the `public` field, Walter creates a new directory `public` if none is found in the CWD and uses that one.
 
 #### Path entry 
 A path entry defines a route and has the following structure:
@@ -103,13 +110,10 @@ Using content negotiation, Walter makes the following output formats available:
 #### RDF
 Since Walter uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) to execute the GraphQL queries, which returns JSON data, Walter first converts it into JSON-LD. This enables easy conversion to other RDF formats.
 
-#### HTML templates
-Required template engine is retrieved dynamically using [consolidate](https://www.npmjs.com/package/consolidate).
+### HTML templates
+Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
 
-Different pages can use different template engines.
-
-[Supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines)
-
+Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
 ## Dependencies
 * [accepts](https://www.npmjs.com/package/accepts) - MIT
@@ -117,7 +121,6 @@ Different pages can use different template engines.
 * [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
 * [consolidate](https://www.npmjs.com/package/consolidate) - MIT
-* [cookie-parser](https://www.npmjs.com/package/cookie-parser) - MIT
 * [debug](https://www.npmjs.com/package/debug) - MIT
 * [express](https://www.npmjs.com/package/express) - MIT
 * [graphql-ld](https://www.npmjs.com/package/graphql-ld) - MIT
@@ -163,12 +166,17 @@ Different pages can use different template engines.
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
+    * [x]  ResourceParser
+    * [x]  HtmlParser
 * [x]  Loaders
     * [x]  PipeModuleLoader
+* [x]  Converters
+	*  [x]  HtmlConverter
+	*  [x]  RdfConverter
 * [x]  Server
     * [x]  Server runs
     * [x]  Routes correctly initialised according to config file
-    * [ ]  Content negotiation
+    * [x]  Content negotiation
 * [x]  Functionality
     * [x]  GraphQL-LD queries get executed
     * [x]  PipeModules are applied

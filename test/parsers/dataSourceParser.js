@@ -2,9 +2,9 @@ require('chai').should();
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 
-describe('DataSourceParser', function() {
+describe('DataSourceParser', function () {
 
-  before (function() {
+  before(function () {
     const YAML = require('yaml');
     const fs = require('fs');
     const path = require('path');
@@ -13,7 +13,7 @@ describe('DataSourceParser', function() {
     const yamlData = YAML.parse(file);
 
     const DataSourceParser = require('../../lib/parsers/dataSourceParser');
-    this.output = new DataSourceParser(yamlData.meta.datasources).parse();
+    this.output = new DataSourceParser(yamlData.datasources).parse();
   });
 
   describe('#functionality()', function() {
@@ -22,8 +22,8 @@ describe('DataSourceParser', function() {
     });
   });
 
-  describe('#outputFormat()', function() {
-    it('output should be a list of objects with {type, value} properties', function() {
+  describe('#outputFormat()', function () {
+    it('output should be a list of objects with {type, value} properties', function () {
       this.output.should.be.a('Array');
       this.output.forEach((o) => {
         o.should.have.property('type');

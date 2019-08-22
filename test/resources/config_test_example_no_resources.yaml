@@ -1,11 +1,6 @@
-resources:
-  path: ../../example
-  views: views
-  pipe-modules: pipeModules
-  public: public
 datasources:
-  hypermedia:
-    - http://fragments.dbpedia.org/2016-04/en
+  sparql:
+    - http://dbpedia.org/sparql
 paths:
   /movies/{actor}:
     get:
@@ -28,4 +23,4 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: movies.pug
+      html: list.pug
