@@ -120,6 +120,23 @@ Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automati
 
 Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
+## Error handling
+Error pages are bound to a certain HTTP status code. Users can define default error pages, but also path specific error pages by adding them to the responses section in the corresponding path entry.
+
+### Currently handled errors
+
+#### Global
+* Error 404: Page not found
+* Error 500: Internal server error
+
+#### Pipe modules
+* Error 500: Could not apply the given pipe modules
+
+#### GraphQL-LD
+* Error 404: Expected variable was not given
+* Error 500: Could not execute the given query
+
+
 ## Dependencies
 * [accepts](https://www.npmjs.com/package/accepts) - MIT
 * [axios](https://www.npmjs.com/package/axios) - MIT
@@ -140,7 +157,7 @@ Different template engines can be used for different routes, e.g. one route's HT
 * [yaml](https://www.npmjs.com/package/yaml) - ISC
 
 
-## Current functionality &rarr; v0.0.1
+## Current functionality &rarr; v0.0.2
 - [X]  Routing
     - [X]  Parse routing information from the config file
     - [X]  Set up express routes
@@ -158,6 +175,7 @@ Different template engines can be used for different routes, e.g. one route's HT
 	- [X]  'text/turtle'
 	- [X]  'application/n-triples'
 	- [X]  'application/n-quads'
+- [X]  Error handling
 
 ## Tests
 * Test framework: [Mocha](https://www.npmjs.com/package/mocha)
