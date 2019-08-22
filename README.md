@@ -200,6 +200,7 @@ Error pages are bound to a certain HTTP status code. Users can define default er
     * [x]  Server runs
     * [x]  Routes correctly initialised according to config file
     * [x]  Content negotiation
+    * [ ]  Error handling
 * [x]  Functionality
     * [x]  GraphQL-LD queries get executed
     * [x]  PipeModules are applied

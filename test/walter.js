@@ -173,4 +173,11 @@ describe('Walter', function () {
       }
     });
   })
+
+  describe('#Error handling', function() {
+    it('should return status 404 when requesting a nonexistent page');
+    it('should return status 500 when pipe modules could not be applied');
+    it('should return status 500 when the GraphQL-LD query could not be executed');
+    it('should return status 404 when the GraphQL-LD query\'s required variables were not given');
+  })
 });
