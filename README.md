@@ -121,7 +121,7 @@ Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automati
 Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
 ## Error handling
-Error pages are bound to a certain HTTP status code. Users can define default error pages, but also path specific error pages by adding them to the responses section in the corresponding path entry.
+Error pages are bound to a certain HTTP status code. Users can define default error pages, but also path specific error pages by adding them to the `responses` section in the corresponding path entry.
 
 ### Currently handled errors
 
