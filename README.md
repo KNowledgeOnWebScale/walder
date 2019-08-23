@@ -126,16 +126,57 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 ### Currently handled errors
 
 #### Global
-* Error 404: Page not found
-* Error 500: Internal server error
+* Error `404`: Page not found
+* Error `500`: Internal server error
 
 #### Pipe modules
-* Error 500: Could not apply the given pipe modules
+* Error `500`: Could not apply the given pipe modules
 
 #### GraphQL-LD
-* Error 404: Expected variable was not given
-* Error 500: Could not execute the given query
+* Error `404`: Expected variable was not given
+* Error `500`: Could not execute the given query
 
+### Example
+The following config file excerpt will use the path specific `moviesServerError.handlebars` template on errors leading to status code `500` when navigating to `/movies`.
+
+When the required query parameter `actor` is not passed, the status code `404` is returned. Walter will use the default `error404.html` file since no path specific html template is given for the corresponding status.
+
+```yaml
+...
+paths:
+  /movies:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: query
+          name: actor
+          schema:
+            type: string
+            minimum: 0
+          description: The actor from whom the movies are requested
+          required: true
+      graphql-query: >
+        {
+          id @single
+          ... on Film {
+            starring(label: $actor) @single
+          }
+        }
+      json-ld-context: >
+        {
+          "@context": {
+            "Film": "http://dbpedia.org/ontology/Film",
+            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+            "starring": "http://dbpedia.org/ontology/starring"
+          }
+        }
+      responses:
+        200: movies.pug
+        500: moviesServerError.handlebars
+errors:
+	404: error404.html
+	500: error500.html
+```
 
 ## Dependencies
 * [accepts](https://www.npmjs.com/package/accepts) - MIT
