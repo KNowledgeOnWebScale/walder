@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const Walter = require('../lib/walter');
 const program = require('commander');
 
