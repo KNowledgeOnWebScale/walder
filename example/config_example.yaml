@@ -62,6 +62,49 @@ paths:
         }
       responses:
         200: movies.handlebars
+  /bad_query:
+    get:
+      summary: Returns a status 500 error page - bad query.
+      graphql-query: >
+        {
+          id @single
+          ... {  # This will cause an error
+            starring(label: "Brad Pitt") @single
+          }
+        }
+      json-ld-context: >
+        {
+          "@context": {
+            "Film": "http://dbpedia.org/ontology/Film",
+            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+            "starring": "http://dbpedia.org/ontology/starring"
+          }
+        }
+      responses:
+        200: movies.handlebars
+  /bad_pipeModule:
+    get:
+      summary: Returns a status 500 error page - bad pipe module.
+      graphql-query: >
+        {
+          id @single
+          ... on Film{
+            starring(label: "Brad Pitt") @single
+          }
+        }
+      json-ld-context: >
+        {
+          "@context": {
+            "Film": "http://dbpedia.org/ontology/Film",
+            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+            "starring": "http://dbpedia.org/ontology/starring"
+          }
+        }
+      postprocessing:
+        filterT:
+          source: filterT_bad.js
+      responses:
+        200: movies.handlebars
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in

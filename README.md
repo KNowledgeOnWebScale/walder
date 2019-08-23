@@ -99,9 +99,9 @@ The following command starts a server on port 9000 using an example config file.
 
 This will start a server on `localhost:9000` with the following routes:
 
-* `localhost:9000/movies/brad_pitt?page=0&limit=8` - Returns a paginated list of all movies Brad Pitt stars in
-* `localhost:9000/movies/{actor}` - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
-* `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
+* <localhost:9000/movies/brad_pitt?page=0&limit=8> - Returns a paginated list of all movies Brad Pitt stars in
+* <localhost:9000/movies/{actor}> - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
+* <localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 ### Content negotiation
 Using content negotiation, Walter makes the following output formats available:
@@ -137,6 +137,16 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 * Error `500`: Could not execute the given query
 
 ### Example
+
+When activating Walter like in the example above, the following paths lead to errors:
+
+* <localhost:9000/thisPageSurelyWontExist> &rarr; error `404` (Global: Page not found)
+* <http://localhost:9000/bad_pipeModule> &rarr; error `500` (Pipe modules: Could not apply the given pipe modules)
+* <localhost:9000/movies/brad_pitt> &rarr; error `404` (GraphQL-LD: Expected variable (page/limit) was not given)
+* <http://localhost:9000/bad_query> &rarr; error `500` (GraphQL-LD: Could not execute the given query)
+
+
+#### Config file
 The following config file excerpt will use the path specific `moviesServerError.handlebars` template on errors leading to status code `500` when navigating to `/movies`.
 
 When the required query parameter `actor` is not passed, the status code `404` is returned. Walter will use the default `error404.html` file since no path specific html template is given for the corresponding status.
