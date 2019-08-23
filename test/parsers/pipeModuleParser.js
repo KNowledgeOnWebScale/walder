@@ -1,4 +1,5 @@
 require('chai').should();
+const PipeModuleParser = require('../../lib/parsers/pipeModuleParser');
 const Path = require('path');
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 
@@ -12,9 +13,8 @@ describe('PipeModuleParser', function () {
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
       this.yamlData = YAML.parse(file);
 
-      const PipeModuleParser = require('../../lib/parsers/pipeModuleParser');
-      const pipeModuleParser = new PipeModuleParser(this.yamlData, path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules']));
-      this.output = pipeModuleParser.parse('/movies/{actor}', 'get');
+      this.output = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}']['get'].postprocessing,
+        path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules']));
     });
 
     describe('#functionality()', function () {

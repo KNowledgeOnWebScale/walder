@@ -1,4 +1,5 @@
 require('chai').should();
+const GraphQLLDParser = require('../../lib/parsers/graphQLLDParser');
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 
@@ -13,10 +14,8 @@ describe('GraphQLLDParser', function () {
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
     const yamlData = YAML.parse(file);
 
-    const GraphQLLDParser = require('../../lib/parsers/graphQLLDParser');
-    const graphQLLDParser = new GraphQLLDParser(yamlData);
 
-    this.output = graphQLLDParser.parse('/movies/{actor}', 'get');
+    this.output = GraphQLLDParser.parse(yamlData.paths['/movies/{actor}']['get']);
 
   });
 
