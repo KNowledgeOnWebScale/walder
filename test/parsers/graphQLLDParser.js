@@ -12,15 +12,15 @@ describe('GraphQLLDParser', function () {
     const path = require('path');
 
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
-    const yamlData = YAML.parse(file);
+    this.yamlData = YAML.parse(file);
 
 
-    this.output = GraphQLLDParser.parse(yamlData.paths['/movies/{actor}']['get']);
+    this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get'].query, this.yamlData.datasources);
 
   });
 
   describe('#functionality()', function () {
-    it('should be able to parse and extract route information correctly from a YAML config file', function () {
+    it('should be able to parse and extract GraphQL-LD information correctly from a YAML config file', function () {
       this.output.should.eql(
         {
           "context": {
@@ -33,16 +33,18 @@ describe('GraphQLLDParser', function () {
               "starring": "http://dbpedia.org/ontology/starring"
             }
           },
-          "query": "{ id @single ... on Film { starring(label: $actor) @single }}"
+          "query": "{ id @single ... on Film { starring(label: $actor) @single }}",
+          "datasources": this.yamlData.datasources
         }
       )
     });
   });
 
   describe('#outputFormat()', function () {
-    it('output object should have {context, query} properties', function () {
+    it('output object should have { context, query, datasources } properties', function () {
       this.output.should.have.property('context');
       this.output.should.have.property('query');
+      this.output.should.have.property('datasources');
     })
   });
 });

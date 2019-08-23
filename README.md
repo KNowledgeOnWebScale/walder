@@ -46,9 +46,8 @@ resources:  # Directories used by Walter - OPTIONAL
   views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
   pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
   public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
-datasources:  # Used datasources grouped by type
-  type:  # Types are defined by which comunica engine it can be used with
-    - url  # E.g. link to SPARQL endpoint
+datasources:  # Default list of datasources
+  - ...  # E.g. link to SPARQL endpoint
 paths:  # List of path entries.
   path-entry-1:
     ...
@@ -81,8 +80,13 @@ path:  # The path linked to this query
           schema:
             type: ... # Type of the parameter
           description: ...  # Description of the parameter
-    graphql-query: ...  # The GraphQL query
-    json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
+    query:
+      graphql-query: ...  # The GraphQL query
+      json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
+      datasources:  # List of query specific datasources (OPTIONAL)
+        additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
+        sources:  #
+        	...
     postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
         soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
@@ -205,6 +209,7 @@ errors:
 - [X]  GraphQL-LD
     - [X]  Parse GraphQL-LD querying information from the config file
     - [X]  Add GraphQL-LD query execution to routing callback
+    - [X]  Path specific and default data sources
 - [X]  Pipe modules
     - [X]  Parse pipe modules information from the config file
     - [X]  Load local pipe modules
@@ -226,7 +231,6 @@ errors:
 <!-- -->
 
 * [x]  Parsers
-    * [x]  DataSourceParser
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
