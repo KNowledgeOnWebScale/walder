@@ -20,7 +20,7 @@ describe('HtmlParser', function () {
         this.output.should.eql(
           {
             "engine": "pug",
-            "file": path.resolve('', 'list.pug')
+            "file": path.resolve('', 'movies.pug')
           }
         )
       });

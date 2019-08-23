@@ -16,9 +16,9 @@ describe('DataSourceParser', function () {
     this.output = new DataSourceParser(yamlData.datasources).parse();
   });
 
-  describe('#functionality()', function () {
-    it('should be able to parse and extract datasources correctly from a YAML config file', function () {
-      this.output.should.eql([{type: 'sparql', value: 'http://dbpedia.org/sparql'}])
+  describe('#functionality()', function() {
+    it('should be able to parse and extract datasources correctly from a YAML config file', function() {
+      this.output.should.eql([{type: 'hypermedia', value: 'http://fragments.dbpedia.org/2016-04/en'}])
     });
   });
 

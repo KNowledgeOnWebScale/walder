@@ -98,12 +98,25 @@ This will start a server on `localhost:9000` with the following routes:
 * `localhost:9000/movies/{actor}` - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
 * `localhost:9000/movies/{actor}/postprocessed` - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
+### Content negotiation
+Using content negotiation, Walter makes the following output formats available:
+
+* 'text/html'
+* 'application/ld+json'
+* 'text/turtle'
+* 'application/n-triples'
+* 'application/n-quads'
+
+#### RDF
+Since Walter uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) to execute the GraphQL queries, which returns JSON data, Walter first converts it into JSON-LD. This enables easy conversion to other RDF formats.
+
 ### HTML templates
 Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
 
 Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
 ## Dependencies
+* [accepts](https://www.npmjs.com/package/accepts) - MIT
 * [axios](https://www.npmjs.com/package/axios) - MIT
 * [Chai](https://www.npmjs.com/package/chai) - MIT
 * [commander](https://www.npmjs.com/package/commander) - MIT
@@ -114,8 +127,10 @@ Different template engines can be used for different routes, e.g. one route's HT
 * [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) - MIT
 * [http-errors](https://www.npmjs.com/package/http-errors) - MIT
 * [is-empty](https://www.npmjs.com/package/is-empty) - MIT
+* [jsonld](https://www.npmjs.com/package/jsonld) - BSD-3-Clause
 * [Mocha](https://www.npmjs.com/package/mocha) - MIT
 * [morgan](https://www.npmjs.com/package/morgan) - MIT
+* [N3](https://www.npmjs.com/package/n3) - MIT
 * [SuperTest](https://www.npmjs.com/package/supertest) - MIT
 * [yaml](https://www.npmjs.com/package/yaml) - ISC
 
@@ -132,6 +147,12 @@ Different template engines can be used for different routes, e.g. one route's HT
     - [X]  Load local pipe modules
     - [X]  Add pipe modules to routing callback
 - [X]  CLI
+- [X]  Content negotiation
+	- [X]  'text/html'
+	- [X]  'application/ld+json'
+	- [X]  'text/turtle'
+	- [X]  'application/n-triples'
+	- [X]  'application/n-quads'
 
 ## Tests
 * Test framework: [Mocha](https://www.npmjs.com/package/mocha)
@@ -140,18 +161,22 @@ Different template engines can be used for different routes, e.g. one route's HT
 
 <!-- -->
 
-* [x]  Test parsers
+* [x]  Parsers
     * [x]  DataSourceParser
     * [x]  GraphQLLDParser
     * [x]  PipeModuleParser
     * [x]  RouteParser
     * [x]  ResourceParser
     * [x]  HtmlParser
-* [x]  Test loaders
+* [x]  Loaders
     * [x]  PipeModuleLoader
-* [x]  Test server
+* [x]  Converters
+	*  [x]  HtmlConverter
+	*  [x]  RdfConverter
+* [x]  Server
     * [x]  Server runs
     * [x]  Routes correctly initialised according to config file
-* [x]  Test functionality
+    * [x]  Content negotiation
+* [x]  Functionality
     * [x]  GraphQL-LD queries get executed
     * [x]  PipeModules are applied
