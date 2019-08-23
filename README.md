@@ -24,6 +24,7 @@ Options:
   -v, --version             output the version number
   -i, --input <configFile>  YAML configuration file input
   -p, --port <portNumber>   server port number (default: 3000)
+  --no-cache                disable comunica default caching
   -h, --help                output usage information
 ```
 
@@ -35,8 +36,9 @@ const Walter = require('.');
 
 const configFilePath = '.../...';
 const portNumber = 9000;
+const cache = false;  // Defaults to true if not passed
 
-const walter = new Walter(configFilePath, portNumber);
+const walter = new Walter(configFilePath, portNumber, cache);
 
 walter.activate();    // Starts the server
 walter.deactivate();  // Stops the server
