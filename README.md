@@ -83,10 +83,10 @@ path:  # The path linked to this query
     query:
       graphql-query: ...  # The GraphQL query
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
-      datasources:  # List of query specific datasources (OPTIONAL)
+      datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
-        sources:  #
-        	...
+        sources:  # List of query specific datasources
+        	- ...  # E.g. link to SPARQL endpoint
     postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
         soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
