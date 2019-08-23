@@ -1,0 +1,78 @@
+resources:
+  path: ../../example
+  views: views
+  pipe-modules: pipeModules
+  public: public
+datasources:
+  hypermedia:
+    - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /movies/brad_pitt:
+        get:
+          summary: Returns a paginated list of all movies Brad Pitt stars in
+          graphql-query: >
+            {
+              id @single
+              ... on Film{
+                starring(label: "Brad Pitt" first: $limit offset: $offset) @single
+              }
+            }
+          json-ld-context: >
+            {
+              "@context": {
+                "Film": "http://dbpedia.org/ontology/Film",
+                "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+                "starring": "http://dbpedia.org/ontology/starring"
+              }
+            }
+          responses:
+            200: movies.handlebars
+  /movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      graphql-query: >
+        {
+          id @single
+          ... on Film {
+            starring(label: $actor) @single
+          }
+        }
+      json-ld-context: >
+        {
+          "@context": {
+            "Film": "http://dbpedia.org/ontology/Film",
+            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+            "starring": "http://dbpedia.org/ontology/starring"
+          }
+        }
+      postprocessing:
+        filterT:
+          source: filterT_bad.js
+      responses:
+        200: movies.pug
+  /badmovies/{actor}:
+      get:
+        summary: Returns a list of the all movies the given actor stars in
+        graphql-query: >
+          {
+            id @single
+            ... { # <---- THIS WILL THROW AN ERROR
+              starring(label: $actor) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+        postprocessing:
+          filterT:
+            source: filterT_bad.js
+        responses:
+          200: movies.pug
+errors:
+  404:  error404.html
+  500:  error500.html

@@ -23,4 +23,5 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: list.pug
+      responses:
+        200: list.pug

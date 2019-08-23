@@ -10,9 +10,7 @@ describe('PipeModuleLoader', function () {
         "source": Path.resolve(__dirname, '../resources/filterT.js')
       }];
 
-    const pipeModuleLoader = new PipeModuleLoader();
-
-    const pipeFunctions = pipeModuleLoader.load(pipeModules);
+    const pipeFunctions = PipeModuleLoader.load(pipeModules);
 
     pipeFunctions.should.be.a('Array');
 

@@ -28,4 +28,5 @@ paths:
       postprocessing:
         filterT:
           source: filterT.js
-      html: movies.pug
+      responses:
+        200: movies.pug

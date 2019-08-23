@@ -15,8 +15,7 @@ describe('ResourceParser', function () {
       const file = fs.readFileSync(Path.resolve(CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
 
-      const resourceParser = new ResourceParser(yamlData.resources, CONFIG_FILE);
-      this.output = resourceParser.parse();
+      this.output = ResourceParser.parse(yamlData.resources, CONFIG_FILE);
     });
 
     afterEach(function () {
@@ -42,8 +41,7 @@ describe('ResourceParser', function () {
         const file = fs.readFileSync(Path.resolve(CONFIG_FILE_NO_RESOURCES), 'utf8');
         const yamlData = YAML.parse(file);
 
-        const resourceParser = new ResourceParser(yamlData, CONFIG_FILE_NO_RESOURCES);
-        const output = resourceParser.parse();
+        const output = ResourceParser.parse(yamlData, CONFIG_FILE_NO_RESOURCES);
         output.should.eql({
           path: Path.resolve('./'),
           views: Path.resolve('./'),
@@ -56,8 +54,7 @@ describe('ResourceParser', function () {
         const file = fs.readFileSync(Path.resolve(CONFIG_FILE_PARTIAL_RESOURCES), 'utf8');
         const yamlData = YAML.parse(file);
 
-        const resourceParser = new ResourceParser(yamlData, CONFIG_FILE_PARTIAL_RESOURCES);
-        const output = resourceParser.parse();
+        const output = ResourceParser.parse(yamlData, CONFIG_FILE_PARTIAL_RESOURCES);
         output.should.eql({
           path: Path.resolve('./'),
           views: Path.resolve('./'),
@@ -70,8 +67,7 @@ describe('ResourceParser', function () {
         const file = fs.readFileSync(Path.resolve(CONFIG_FILE_NO_RESOURCES), 'utf8');
         const yamlData = YAML.parse(file);
 
-        const resourceParser = new ResourceParser(yamlData, CONFIG_FILE_NO_RESOURCES);
-        const output = resourceParser.parse();
+        const output = ResourceParser.parse(yamlData, CONFIG_FILE_NO_RESOURCES);
 
         fs.existsSync(output.public).should.be.true;
       });

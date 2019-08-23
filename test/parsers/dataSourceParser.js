@@ -1,4 +1,5 @@
 require('chai').should();
+const DataSourceParser = require('../../lib/parsers/dataSourceParser');
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 
@@ -12,8 +13,7 @@ describe('DataSourceParser', function () {
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
     const yamlData = YAML.parse(file);
 
-    const DataSourceParser = require('../../lib/parsers/dataSourceParser');
-    this.output = new DataSourceParser(yamlData.datasources).parse();
+    this.output = DataSourceParser.parse(yamlData.datasources);
   });
 
   describe('#functionality()', function() {

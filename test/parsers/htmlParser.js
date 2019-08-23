@@ -1,4 +1,5 @@
 require('chai').should();
+const HtmlParser = require('../../lib/parsers/htmlParser');
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
@@ -10,26 +11,27 @@ describe('HtmlParser', function () {
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
 
-      const HtmlParser = require('../../lib/parsers/htmlParser');
-      const htmlParser = new HtmlParser(yamlData);
-      this.output = htmlParser.parse('/movies/{actor}', 'get', '');
+      this.output = HtmlParser.parse(yamlData.paths['/movies/{actor}']['get'].responses, '');
     });
 
     describe('#functionality()', function () {
       it('should be able to parse, extract and format html information correctly from a YAML config file', function () {
         this.output.should.eql(
           {
-            "engine": "pug",
-            "file": path.resolve('', 'movies.pug')
+            '200': {
+              "engine": "pug",
+              "file": path.resolve('', 'movies.pug')
+            }
           }
         )
       });
     });
 
     describe('#outputFormat()', function () {
-      it('output object should have {engine, file} properties', function () {
-        this.output.should.have.property('engine');
-        this.output.should.have.property('file');
+      it('output object should have {statusCode: {engine, file}} properties', function () {
+        this.output.should.have.property('200');
+        this.output['200'].should.have.property('engine');
+        this.output['200'].should.have.property('file');
       })
     });
 

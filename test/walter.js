@@ -6,6 +6,7 @@ const path = require('path');
 const Walter = require('../lib/walter');
 
 const CONFIG_FILE = './resources/config_test_example.yaml';
+const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
 
 describe('Walter', function () {
 
@@ -171,6 +172,46 @@ describe('Walter', function () {
 
         assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
       }
+    });
+  })
+
+  describe('#Error handling', function() {
+    before('Activating Walter', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_ERRORS);
+      const port = 9000;
+
+      this.walter = new Walter(configFile, port);
+      this.walter.activate();
+    });
+
+    after('Deactivating Walter', function () {
+      this.walter.deactivate();
+    });
+
+    it('should return status 404 when requesting a nonexistent page', function (done) {
+      request(this.walter.app)
+        .get('/thisPageSurelyDoesNotExist')
+        .expect(404)
+        .end(done);
+    });
+
+    it('should return status 500 when pipe modules could not be applied', function(done) {
+      request(this.walter.app)
+        .get('/movies/Angelina_Jolie')
+        .expect(500)
+        .end(done);
+    });
+    it('should return status 500 when the GraphQL-LD query could not be executed', function (done) {
+      request(this.walter.app)
+        .get('/badmovies/Angelina_Jolie')
+        .expect(500)
+        .end(done);
+    });
+    it('should return status 404 when the GraphQL-LD query\'s required variables were not given', function (done) {
+      request(this.walter.app)
+        .get('/movies/brad_pitt')
+        .expect(404)
+        .end(done);
     });
   })
 });
