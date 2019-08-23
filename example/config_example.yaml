@@ -4,29 +4,66 @@ resources:
   pipe-modules: pipeModules
   public: public
 datasources:
-  hypermedia:
-    - http://fragments.dbpedia.org/2016-04/en
+  - http://fragments.dbpedia.org/2016-04/en
 paths:
+  /books/harvard:
+    get:
+      summary: Returns a list of books by San Franciscans owned by the Harvard Library
+      query:
+        graphql-query: >
+          {
+            birthPlace(label_en: "San Francisco") @single
+            viafPerson @single(scope: all) {
+              name {
+                nameOf {
+                  contributedTo {
+                    bookTitle
+                  }
+                }
+              }
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label" },
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "birthPlace": "http://dbpedia.org/ontology/birthPlace",
+              "viafPerson": { "@reverse": "http://schema.org/sameAs" },
+              "name": { "@id": "http://schema.org/name" },
+              "nameOf": { "@reverse": "http://xmlns.com/foaf/0.1/name" },
+              "contributedTo": { "@reverse": "http://purl.org/dc/terms/contributor" },
+              "bookTitle": { "@id": "http://purl.org/dc/terms/title" }
+            }
+          }
+        datasources:
+          additional: true
+          sources:
+            - http://data.linkeddatafragments.org/viaf
+            - http://data.linkeddatafragments.org/harvard
+      responses:
+        200: books.pug
   /movies/brad_pitt_directors:
     get:
       summary: Returns a list of all movies Brad Pitt stars in with their directors
-      graphql-query: >
-        {
-          label @single @id
-          director @single(scope: all) {
-           label
+      query:
+        graphql-query: >
+          {
+            label @single @id
+            director @single(scope: all) {
+             label
+            }
+            starring(label_en: "Brad Pitt")  @single
           }
-          starring(label_en: "Brad Pitt")  @single
-        }
-      json-ld-context: >
-        {
-         "@context": {
-           "label": "http://www.w3.org/2000/01/rdf-schema#label",
-           "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-           "director": "http://dbpedia.org/ontology/director",
-           "starring": "http://dbpedia.org/ontology/starring"
-         }
-        }
+        json-ld-context: >
+          {
+           "@context": {
+             "label": "http://www.w3.org/2000/01/rdf-schema#label",
+             "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+             "director": "http://dbpedia.org/ontology/director",
+             "starring": "http://dbpedia.org/ontology/starring"
+           }
+          }
       responses:
         200: movies.handlebars
   /movies/brad_pitt:
@@ -45,21 +82,22 @@ paths:
             type: integer
             minimum: 1
           description: Maximum number of elements to be shown on the current page.
-      graphql-query: >
-        {
-          id @single
-          ... on Film{
-            starring(label: "Brad Pitt" first: $limit offset: $offset) @single
+      query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film{
+              starring(label: "Brad Pitt" first: $limit offset: $offset) @single
+            }
           }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "Film": "http://dbpedia.org/ontology/Film",
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "starring": "http://dbpedia.org/ontology/starring"
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
           }
-        }
       responses:
         200: movies.handlebars
   /bad_query:
@@ -108,41 +146,43 @@ paths:
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
-      graphql-query: >
-        {
-          id @single
-          ... on Film {
-            starring(label: $actor) @single
+      query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
           }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "Film": "http://dbpedia.org/ontology/Film",
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "starring": "http://dbpedia.org/ontology/starring"
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
           }
-        }
       responses:
         200: movies.pug
   /movies/{actor}/postprocessed:
     get:
       summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
-      graphql-query: >
-        {
-          id @single
-          ... on Film {
-            starring(label: $actor) @single
+      query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
           }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "Film": "http://dbpedia.org/ontology/Film",
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "starring": "http://dbpedia.org/ontology/starring"
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
           }
-        }
       postprocessing:
         filterT:
           source: filterT.js
