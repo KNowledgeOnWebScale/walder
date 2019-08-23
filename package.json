@@ -1,11 +1,13 @@
 {
   "name": "walter",
   "version": "0.0.1",
-  "private": true,
   "main": "./lib/walter",
   "scripts": {
-    "start": "node ./bin/walter",
+    "start": "node ./bin/walter.js",
     "test": "mocha --recursive \"./test/\""
+  },
+  "bin": {
+    "walter": "./bin/walter.js"
   },
   "dependencies": {
     "accepts": "^1.3.7",
