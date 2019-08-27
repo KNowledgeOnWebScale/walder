@@ -193,7 +193,6 @@ describe('Walter', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  console.log(this.walter.graphQLLD.queryEngineComunicaCache);
                   Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(2);
                   done();
                 });
