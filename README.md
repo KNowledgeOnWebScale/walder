@@ -107,6 +107,8 @@ path:  # The path linked to this query
       500: ...  # (OPTIONAL)
 ```
 
+
+
 ### Example
 
 The following command starts a server on port 9000 using an example config file.
@@ -142,6 +144,15 @@ Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automati
 
 Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
 
+## Input validation
+
+While parsing the config file, Walter also validates the correctness and completeness of the input.
+When the whole config file is parsed and errors were found, Walter returns all errors and deactivates.
+ 
+Currently the following is validated:
+
+- All variables in the GraphQL-LD query are described in the parameters section
+
 ## Error handling
 
 Error pages are bound to a certain HTTP status code. Users can define default error pages, but also path specific error pages by adding them to the `responses` section in the corresponding path entry.
@@ -164,7 +175,12 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 ### Example
 
-When activating Walter like in the example above, the following paths lead to errors:
+When activating Walter using the the following command:
+
+`$ node bin/walter.js -i example/config_example_errors.yaml -p 9000`
+
+the following paths lead to errors:
+
 
 * <http://localhost:9000/thisPageSurelyWontExist> &rarr; error `404` (Global: Page not found)
 * <http://localhost:9000/bad_pipeModule> &rarr; error `500` (Pipe modules: Could not apply the given pipe modules)

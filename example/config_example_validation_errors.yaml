@@ -1,16 +1,14 @@
+resources:
+  path: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
 datasources:
-  - http://dbpedia.org/sparql
+  - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:
     get:
-      summary: Returns a list of the all movies the given actor stars in
-      parameters:
-        - in: path
-          name: actor
-          required: true
-          schema:
-            type: string
-          description: The target actor
+      summary: Returns a list of the all movies the given actor stars in - will return a config file validation error
       query:
         graphql-query: >
           {
@@ -27,11 +25,5 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-      postprocessing:
-        filterT:
-          source: filterT.js
       responses:
-        200: list.pug
-errors:
-  404:  error404.html
-  500:  error500.html
+        200: movies.pug
