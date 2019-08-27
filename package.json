@@ -4,7 +4,7 @@
   "main": "./lib/walter",
   "scripts": {
     "start": "node ./bin/walter.js",
-    "test": "mocha --timeout 5000 --recursive \"./test/\""
+    "test": "mocha --recursive \"./test/\" --timeout 5000 "
   },
   "bin": {
     "walter": "./bin/walter.js"
