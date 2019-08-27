@@ -27,6 +27,7 @@
     "n3": "^1.2.0",
     "pug": "^2.0.4",
     "supertest": "^4.0.2",
+    "winston": "^3.2.1",
     "yaml": "^1.6.0"
   },
   "devDependencies": {
