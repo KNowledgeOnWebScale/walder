@@ -1,4 +1,5 @@
-image: node:latest
+default:
+  image: node:10.16.3
 
 stages:
   - build
@@ -16,7 +17,11 @@ install_dependencies:
     paths:
       - node_modules/
 
-testing:
+testing:lts:
   stage: test
   script: yarn test
 
+testing:latest:
+  image: node:latest
+  stage: test
+  script: yarn test
