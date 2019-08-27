@@ -107,6 +107,8 @@ path:  # The path linked to this query
       500: ...  # (OPTIONAL)
 ```
 
+
+
 ### Example
 
 The following command starts a server on port 9000 using an example config file.
@@ -141,6 +143,15 @@ Since Walter uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld
 Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
 
 Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
+
+## Input validation
+
+While parsing the config file, Walter also validates the correctness and completeness of the input.
+When the whole config file is parsed and errors were found, Walter returns all errors and deactivates.
+ 
+Currently the following is validated:
+
+- All variables in the GraphQL-LD query are described in the parameters section
 
 ## Error handling
 
