@@ -166,7 +166,7 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 When activating Walter using the the following command:
 
-`$ node bin/walter.js -i example/config_example_bad.yaml -p 9000`
+`$ node bin/walter.js -i example/config_example_errors.yaml -p 9000`
 
 the following paths lead to errors:
 

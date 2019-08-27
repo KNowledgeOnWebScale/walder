@@ -1,0 +1,29 @@
+resources:
+  path: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in - will return a config file validation error
+      query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      responses:
+        200: movies.pug
