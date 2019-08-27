@@ -29,7 +29,7 @@ describe('Walter', function () {
     });
   });
 
-  describe('#Content negotiation', function() {
+  describe('#Content negotiation', function () {
     before('Activating Walter', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
@@ -43,7 +43,7 @@ describe('Walter', function () {
     });
 
 
-    it('should be able to serve text/html when requested', function(done) {
+    it('should be able to serve text/html when requested', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'text/html')
@@ -57,7 +57,7 @@ describe('Walter', function () {
       }
     });
 
-    it('should be able to serve application/ld+json when requested', function(done) {
+    it('should be able to serve application/ld+json when requested', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'application/ld+json')
@@ -76,7 +76,7 @@ describe('Walter', function () {
       }
     });
 
-    it('should be able to serve text/turtle when requested', function(done) {
+    it('should be able to serve text/turtle when requested', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'text/turtle')
@@ -92,7 +92,7 @@ describe('Walter', function () {
       }
     });
 
-    it('should be able to serve application/n-triples when requested', function(done) {
+    it('should be able to serve application/n-triples when requested', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'application/n-triples')
@@ -108,7 +108,7 @@ describe('Walter', function () {
       }
     });
 
-    it('should be able to serve application/n-quads when requested', function(done) {
+    it('should be able to serve application/n-quads when requested', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'application/n-quads')
@@ -139,43 +139,91 @@ describe('Walter', function () {
       this.walter.deactivate();
     });
 
-    it('should make the routes specified in the config file available', function (done) {
-      request(this.walter.app)
-        .get('/movies/Angelina_Jolie')
-        .expect(200, done);
+    describe('##Express', function () {
+      it('should make the routes specified in the config file available', function (done) {
+        request(this.walter.app)
+          .get('/movies/Angelina_Jolie')
+          .expect(200, done);
+      });
     });
 
-    it('should execute the GraphQL-LD queries linked to a route', function (done) {
-      request(this.walter.app)
-        .get('/movies/Angelina_Jolie')
-        .set('Accept', 'application/json')
-        .expect(checkBody)
-        .end(done);
+    describe('##GraphQL-LD', function () {
+      it('should execute the GraphQL-LD queries linked to a route', function (done) {
+        request(this.walter.app)
+          .get('/movies/Angelina_Jolie')
+          .set('Accept', 'application/json')
+          .expect(checkBody)
+          .end(done);
 
-      function checkBody(res) {
-        assert(Array.isArray(res.body), 'GraphQL-LD query not correctly executed');
-      }
+        function checkBody(res) {
+          assert(Array.isArray(res.body), 'GraphQL-LD query not correctly executed');
+        }
+      });
+
+      describe('###Caching', function () {
+        it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
+          // Do two requests with the same data sources, only one query engine should be found in the cache
+          request(this.walter.app)
+            .get('/movies/Angelina_Jolie')
+            .end((err, res) => {
+
+              if (err) throw err;
+
+              request(this.walter.app)
+                .get('/movies/Angelina_Jolie')
+                .end((err, res) => {
+
+                  if (err) throw err;
+
+                  Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(1);
+                  done();
+                });
+            });
+        });
+
+        it('should not reuse a comunica query engine when the datasources haven\'t been used before', function (done) {
+          // Do two requests with different data sources, two query engines should be found in the cache
+          request(this.walter.app)
+            .get('/movies/Angelina_Jolie')
+            .end((err, res) => {
+              if (err) throw err;
+
+              request(this.walter.app)
+                .get('/more_movies/Angelina_Jolie')
+                .end((err, res) => {
+                  if (err) throw err;
+
+                  console.log(this.walter.graphQLLD.queryEngineComunicaCache);
+                  Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(2);
+                  done();
+                });
+            });
+        });
+      })
+
     });
 
-    it('should apply the specified pipe modules', function(done) {
-      request(this.walter.app)
-        .get('/movies/Angelina_Jolie')
-        .set('Accept', 'application/json')
-        .expect(check)
-        .end(done);
+    describe('##PipeModules', function () {
+      it('should apply the specified pipe modules', function (done) {
+        request(this.walter.app)
+          .get('/movies/Angelina_Jolie')
+          .set('Accept', 'application/json')
+          .expect(check)
+          .end(done);
 
-      function check(res) {
-        const filter = require('./resources/filterT').filterT;
+        function check(res) {
+          const filter = require('./resources/filterT').filterT;
 
-        const origLength = res.body.length;
-        const filteredData = filter(res.body);
+          const origLength = res.body.length;
+          const filteredData = filter(res.body);
 
-        assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
-      }
-    });
-  })
+          assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
+        }
+      });
+    })
+  });
 
-  describe('#Error handling', function() {
+  describe('#Error handling', function () {
     before('Activating Walter', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE_ERRORS);
       const port = 9000;
@@ -195,7 +243,7 @@ describe('Walter', function () {
         .end(done);
     });
 
-    it('should return status 500 when pipe modules could not be applied', function(done) {
+    it('should return status 500 when pipe modules could not be applied', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .expect(500)

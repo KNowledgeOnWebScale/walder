@@ -43,6 +43,29 @@ paths:
             - http://data.linkeddatafragments.org/harvard
       responses:
         200: books.pug
+  /music/{musician}:
+    get:
+      summary: Returns a list of bands the given musician has wrote a song for.
+      query:
+        graphql-query: >
+          {
+            label @single
+            writer(label_en: "John Lennon")  @single
+            artist  @single(scope: all) {
+              label
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
+            }
+          }
+      responses:
+        200: songs.handlebars
   /movies/brad_pitt_directors:
     get:
       summary: Returns a list of all movies Brad Pitt stars in with their directors
