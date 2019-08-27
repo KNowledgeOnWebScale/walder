@@ -6,9 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-* HTML template support
-* Content negotiation support
-* Error handling
+- HTML template support
+- Content negotiation support
+- Error handling
+- Query specific datasources
+
+### Changed
+- No longer required to give types to data sources.
 
 ## [0.0.1] - 2019-08-09
 ### Added
