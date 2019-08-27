@@ -3597,6 +3597,11 @@ streamify-string@^1.0.1:
   resolved "https://registry.yarnpkg.com/streamify-string/-/streamify-string-1.0.1.tgz#9e220de33e1c475dd30e0206f5b1815cc6c9525b"
   integrity sha1-niIN4z4cR13TDgIG9bGBXMbJUls=
 
+string-builder@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/string-builder/-/string-builder-0.1.6.tgz#aee28016335b8d3a9637be9af874351e38a32e51"
+  integrity sha512-lpfA1Tddd4dwk2Hxf/fhQAG2JK91St/ISqdvBYjOOnW8oNC1172CwW5X2YsU+JqtJBPCBDPZrlrPCK8iQq0QyQ==
+
 string-width@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-1.0.2.tgz#118bdf5b8cdc51a2a7e70d211e07e2b0b9b107d3"

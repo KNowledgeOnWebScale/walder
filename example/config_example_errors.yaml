@@ -1,27 +1,41 @@
 resources:
-  path: ../../example
+  path: ./
   views: views
   pipe-modules: pipeModules
   public: public
 datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
-  /movies/{actor}:
+  /bad_query:
     get:
-      summary: Returns a list of the all movies the given actor stars in
-      parameters:
-        - in: path
-          name: actor
-          required: true
-          schema:
-            type: string
-          description: The target actor
+      summary: Returns a status 500 error page - bad query.
       query:
         graphql-query: >
           {
             id @single
-            ... on Film {
-              starring(label: $actor) @single
+            ... {  # This will cause an error
+              starring(label: "Brad Pitt") @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      responses:
+        200: movies.handlebars
+  /bad_pipeModule:
+    get:
+      summary: Returns a status 500 error page - bad pipe module.
+      query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film{
+              starring(label: "Brad Pitt") @single
             }
           }
         json-ld-context: >
@@ -34,44 +48,9 @@ paths:
           }
       postprocessing:
         filterT:
-          source: filterT.js
+          source: filterT_bad.js
       responses:
-        200: movies.pug
-  /more_movies/{actor}:
-    get:
-      summary: Returns a list of the all movies the given actor stars in
-      parameters:
-        - in: path
-          name: actor
-          required: true
-          schema:
-            type: string
-          description: The target actor
-      query:
-        graphql-query: >
-          {
-            id @single
-            ... on Film {
-              starring(label: $actor) @single
-            }
-          }
-        json-ld-context: >
-          {
-            "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
-            }
-          }
-        datasources:
-          additional: true
-          sources:
-            - http://data.linkeddatafragments.org/harvard
-      postprocessing:
-        filterT:
-          source: filterT.js
-      responses:
-        200: movies.pug
+        200: movies.handlebars
 errors:
   404:  error404.html
   500:  error500.html

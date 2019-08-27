@@ -2,6 +2,7 @@
 
 const Walter = require('../lib/walter');
 const program = require('commander');
+const utils = require('../lib/utils');
 
 // CLI
 program
@@ -12,8 +13,7 @@ program
   .parse(process.argv);
 
 if (!program.input) {
-  console.error('\nError:\n\t--input <configFile> required. Use -h for more info.\n');
-  process.exit(1);
+  utils.printError('Error:\n\t--input <configFile> required. Use -h for more info.');
 }
 
 const walter = new Walter(program.input, program.port, program.cache);

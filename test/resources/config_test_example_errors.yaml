@@ -9,6 +9,19 @@ paths:
   /movies/brad_pitt:
     get:
       summary: Returns a paginated list of all movies Brad Pitt stars in
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: The page that must be shown.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+          description: Maximum number of elements to be shown on the current page.
       query:
         graphql-query: >
           {
@@ -30,6 +43,13 @@ paths:
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
       query:
         graphql-query: >
           {
@@ -54,6 +74,13 @@ paths:
   /badmovies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
       query:
         graphql-query: >
           {

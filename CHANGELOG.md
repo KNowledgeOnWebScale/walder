@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Content negotiation support
 - Error handling
 - Query specific datasources
-- Comunica cache handling cli support 
+- Comunica cache handling cli support
+- Config file input validation
 
 ### Changed
 - No longer required to give types to data sources.
