@@ -9,7 +9,6 @@ const CONFIG_FILE = './resources/config_test_example.yaml';
 const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
 
 describe('Walter', function () {
-
   describe('#Activation', function () {
     it('should throw an error when no config file is given', function () {
       expect(() => new Walter()).to.throw('Configuration file is required.')
@@ -193,7 +192,6 @@ describe('Walter', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  console.log(this.walter.graphQLLD.queryEngineComunicaCache);
                   Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(2);
                   done();
                 });
