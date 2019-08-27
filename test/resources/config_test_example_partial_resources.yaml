@@ -8,6 +8,13 @@ paths:
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
       query:
         graphql-query: >
           {

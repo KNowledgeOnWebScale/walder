@@ -164,7 +164,12 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 ### Example
 
-When activating Walter like in the example above, the following paths lead to errors:
+When activating Walter using the the following command:
+
+`$ node bin/walter.js -i example/config_example_bad.yaml -p 9000`
+
+the following paths lead to errors:
+
 
 * <http://localhost:9000/thisPageSurelyWontExist> &rarr; error `404` (Global: Page not found)
 * <http://localhost:9000/bad_pipeModule> &rarr; error `500` (Pipe modules: Could not apply the given pipe modules)
