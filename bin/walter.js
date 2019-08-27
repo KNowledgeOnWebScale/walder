@@ -13,7 +13,7 @@ program
   .parse(process.argv);
 
 if (!program.input) {
-  utils.throwError('Error:\n\t--input <configFile> required. Use -h for more info.');
+  utils.printError('Error:\n\t--input <configFile> required. Use -h for more info.');
 }
 
 const walter = new Walter(program.input, program.port, program.cache);
