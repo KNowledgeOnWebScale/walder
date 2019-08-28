@@ -12,9 +12,9 @@ program
   .option('--no-cache', 'disable comunica default caching')
   .parse(process.argv);
 
-if (!program.input) {
+if (!program.config) {
   utils.printError('Error:\n\t-c --config <configFile> required. Use -h for more info.');
 }
 
-const walter = new Walter(program.input, program.port, program.cache);
+const walter = new Walter(program.config, program.port, program.cache);
 walter.activate();
