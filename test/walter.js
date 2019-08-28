@@ -54,7 +54,8 @@ describe('Walter', function () {
       }
     });
 
-    it('should return status 415 when an invalid content-type is requested', function (done) {
+    it('should return status 415 and the response should have properties { status, message ) ' +
+      'when an invalid content-type is requested', function (done) {
       request(this.walter.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'INVALID-CONTENT-TYPE')
