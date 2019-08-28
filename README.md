@@ -113,7 +113,7 @@ path:  # The path linked to this query
 
 The following command starts a server on port 9000 using an example config file.
 
-`$ node bin/walter.js -i example/config_example.yaml -p 9000`
+`$ node bin/walter.js -c example/config_example.yaml -p 9000`
 
 This will start a server on `localhost:9000` with the following routes:
 
@@ -177,7 +177,7 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 When activating Walter using the the following command:
 
-`$ node bin/walter.js -i example/config_example_errors.yaml -p 9000`
+`$ node bin/walter.js -c example/config_example_errors.yaml -p 9000`
 
 the following paths lead to errors:
 
