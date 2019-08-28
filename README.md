@@ -21,11 +21,11 @@ Walter is supposed to be used using the CLI but can also be activated using the 
 Usage: node bin/walter.js [options]
 
 Options:
-  -v, --version             output the version number
-  -i, --input <configFile>  YAML configuration file input
-  -p, --port <portNumber>   server port number (default: 3000)
-  --no-cache                disable comunica default caching
-  -h, --help                output usage information
+  -v, --version              output the version number
+  -c, --config <configFile>  YAML configuration file input
+  -p, --port <portNumber>    server port number (default: 3000)
+  --no-cache                 disable comunica default caching
+  -h, --help                 output usage information
 ```
 
 ### Programmatic API

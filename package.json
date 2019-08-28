@@ -1,6 +1,6 @@
 {
   "name": "walter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./lib/walter",
   "scripts": {
     "start": "node ./bin/walter.js",
