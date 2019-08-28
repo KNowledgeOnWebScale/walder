@@ -15,7 +15,7 @@ describe('GraphQLLDParser', function () {
     this.yamlData = YAML.parse(file);
 
 
-    this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get'].query, this.yamlData.datasources);
+    this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get'].query, this.yamlData.datasources, true);
 
   });
 
@@ -23,6 +23,12 @@ describe('GraphQLLDParser', function () {
     it('should be able to parse and extract GraphQL-LD information correctly from a YAML config file', function () {
       this.output.should.eql(
         {
+          "cache": true,
+          "comunicaConfig": {
+            "sources": [
+              "http://fragments.dbpedia.org/2016-04/en"
+            ]
+          },
           "context": {
             "@context": {
               "Film": "http://dbpedia.org/ontology/Film",
@@ -34,17 +40,17 @@ describe('GraphQLLDParser', function () {
             }
           },
           "query": "{ id @single ... on Film { starring(label: $actor) @single }}",
-          "datasources": this.yamlData.datasources
         }
       )
     });
   });
 
   describe('#outputFormat()', function () {
-    it('output object should have { context, query, datasources } properties', function () {
+    it('output object should have { cache, comunicaConfig, context, query } properties', function () {
+      this.output.should.have.property('cache');
+      this.output.should.have.property('comunicaConfig');
       this.output.should.have.property('context');
       this.output.should.have.property('query');
-      this.output.should.have.property('datasources');
     })
   });
 });
