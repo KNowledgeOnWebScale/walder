@@ -41,6 +41,33 @@ describe('Walter', function () {
       this.walter.deactivate();
     });
 
+    it('should serve text/html when no content-type is specified by the client', function (done) {
+      request(this.walter.app)
+        .get('/movies/Angelina_Jolie')
+        .expect('Content-Type', /text\/html/)
+        .expect(checkBody)
+        .end(done);
+
+      function checkBody(res) {
+        const isHTML = require('is-html');
+        return isHTML((res.body));
+      }
+    });
+
+    it('should return status 415 and the response should have properties { status, message ) ' +
+      'when an invalid content-type is requested', function (done) {
+      request(this.walter.app)
+        .get('/movies/Angelina_Jolie')
+        .set('Accept', 'INVALID-CONTENT-TYPE')
+        .expect(checkBody)
+        .expect(415)
+        .end(done);
+
+      function checkBody(res) {
+        res.body.should.have.property('status');
+        res.body.should.have.property('message');
+      }
+    });
 
     it('should be able to serve text/html when requested', function (done) {
       request(this.walter.app)
@@ -122,7 +149,6 @@ describe('Walter', function () {
         parser.parse(res.text);
       }
     });
-
   });
 
   describe('#Functionality', function () {
