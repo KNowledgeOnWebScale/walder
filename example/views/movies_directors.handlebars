@@ -5,11 +5,11 @@
     <link rel="stylesheet" href='/stylesheets/list.css'>
 </head>
 <body>
-<h1>Movies</h1>
+<h1>Movies and directors</h1>
 <div>
     <ul>
         {{#each data}}
-            <li>{{this.id}}</li>
+            <li>{{this.label}} - {{this.director.label}}</li>
         {{/each}}
     </ul>
 </div>

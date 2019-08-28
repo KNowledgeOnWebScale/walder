@@ -6,15 +6,15 @@ const utils = require('../lib/utils');
 
 // CLI
 program
-  .version('0.0.1', '-v, --version')
-  .option('-i, --input <configFile>', 'YAML configuration file input')
+  .version('0.0.2', '-v, --version')
+  .option('-c, --config <configFile>', 'YAML configuration file input')
   .option('-p, --port <portNumber>', 'server port number (default: 3000)')
   .option('--no-cache', 'disable comunica default caching')
   .parse(process.argv);
 
-if (!program.input) {
-  utils.printError('Error:\n\t--input <configFile> required. Use -h for more info.');
+if (!program.config) {
+  utils.printError('Error:\n\t-c --config <configFile> required. Use -h for more info.');
 }
 
-const walter = new Walter(program.input, program.port, program.cache);
+const walter = new Walter(program.config, program.port, program.cache);
 walter.activate();

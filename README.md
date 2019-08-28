@@ -21,11 +21,11 @@ Walter is supposed to be used using the CLI but can also be activated using the 
 Usage: node bin/walter.js [options]
 
 Options:
-  -v, --version             output the version number
-  -i, --input <configFile>  YAML configuration file input
-  -p, --port <portNumber>   server port number (default: 3000)
-  --no-cache                disable comunica default caching
-  -h, --help                output usage information
+  -v, --version              output the version number
+  -c, --config <configFile>  YAML configuration file input
+  -p, --port <portNumber>    server port number (default: 3000)
+  --no-cache                 disable comunica default caching
+  -h, --help                 output usage information
 ```
 
 ### Programmatic API
@@ -113,7 +113,7 @@ path:  # The path linked to this query
 
 The following command starts a server on port 9000 using an example config file.
 
-`$ node bin/walter.js -i example/config_example.yaml -p 9000`
+`$ node bin/walter.js -c example/config_example.yaml -p 9000`
 
 This will start a server on `localhost:9000` with the following routes:
 
@@ -177,7 +177,7 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 When activating Walter using the the following command:
 
-`$ node bin/walter.js -i example/config_example_errors.yaml -p 9000`
+`$ node bin/walter.js -c example/config_example_errors.yaml -p 9000`
 
 the following paths lead to errors:
 
