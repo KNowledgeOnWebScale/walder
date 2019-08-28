@@ -37,6 +37,5 @@ describe('GraphQLValidator', function () {
         output.should.include('error');
       })
     })
-
   }
 });
