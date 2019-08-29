@@ -203,7 +203,7 @@ describe('Walter', function () {
 
                   if (err) throw err;
 
-                  Object.keys(this.walter.requestHandler.graphQLLDHandler.COMUNICA_ENGINE_CACHE).length.should.equal(1);
+                  Object.keys(this.walter.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(1);
                   done();
                 });
             });
@@ -221,7 +221,7 @@ describe('Walter', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(this.walter.requestHandler.graphQLLDHandler.COMUNICA_ENGINE_CACHE).length.should.equal(2);
+                  Object.keys(this.walter.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(2);
                   done();
                 });
             });
