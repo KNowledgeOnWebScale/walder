@@ -9,7 +9,15 @@ intended for Linked Data based web applications using [GraphQL-LD](https://comun
 ## Installation
 
 1. Clone the repository.
-2. Run `npm install` in the project's root.
+2. Run `yarn install` in the project's root.
+
+### Global install
+
+(To be used during development.)
+
+Running the following command in the project's root will install walter globally on your system:
+
+`$ yarn global add file:$(pwd)`
 
 ## Usage
 
@@ -36,10 +44,11 @@ Options:
 const Walter = require('.');
 
 const configFilePath = '.../...';
-const portNumber = 9000;
+const portNumber = 9000; // Defaults to 3000 if not passed
+const logging = 'info'; // Defaults to 'info' if not passed
 const cache = false;  // Defaults to true if not passed
 
-const walter = new Walter(configFilePath, portNumber, cache);
+const walter = new Walter(configFilePath, portNumber, logging, cache);
 
 walter.activate();    // Starts the server
 walter.deactivate();  // Stops the server
@@ -273,6 +282,8 @@ errors:
   * [X]  'application/n-triples'
   * [X]  'application/n-quads'
 * [X]  Error handling
+* [X]  Config file validation
+* [X]  Logging
 
 ## Tests
 
