@@ -3,10 +3,11 @@
 const Walter = require('../lib/walter');
 const program = require('commander');
 const utils = require('../lib/utils');
+const pjson = require('../package');
 
 // CLI
 program
-  .version('0.0.2', '-v, --version')
+  .version('v' + pjson.version, '-v, --version')
   .option('-c, --config <configFile>', 'YAML configuration file input')
   .option('-p, --port [portNumber]', 'server port number', 3000)
   .option('-l, --log [level]', 'enable logging and set logging level (one of [error, warn, info, verbose, debug])', 'info')
