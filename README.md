@@ -23,7 +23,8 @@ Usage: node bin/walter.js [options]
 Options:
   -v, --version              output the version number
   -c, --config <configFile>  YAML configuration file input
-  -p, --port <portNumber>    server port number (default: 3000)
+  -p, --port [portNumber]    server port number (default: 3000)
+  -l, --log [level]          enable logging and set logging level (one of [error, warn, info, verbose, debug]) (default: "info")
   --no-cache                 disable comunica default caching
   -h, --help                 output usage information
 ```

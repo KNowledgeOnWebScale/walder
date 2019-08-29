@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Query specific datasources
 - Comunica cache handling cli support
 - Config file input validation
+- Logging
 
 ### Changed
 - No longer required to give types to data sources.
