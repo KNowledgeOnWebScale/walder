@@ -4,6 +4,7 @@ require('chai').should();
 const request = require('supertest');
 const path = require('path');
 const Walter = require('../lib/walter');
+const GraphQLLDHandler = require('../lib/handlers/graphQLLDHandler');
 
 const CONFIG_FILE = './resources/config_test_example.yaml';
 const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
@@ -200,7 +201,7 @@ describe('Walter', function () {
 
                   if (err) throw err;
 
-                  Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(1);
+                  Object.keys(GraphQLLDHandler.getCache()).length.should.equal(1);
                   done();
                 });
             });
@@ -218,7 +219,7 @@ describe('Walter', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(2);
+                  Object.keys(GraphQLLDHandler.getCache()).length.should.equal(2);
                   done();
                 });
             });
