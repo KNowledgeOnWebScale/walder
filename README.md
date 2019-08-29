@@ -13,6 +13,8 @@ intended for Linked Data based web applications using [GraphQL-LD](https://comun
 
 ### Global install
 
+(To be used during development.)
+
 Running the following command in the project's root will install walter globally on your system:
 
 `$ yarn global add file:$(pwd)`
@@ -280,6 +282,8 @@ errors:
   * [X]  'application/n-triples'
   * [X]  'application/n-quads'
 * [X]  Error handling
+* [X]  Config file validation
+* [X]  Logging
 
 ## Tests
 
