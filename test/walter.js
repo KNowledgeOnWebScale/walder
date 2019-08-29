@@ -4,6 +4,7 @@ require('chai').should();
 const request = require('supertest');
 const path = require('path');
 const Walter = require('../lib/walter');
+const GraphQLLDHandler = require('../lib/handlers/graphQLLDHandler');
 
 const CONFIG_FILE = './resources/config_test_example.yaml';
 const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
@@ -188,6 +189,8 @@ describe('Walter', function () {
       describe('###Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache
+          const graphQLLHandler = new GraphQLLDHandler();
+
           request(this.walter.app)
             .get('/movies/Angelina_Jolie')
             .end((err, res) => {
@@ -200,7 +203,7 @@ describe('Walter', function () {
 
                   if (err) throw err;
 
-                  Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(1);
+                  Object.keys(this.walter.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(1);
                   done();
                 });
             });
@@ -218,7 +221,7 @@ describe('Walter', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(this.walter.graphQLLD.queryEngineComunicaCache).length.should.equal(2);
+                  Object.keys(this.walter.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(2);
                   done();
                 });
             });
