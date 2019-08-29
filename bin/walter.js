@@ -18,6 +18,7 @@ if (!program.config) {
   utils.printError('Error:\n\t-c --config <configFile> required. Use -h for more info.');
 }
 
+// Has to be set here to avoid conflicts with programmatic API
 if (program.log === true) {
   program.log = 'info';
 }
