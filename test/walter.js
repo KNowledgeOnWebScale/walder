@@ -189,6 +189,8 @@ describe('Walter', function () {
       describe('###Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache
+          const graphQLLHandler = new GraphQLLDHandler();
+
           request(this.walter.app)
             .get('/movies/Angelina_Jolie')
             .end((err, res) => {
@@ -201,7 +203,7 @@ describe('Walter', function () {
 
                   if (err) throw err;
 
-                  Object.keys(GraphQLLDHandler.getCache()).length.should.equal(1);
+                  Object.keys(this.walter.requestHandler.graphQLLDHandler.COMUNICA_ENGINE_CACHE).length.should.equal(1);
                   done();
                 });
             });
@@ -219,7 +221,7 @@ describe('Walter', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(GraphQLLDHandler.getCache()).length.should.equal(2);
+                  Object.keys(this.walter.requestHandler.graphQLLDHandler.COMUNICA_ENGINE_CACHE).length.should.equal(2);
                   done();
                 });
             });
