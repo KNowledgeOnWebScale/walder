@@ -30,6 +30,7 @@
     "pug": "^2.0.4",
     "string-builder": "^0.1.6",
     "supertest": "^4.0.2",
+    "winston": "^3.2.1",
     "yaml": "^1.6.0"
   },
   "devDependencies": {
