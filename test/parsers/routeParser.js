@@ -1,4 +1,8 @@
 require('chai').should();
+
+const YAML = require('yaml');
+const fs = require('fs');
+const path = require('path');
 const RouteParser = require('../../lib/parsers/routeParser');
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
@@ -6,12 +10,7 @@ const CONFIG_FILE = '../resources/config_test_example.yaml';
 describe('RouteParser', function () {
   {
     before(function () {
-      const YAML = require('yaml');
-      const fs = require('fs');
-      const path = require('path');
-
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
-      const yamlData = YAML.parse(file);
 
       this.output = RouteParser.parse('/movies/{actor}', 'get');
     });
