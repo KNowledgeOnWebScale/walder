@@ -2,9 +2,15 @@ const assert = require('chai').assert;
 const expect = require('chai').expect;
 require('chai').should();
 const request = require('supertest');
+
 const path = require('path');
+const isHTML = require('is-html');
+const jsonld = require('jsonld');
+const N3 = require('n3');
+
 const Walter = require('../lib/walter');
 const GraphQLLDHandler = require('../lib/handlers/graphQLLDHandler');
+const filter = require('./resources/filterT').filterT;
 
 const CONFIG_FILE = './resources/config_test_example.yaml';
 const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
@@ -50,7 +56,6 @@ describe('Walter', function () {
         .end(done);
 
       function checkBody(res) {
-        const isHTML = require('is-html');
         return isHTML((res.body));
       }
     });
@@ -79,7 +84,6 @@ describe('Walter', function () {
         .end(done);
 
       function checkBody(res) {
-        const isHTML = require('is-html');
         return isHTML((res.body));
       }
     });
@@ -93,7 +97,6 @@ describe('Walter', function () {
         .end(done);
 
       async function checkBody(res) {
-        const jsonld = require('jsonld');
         // If 'JsonLD' can turn it into N-Quads without errors, then it must be valid JSON-LD
         await jsonld.toRDF(res.body, {format: 'application/n-quads'}, (err, nquads) => {
           if (err) {
@@ -112,7 +115,6 @@ describe('Walter', function () {
         .end(done);
 
       function checkBody(res) {
-        const N3 = require('n3');
         const parser = new N3.Parser({format: 'Turtle'});
         // If 'N3' can parse it, then it must be valid turtle
         parser.parse(res.text);
@@ -128,7 +130,6 @@ describe('Walter', function () {
         .end(done);
 
       function checkBody(res) {
-        const N3 = require('n3');
         const parser = new N3.Parser({format: 'N-Triples'});
         // If 'N3' can parse it, then it must be valid N-triples
         parser.parse(res.text);
@@ -144,7 +145,6 @@ describe('Walter', function () {
         .end(done);
 
       function checkBody(res) {
-        const N3 = require('n3');
         const parser = new N3.Parser({format: 'N-Quads'});
         // If 'N3' can parse it, then it must be valid N-quads
         parser.parse(res.text);
@@ -239,8 +239,6 @@ describe('Walter', function () {
           .end(done);
 
         function check(res) {
-          const filter = require('./resources/filterT').filterT;
-
           const origLength = res.body.length;
           const filteredData = filter(res.body);
 
