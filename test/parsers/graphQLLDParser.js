@@ -2,15 +2,13 @@ require('chai').should();
 const GraphQLLDParser = require('../../lib/parsers/graphQLLDParser');
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
-
+const YAML = require('yaml');
+const fs = require('fs');
+const path = require('path');
 
 describe('GraphQLLDParser', function () {
 
   before(function () {
-    const YAML = require('yaml');
-    const fs = require('fs');
-    const path = require('path');
-
     const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
     this.yamlData = YAML.parse(file);
 
