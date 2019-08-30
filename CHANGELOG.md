@@ -35,4 +35,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLI
 
 
+[1.0.0]: https://gitlab.ilabt.imec.be/KNoWS/walter/compare/v0.0.1...v1.0.0
 [0.0.1]: https://gitlab.ilabt.imec.be/KNoWS/walter/-/tags/v0.0.1
