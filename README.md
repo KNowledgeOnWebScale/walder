@@ -129,9 +129,7 @@ This will start a server on `localhost:9000` with the following routes:
 
 * <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library
 * <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for
-* <http://localhost:9000/movies/brad_pitt_directors> - Returns a list of all movies Brad Pitt stars in with their directors
-* <http://localhost:9000/movies/brad_pitt?page=0&limit=8> - Returns a paginated list of all movies Brad Pitt stars in
-* <http://localhost:9000/movies/{actor}> - Returns a list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
+* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
 * <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 ### Content negotiation
