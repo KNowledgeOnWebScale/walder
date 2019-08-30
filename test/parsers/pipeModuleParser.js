@@ -2,19 +2,17 @@ require('chai').should();
 const PipeModuleParser = require('../../lib/parsers/pipeModuleParser');
 const Path = require('path');
 const CONFIG_FILE = '../resources/config_test_example.yaml';
+const YAML = require('yaml');
+const fs = require('fs');
 
 describe('PipeModuleParser', function () {
   {
     before(function () {
-      const YAML = require('yaml');
-      const fs = require('fs');
-      const path = require('path');
-
-      const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
+      const file = fs.readFileSync(Path.resolve(__dirname, CONFIG_FILE), 'utf8');
       this.yamlData = YAML.parse(file);
 
       this.output = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}']['get'].postprocessing,
-        path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules']));
+        Path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules']));
     });
 
     describe('#functionality()', function () {
