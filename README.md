@@ -3,8 +3,10 @@
 This is Walter  
 ![icon](https://i.ibb.co/DbSckBS/Screenshot-2019-08-30-at-13-59-02.png)
 
-Walter reads YAML config files and starts a [NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/) server
-intended for Linked Data based web applications using [GraphQL-LD](https://comunica.github.io/Article-ISWC2018-Demo-GraphQlLD/).
+Walter enables an easy way to set up and run a linked data based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, using only a configuration file describing the web server's API.
+
+Using content negotiation, Walter makes the underlying linked data resources (SPARQL, TPF, RDF files, ...) available to the clients in HTML, RDF formats and JSON-LD.
+
 
 ## Installation
 
