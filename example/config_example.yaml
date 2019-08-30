@@ -6,6 +6,76 @@ resources:
 datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
+  /movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: The page that must be shown.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+          description: Maximum number of elements to be shown on the current page.
+      query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor first:$limit offset:$offset) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      responses:
+        200: movies.pug
+  /music/{musician}:
+    get:
+      summary: Returns a list of songs of the given musician.
+      parameters:
+        - in: path
+          name: musician
+          required: true
+          schema:
+            type: string
+          description: The target musician
+      query:
+        graphql-query: >
+          {
+            label @single
+            writer(label_en: $musician)  @single
+            artist  @single(scope: all) {
+              label
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
+            }
+          }
+      responses:
+        200: songs.handlebars
   /books/harvard:
     get:
       summary: Returns a list of books by San Franciscans owned by the Harvard Library
@@ -43,114 +113,6 @@ paths:
             - http://data.linkeddatafragments.org/harvard
       responses:
         200: books.pug
-  /music/{musician}:
-    get:
-      summary: Returns a list of bands the given musician has wrote a song for.
-      query:
-        graphql-query: >
-          {
-            label @single
-            writer(label_en: "John Lennon")  @single
-            artist  @single(scope: all) {
-              label
-            }
-          }
-        json-ld-context: >
-          {
-            "@context": {
-              "label": "http://www.w3.org/2000/01/rdf-schema#label",
-              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "writer": "http://dbpedia.org/ontology/writer",
-              "artist": "http://dbpedia.org/ontology/musicalArtist"
-            }
-          }
-      responses:
-        200: songs.handlebars
-  /movies/brad_pitt_directors:
-    get:
-      summary: Returns a list of all movies Brad Pitt stars in with their directors
-      query:
-        graphql-query: >
-          {
-            label @single @id
-            director @single(scope: all) {
-             label
-            }
-            starring(label_en: "Brad Pitt")  @single
-          }
-        json-ld-context: >
-          {
-           "@context": {
-             "label": "http://www.w3.org/2000/01/rdf-schema#label",
-             "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-             "director": "http://dbpedia.org/ontology/director",
-             "starring": "http://dbpedia.org/ontology/starring"
-           }
-          }
-      responses:
-        200: movies_directors.handlebars
-  /movies/brad_pitt:
-    get:
-      summary: Returns a paginated list of all movies Brad Pitt stars in
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: integer
-            minimum: 0
-          description: The page that must be shown.
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            minimum: 1
-          description: Maximum number of elements to be shown on the current page.
-      query:
-        graphql-query: >
-          {
-            id @single
-            ... on Film{
-              starring(label: "Brad Pitt" first: $limit offset: $offset) @single
-            }
-          }
-        json-ld-context: >
-          {
-            "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
-            }
-          }
-      responses:
-        200: movies.handlebars
-  /movies/{actor}:
-    get:
-      summary: Returns a list of the all movies the given actor stars in
-      parameters:
-        - in: path
-          name: actor
-          required: true
-          schema:
-            type: string
-          description: The target actor
-      query:
-        graphql-query: >
-          {
-            id @single
-            ... on Film {
-              starring(label: $actor) @single
-            }
-          }
-        json-ld-context: >
-          {
-            "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
-            }
-          }
-      responses:
-        200: movies.pug
   /movies/{actor}/postprocessed:
     get:
       summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
