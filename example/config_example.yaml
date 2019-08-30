@@ -46,24 +46,12 @@ paths:
           schema:
             type: string
           description: The target actor
-        - in: query
-          name: page
-          schema:
-            type: integer
-            minimum: 0
-          description: The page that must be shown.
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            minimum: 1
-          description: Maximum number of elements to be shown on the current page.
       query:
         graphql-query: >
           {
             id @single
             ... on Film {
-              starring(label: $actor first:$limit offset:$offset) @single
+              starring(label: $actor) @single
             }
           }
         json-ld-context: >
@@ -79,6 +67,19 @@ paths:
   /books/harvard:
     get:
       summary: Returns a list of books by San Franciscans owned by the Harvard Library
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: The page that must be shown.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+          description: Maximum number of elements to be shown on the current page.
       query:
         graphql-query: >
           {
@@ -87,7 +88,7 @@ paths:
               name {
                 nameOf {
                   contributedTo {
-                    bookTitle
+                    bookTitle(first:$limit offset:$offset)
                   }
                 }
               }
