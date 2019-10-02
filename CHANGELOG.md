@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Logger is no longer a singleton
 
 ## [1.0.0] - 2019-08-30
 ### Added
@@ -20,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - No longer required to give types to data sources.
 
-## [0.0.1] - 2019-08-09
+## [0.0.1] - 2019-08-14
 ### Added
 - Routing
     - Parse routing information from the config file
