@@ -18,7 +18,7 @@
     "consolidate": "^0.15.1",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "graphql-ld": "^1.0.0",
+    "graphql-ld": "^1.0.1",
     "graphql-ld-comunica": "^1.0.0",
     "handlebars": "^4.1.2",
     "http-errors": "~1.6.3",
