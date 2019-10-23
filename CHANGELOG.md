@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Logger is no longer a singleton
+- Support path without query
 
 ## [1.0.0] - 2019-08-30
 ### Added
