@@ -1,0 +1,12 @@
+resources:
+  path: .
+  views: .
+paths:
+  /:
+    get:
+      summary: Show text
+      responses:
+        200: text.pug
+errors:
+  404:  error404.html
+  500:  error500.html

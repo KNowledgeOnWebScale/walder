@@ -14,8 +14,11 @@ const filter = require('./resources/filterT').filterT;
 
 const CONFIG_FILE = './resources/config_test_example.yaml';
 const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
+const CONFIG_FILE_NO_QUERY = './resources/config_test_no_query.yaml';
 
 describe('Walter', function () {
+  this.timeout(5000);
+
   describe('#Activation', function () {
     it('should throw an error when no config file is given', function () {
       expect(() => new Walter()).to.throw('Configuration file is required.')
@@ -246,6 +249,26 @@ describe('Walter', function () {
         }
       });
     })
+  });
+
+  describe('#Functionality 2', function () {
+    before('Activating Walter', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
+      const port = 9000;
+
+      this.walter = new Walter(configFile, port);
+      this.walter.activate();
+    });
+
+    after('Deactivating Walter', function () {
+      this.walter.deactivate();
+    });
+
+    it('should just return the HTML when no query is provided', function (done) {
+      request(this.walter.app)
+        .get('/')
+        .expect(200, done);
+    });
   });
 
   describe('#Error handling', function () {
