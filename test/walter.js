@@ -15,6 +15,7 @@ const filter = require('./resources/filterT').filterT;
 const CONFIG_FILE = './resources/config_test_example.yaml';
 const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
 const CONFIG_FILE_NO_QUERY = './resources/config_test_no_query.yaml';
+const CONFIG_FILE_IMAGE = './resources/config_test_image.yaml';
 
 describe('Walter', function () {
   this.timeout(5000);
@@ -251,24 +252,34 @@ describe('Walter', function () {
     })
   });
 
-  describe('#Functionality 2', function () {
-    before('Activating Walter', function () {
-      const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
-      const port = 9000;
+  it('should just return the HTML when no query is provided', function (done) {
+    const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
+    const port = 9000;
 
-      this.walter = new Walter(configFile, port);
-      this.walter.activate();
-    });
+    this.walter = new Walter(configFile, port);
+    this.walter.activate();
 
-    after('Deactivating Walter', function () {
-      this.walter.deactivate();
-    });
+    request(this.walter.app)
+      .get('/')
+      .expect(200, () => {
+        this.walter.deactivate();
+        done();
+      });
+  });
 
-    it('should just return the HTML when no query is provided', function (done) {
-      request(this.walter.app)
-        .get('/')
-        .expect(200, done);
-    });
+  it('Should return image in public folder', function (done) {
+    const configFile = path.resolve(__dirname, CONFIG_FILE_IMAGE);
+    const port = 9000;
+
+    this.walter = new Walter(configFile, port);
+    this.walter.activate();
+
+    request(this.walter.app)
+      .get('/device.jpg')
+      .expect(200, () => {
+        this.walter.deactivate();
+        done();
+      });
   });
 
   describe('#Error handling', function () {

@@ -1,0 +1,8 @@
+resources:
+  path: .
+  views: .
+  public: ./public
+paths:
+errors:
+  404:  error404.html
+  500:  error500.html
