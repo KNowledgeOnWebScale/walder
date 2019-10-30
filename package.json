@@ -21,21 +21,18 @@
     "graphql-ld": "^1.0.1",
     "graphql-ld-comunica": "^1.0.0",
     "handlebars": "^4.1.2",
-    "http-errors": "~1.6.3",
-    "is-empty": "^1.2.0",
     "jade-to-handlebars": "^2.3.0",
     "jsonld": "^1.6.2",
     "morgan": "~1.9.1",
     "n3": "^1.2.0",
     "pug": "^2.0.4",
-    "string-builder": "^0.1.6",
-    "supertest": "^4.0.2",
     "winston": "^3.2.1",
     "yaml": "^1.6.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "is-html": "^2.0.0",
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.0",
+    "supertest": "^4.0.2"
   }
 }

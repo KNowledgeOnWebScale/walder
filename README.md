@@ -252,8 +252,6 @@ errors:
 * [express](https://www.npmjs.com/package/express) - MIT
 * [graphql-ld](https://www.npmjs.com/package/graphql-ld) - MIT
 * [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) - MIT
-* [http-errors](https://www.npmjs.com/package/http-errors) - MIT
-* [is-empty](https://www.npmjs.com/package/is-empty) - MIT
 * [jsonld](https://www.npmjs.com/package/jsonld) - BSD-3-Clause
 * [Mocha](https://www.npmjs.com/package/mocha) - MIT
 * [morgan](https://www.npmjs.com/package/morgan) - MIT
