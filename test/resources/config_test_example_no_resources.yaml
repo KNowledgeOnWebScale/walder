@@ -31,7 +31,7 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-      postprocessing:
+      x-walter-postprocessing:
         filterT:
           source: filterT.js
       responses:

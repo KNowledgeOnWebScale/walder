@@ -115,7 +115,7 @@ path:  # The path linked to this query
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
         sources:  # List of query specific datasources
           - ...  # E.g. link to SPARQL endpoint
-    postprocessing:  # The (list of) pipe modules used for postprocessing
+    x-walter-postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
         soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
     responses:  # Status codes with files containing the html template (absolute path or relative to the views directory)

@@ -36,7 +36,7 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-      postprocessing:
+      x-walter-postprocessing:
         filterT:
           source: filterT.js
       responses:
@@ -71,7 +71,7 @@ paths:
           additional: true
           sources:
             - http://data.linkeddatafragments.org/harvard
-      postprocessing:
+      x-walter-postprocessing:
         filterT:
           source: filterT.js
       responses:
