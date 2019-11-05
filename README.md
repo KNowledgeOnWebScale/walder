@@ -240,10 +240,18 @@ paths:
           }
       responses:
         200: movies.pug
+          description: list of movies
+          x-walter-input-text/html: movies.pug
         500: moviesServerError.handlebars
+          description: internal movie server error
+          x-walter-input-text/html: moviesServerError.handlebars
 x-walter-errors:
-  404: error404.html
-  500: error500.html
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html
 ```
 
 ## Dependencies

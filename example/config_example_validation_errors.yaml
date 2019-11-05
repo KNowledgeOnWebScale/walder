@@ -30,4 +30,6 @@ paths:
             }
           }
       responses:
-        200: movies.pug
+        200:
+          description: list of movies
+          x-walter-input-text/html: movies.pug

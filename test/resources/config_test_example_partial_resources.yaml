@@ -39,7 +39,13 @@ paths:
         filterT:
           source: filterT.js
       responses:
-        200: list.pug
+        200:
+          description: a list
+          x-walter-input-text/html: list.pug
 x-walter-errors:
-  404:  error404.html
-  500:  error500.html
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html

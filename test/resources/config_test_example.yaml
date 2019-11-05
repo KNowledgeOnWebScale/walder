@@ -40,7 +40,9 @@ paths:
         filterT:
           source: filterT.js
       responses:
-        200: movies.pug
+        200:
+          description: list of movies
+          x-walter-input-text/html: movies.pug
   /more_movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
@@ -75,7 +77,13 @@ paths:
         filterT:
           source: filterT.js
       responses:
-        200: movies.pug
+        200:
+          description: list of movies
+          x-walter-input-text/html: movies.pug
 x-walter-errors:
-  404:  error404.html
-  500:  error500.html
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html

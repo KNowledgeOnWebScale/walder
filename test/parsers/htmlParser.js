@@ -20,7 +20,8 @@ describe('HtmlParser', function () {
           {
             '200': {
               "engine": "pug",
-              "file": path.resolve('', 'movies.pug')
+              "file": path.resolve('', 'movies.pug'),
+              "description": "list of movies"
             }
           }
         )

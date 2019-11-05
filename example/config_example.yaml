@@ -39,7 +39,9 @@ paths:
             }
           }
       responses:
-        200: songs.handlebars
+        200:
+          description: list of songs
+          x-walter-input-text/html: songs.handlebars
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
@@ -67,7 +69,9 @@ paths:
             }
           }
       responses:
-        200: movies.pug
+        200:
+          description: list of movies
+          x-walter-input-text/html: movies.pug
   /books/harvard:
     get:
       summary: Returns a list of books by San Franciscans owned by the Harvard Library
@@ -117,7 +121,9 @@ paths:
             - http://data.linkeddatafragments.org/viaf
             - http://data.linkeddatafragments.org/harvard
       responses:
-        200: books.pug
+        200:
+          description: list of books
+          x-walter-input-text/html: books.pug
   /movies/{actor}/postprocessed:
     get:
       summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
@@ -148,7 +154,13 @@ paths:
         filterT:
           source: filterT.js
       responses:
-        200: movies.pug
+        200:
+          description: list of movies
+          x-walter-input-text/html: movies.pug
 x-walter-errors:
-  404:  error404.html
-  500:  error500.html
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html
