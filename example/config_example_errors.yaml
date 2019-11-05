@@ -9,7 +9,7 @@ paths:
   /bad_query:
     get:
       summary: Returns a status 500 error page - bad query.
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single
@@ -30,7 +30,7 @@ paths:
   /bad_pipeModule:
     get:
       summary: Returns a status 500 error page - bad pipe module.
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single

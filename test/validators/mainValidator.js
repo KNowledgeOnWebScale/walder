@@ -25,7 +25,7 @@ describe('mainValidator', function () {
         const mainValidator = new MainValidator();
 
         const routeInfo = new RouteInfo(path, method);
-        const graphQLLDInfo = GraphQLLDParser.parse(yamlData.paths[path][method].query, {});
+        const graphQLLDInfo = GraphQLLDParser.parse(yamlData.paths[path][method]['x-walter-query'], {});
         const parameters = valid ? ParameterParser.parse(yamlData.paths[path][method].parameters) : {};
 
         mainValidator.validate(routeInfo, graphQLLDInfo, parameters);

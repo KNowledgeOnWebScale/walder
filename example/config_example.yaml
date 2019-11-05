@@ -16,7 +16,7 @@ paths:
           schema:
             type: string
           description: The target musician
-      query:
+      x-walter-query:
         graphql-query: >
           {
             label @single
@@ -46,7 +46,7 @@ paths:
           schema:
             type: string
           description: The target actor
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single
@@ -80,7 +80,7 @@ paths:
             type: integer
             minimum: 1
           description: Maximum number of elements to be shown on the current page.
-      query:
+      x-walter-query:
         graphql-query: >
           {
             birthPlace(label_en: "San Francisco") @single
@@ -124,7 +124,7 @@ paths:
           schema:
             type: string
           description: The target actor
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single

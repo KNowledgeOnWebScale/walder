@@ -22,7 +22,7 @@ paths:
             type: integer
             minimum: 1
           description: Maximum number of elements to be shown on the current page.
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single
@@ -50,7 +50,7 @@ paths:
           schema:
             type: string
           description: The target actor
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single
@@ -81,7 +81,7 @@ paths:
           schema:
             type: string
           description: The target actor
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single

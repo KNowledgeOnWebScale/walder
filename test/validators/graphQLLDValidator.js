@@ -22,7 +22,7 @@ describe('GraphQLValidator', function () {
       const method = 'get';
 
       this.routeInfo = new RouteInfo(path, method);
-      this.graphQLLDInfo = GraphQLLDParser.parse(yamlData.paths[path][method].query, {});
+      this.graphQLLDInfo = GraphQLLDParser.parse(yamlData.paths[path][method]['x-walter-query'], {});
       this.parameters = ParameterParser.parse(yamlData.paths[path][method].parameters);
     });
 

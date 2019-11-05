@@ -104,7 +104,7 @@ path:  # The path linked to this query
           schema:
             type: ... # Type of the parameter
           description: ...  # Description of the parameter
-    query:
+    x-walter-query:
       graphql-query: ...  # The GraphQL query
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
       datasources:  # Query specific datasources (OPTIONAL)
@@ -218,21 +218,22 @@ paths:
             minimum: 0
           description: The actor from whom the movies are requested
           required: true
-      graphql-query: >
-        {
-          id @single
-          ... on Film {
-            starring(label: $actor) @single
+      x-walter-query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
           }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "Film": "http://dbpedia.org/ontology/Film",
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "starring": "http://dbpedia.org/ontology/starring"
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
           }
-        }
       responses:
         200: movies.pug
         500: moviesServerError.handlebars

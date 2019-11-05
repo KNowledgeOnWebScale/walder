@@ -9,7 +9,7 @@ paths:
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in - will return a config file validation error
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single

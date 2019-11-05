@@ -15,7 +15,7 @@ paths:
           schema:
             type: string
           description: The target actor
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single
