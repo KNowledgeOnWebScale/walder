@@ -12,7 +12,7 @@ describe('PipeModuleParser', function () {
       this.yamlData = YAML.parse(file);
 
       this.output = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}']['get'].postprocessing,
-        Path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules']));
+        Path.resolve(this.yamlData['x-walter-resources'].path, this.yamlData['x-walter-resources']['pipe-modules']));
     });
 
     describe('#functionality()', function () {
@@ -21,7 +21,7 @@ describe('PipeModuleParser', function () {
           [
             {
               "name": "filterT",
-              "source": Path.resolve(this.yamlData.resources.path, this.yamlData.resources['pipe-modules'], 'filterT.js')
+              "source": Path.resolve(this.yamlData['x-walter-resources'].path, this.yamlData['x-walter-resources']['pipe-modules'], 'filterT.js')
             }]
         )
       });

@@ -13,7 +13,7 @@ describe('GraphQLLDParser', function () {
     this.yamlData = YAML.parse(file);
 
 
-    this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get']['x-walter-query'], this.yamlData.datasources, true);
+    this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get']['x-walter-query'], this.yamlData['x-walter-datasources'], true);
 
   });
 

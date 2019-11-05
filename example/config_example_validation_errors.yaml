@@ -1,9 +1,13 @@
-resources:
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:
   path: ./
   views: views
   pipe-modules: pipeModules
   public: public
-datasources:
+x-walter-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:

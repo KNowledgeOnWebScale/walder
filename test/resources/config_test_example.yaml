@@ -1,9 +1,13 @@
-resources:
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:
   path: ../../example
   views: views
   pipe-modules: pipeModules
   public: public
-datasources:
+x-walter-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:
@@ -72,6 +76,6 @@ paths:
           source: filterT.js
       responses:
         200: movies.pug
-errors:
+x-walter-errors:
   404:  error404.html
   500:  error500.html

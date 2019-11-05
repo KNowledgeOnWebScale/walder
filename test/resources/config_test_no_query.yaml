@@ -1,4 +1,8 @@
-resources:
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:
   path: .
   views: .
 paths:
@@ -7,6 +11,6 @@ paths:
       summary: Show text
       responses:
         200: text.pug
-errors:
+x-walter-errors:
   404:  error404.html
   500:  error500.html

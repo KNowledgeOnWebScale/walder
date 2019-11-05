@@ -62,19 +62,23 @@ walter.deactivate();  // Stops the server
 * The config file must have the following structure:
 
 ```yaml
-resources:  # Directories used by Walter - OPTIONAL
+openapi: 3.0.2
+info:  # OpenAPI metadata
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:  # Directories used by Walter - OPTIONAL
   path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
   views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
   pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
   public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
-datasources:  # Default list of datasources
+x-walter-datasources:  # Default list of datasources
   - ...  # E.g. link to SPARQL endpoint
 paths:  # List of path entries.
   path-entry-1:
     ...
   path-entry-2:
     ...
-errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
+x-walter-errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
   404: ...
   500: ...
   ...
@@ -237,7 +241,7 @@ paths:
       responses:
         200: movies.pug
         500: moviesServerError.handlebars
-errors:
+x-walter-errors:
   404: error404.html
   500: error500.html
 ```
