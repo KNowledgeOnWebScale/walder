@@ -58,7 +58,7 @@ walter.deactivate();  // Stops the server
 
 ### Config file structure
 
-* The config file is written in YAML somewhat following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
+* The config file is written in YAML following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
 * The config file must have the following structure:
 
 ```yaml
@@ -239,10 +239,10 @@ paths:
             }
           }
       responses:
-        200: movies.pug
+        200:
           description: list of movies
           x-walter-input-text/html: movies.pug
-        500: moviesServerError.handlebars
+        500:
           description: internal movie server error
           x-walter-input-text/html: moviesServerError.handlebars
 x-walter-errors:
