@@ -58,23 +58,27 @@ walter.deactivate();  // Stops the server
 
 ### Config file structure
 
-* The config file is written in YAML somewhat following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
+* The config file is written in YAML following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
 * The config file must have the following structure:
 
 ```yaml
-resources:  # Directories used by Walter - OPTIONAL
+openapi: 3.0.2
+info:  # OpenAPI metadata
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:  # Directories used by Walter - OPTIONAL
   path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
   views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
   pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
   public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
-datasources:  # Default list of datasources
+x-walter-datasources:  # Default list of datasources
   - ...  # E.g. link to SPARQL endpoint
 paths:  # List of path entries.
   path-entry-1:
     ...
   path-entry-2:
     ...
-errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
+x-walter-errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
   404: ...
   500: ...
   ...
@@ -104,14 +108,14 @@ path:  # The path linked to this query
           schema:
             type: ... # Type of the parameter
           description: ...  # Description of the parameter
-    query:
+    x-walter-query:
       graphql-query: ...  # The GraphQL query
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
         sources:  # List of query specific datasources
           - ...  # E.g. link to SPARQL endpoint
-    postprocessing:  # The (list of) pipe modules used for postprocessing
+    x-walter-postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
         soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
     responses:  # Status codes with files containing the html template (absolute path or relative to the views directory)
@@ -218,27 +222,36 @@ paths:
             minimum: 0
           description: The actor from whom the movies are requested
           required: true
-      graphql-query: >
-        {
-          id @single
-          ... on Film {
-            starring(label: $actor) @single
+      x-walter-query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
           }
-        }
-      json-ld-context: >
-        {
-          "@context": {
-            "Film": "http://dbpedia.org/ontology/Film",
-            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-            "starring": "http://dbpedia.org/ontology/starring"
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
           }
-        }
       responses:
-        200: movies.pug
-        500: moviesServerError.handlebars
-errors:
-  404: error404.html
-  500: error500.html
+        200:
+          description: list of movies
+          x-walter-input-text/html: movies.pug
+        500:
+          description: internal movie server error
+          x-walter-input-text/html: moviesServerError.handlebars
+x-walter-errors:
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html
 ```
 
 ## Dependencies

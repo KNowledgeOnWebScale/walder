@@ -1,8 +1,16 @@
-resources:
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:
   path: .
   views: .
   public: ./public
 paths:
-errors:
-  404:  error404.html
-  500:  error500.html
+x-walter-errors:
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html

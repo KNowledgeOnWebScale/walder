@@ -1,4 +1,8 @@
-datasources:
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walter-datasources:
   - http://dbpedia.org/sparql
 paths:
   /movies/{actor}:
@@ -11,7 +15,7 @@ paths:
           schema:
             type: string
           description: The target actor
-      query:
+      x-walter-query:
         graphql-query: >
           {
             id @single
@@ -27,11 +31,17 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-      postprocessing:
+      x-walter-postprocessing:
         filterT:
           source: filterT.js
       responses:
-        200: list.pug
-errors:
-  404:  error404.html
-  500:  error500.html
+        200:
+          description: a list
+          x-walter-input-text/html: list.pug
+x-walter-errors:
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html
