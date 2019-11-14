@@ -190,6 +190,19 @@ describe('Walter', function () {
         }
       });
 
+      it('should return an array of arrays when there are multiple queries', function (done) {
+        request(this.walter.app)
+          .get('/artist/David_Bowie')
+          .set('Accept', 'application/json')
+          .expect(res => {
+            assert(Array.isArray(res.body));
+            assert(res.body.length === 2);
+            assert(Array.isArray(res.body[0]));
+            assert(Array.isArray(res.body[1]));
+          })
+          .end(done);
+      });
+
       describe('###Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache
