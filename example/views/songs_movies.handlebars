@@ -8,7 +8,7 @@
 <h1>Songs & Movies</h1>
 <div>
   <ul>
-    {{#each data.[1]}}
+    {{#each data.films}}
       {{#if this.id}}
         <li>{{this.id}}</li>
       {{/if}}
@@ -17,7 +17,7 @@
 </div>
 <div>
   <ul>
-    {{#each data.[0]}}
+    {{#each data.songs}}
       {{#if this.label}}
         <li>{{this.label}}</li>
       {{/if}}

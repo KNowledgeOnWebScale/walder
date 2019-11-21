@@ -190,15 +190,14 @@ describe('Walter', function () {
         }
       });
 
-      it('should return an array of arrays when there are multiple queries', function (done) {
+      it('should return an object of arrays when there are multiple queries', function (done) {
         request(this.walter.app)
           .get('/artist/David_Bowie')
           .set('Accept', 'application/json')
           .expect(res => {
-            assert(Array.isArray(res.body));
-            assert(res.body.length === 2);
-            assert(Array.isArray(res.body[0]));
-            assert(Array.isArray(res.body[1]));
+            assert(Object.keys(res.body).length === 2);
+            assert(Array.isArray(res.body.songs));
+            assert(Array.isArray(res.body.films));
           })
           .end(done);
       });

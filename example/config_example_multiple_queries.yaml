@@ -22,7 +22,7 @@ paths:
           description: The target artist
       x-walter-query:
         graphql-query:
-          - >
+          songs: >
               {
                 label @single
                 writer(label_en: $artist)  @single
@@ -30,7 +30,7 @@ paths:
                   label
                 }
               }
-          - >
+          films: >
               {
                 id @single
                 ... on Film {
