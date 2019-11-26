@@ -10,17 +10,19 @@ const EX_1_HTML_CONVERTER_HTML_INFO = {
   engine: 'pug',
   file: Path.resolve('test/resources/movies.pug')
 };
-const EX_1_HTML_CONVERTER_DATA = [
-  {
-    id: 'http://dbpedia.org/resource/A_Mighty_Heart_(film)'
-  },
-  {
-    id: 'http://dbpedia.org/resource/Alexander_(2004_film)'
-  },
-  {
-    id: 'http://dbpedia.org/resource/Beowulf_(2007_film)'
-  }
-];
+const EX_1_HTML_CONVERTER_DATA = {
+  data: [
+    {
+      id: 'http://dbpedia.org/resource/A_Mighty_Heart_(film)'
+    },
+    {
+      id: 'http://dbpedia.org/resource/Alexander_(2004_film)'
+    },
+    {
+      id: 'http://dbpedia.org/resource/Beowulf_(2007_film)'
+    }
+  ]
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
@@ -37,20 +39,22 @@ const EX_1_RDF_CONVERTER_GRAPHQLLD = {
   }
 };
 
-const EX_1_RDF_CONVERTER_DATA = [
-  {
-    "id": "http://dbpedia.org/resource/A_Mighty_Heart_(film)",
-    "starring": "http://dbpedia.org/resource/Angelina_Jolie"
-  },
-  {
-    "id": "http://dbpedia.org/resource/Alexander_(2004_film)",
-    "starring": "http://dbpedia.org/resource/Angelina_Jolie"
-  },
-  {
-    "id": "http://dbpedia.org/resource/Beowulf_(2007_film)",
-    "starring": "http://dbpedia.org/resource/Angelina_Jolie"
-  }
-];
+const EX_1_RDF_CONVERTER_DATA = {
+  data: [
+    {
+      "id": "http://dbpedia.org/resource/A_Mighty_Heart_(film)",
+      "starring": "http://dbpedia.org/resource/Angelina_Jolie"
+    },
+    {
+      "id": "http://dbpedia.org/resource/Alexander_(2004_film)",
+      "starring": "http://dbpedia.org/resource/Angelina_Jolie"
+    },
+    {
+      "id": "http://dbpedia.org/resource/Beowulf_(2007_film)",
+      "starring": "http://dbpedia.org/resource/Angelina_Jolie"
+    }
+  ]
+};
 
 
 module.exports = {
