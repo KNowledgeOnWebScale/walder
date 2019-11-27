@@ -121,7 +121,7 @@ describe('Walter', function () {
       function checkBody(res) {
         const parser = new N3.Parser({format: 'Turtle'});
         // If 'N3' can parse it, then it must be valid turtle
-        parser.parse(res.text);
+        assert(parser.parse(res.text).length > 0);
       }
     });
 
@@ -136,7 +136,7 @@ describe('Walter', function () {
       function checkBody(res) {
         const parser = new N3.Parser({format: 'N-Triples'});
         // If 'N3' can parse it, then it must be valid N-triples
-        parser.parse(res.text);
+        assert(parser.parse(res.text).length > 0);
       }
     });
 
@@ -151,7 +151,7 @@ describe('Walter', function () {
       function checkBody(res) {
         const parser = new N3.Parser({format: 'N-Quads'});
         // If 'N3' can parse it, then it must be valid N-quads
-        parser.parse(res.text);
+        assert(parser.parse(res.text).length > 0);
       }
     });
   });
@@ -213,7 +213,7 @@ describe('Walter', function () {
         function checkBody(res) {
           const parser = new N3.Parser({format: 'N-Quads'});
           // If 'N3' can parse it, then it must be valid N-quads
-          parser.parse(res.text);
+          assert(parser.parse(res.text).length > 0);
         }
       });
 
