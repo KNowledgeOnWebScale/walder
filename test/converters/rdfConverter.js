@@ -36,7 +36,7 @@ describe('RdfConverter', function () {
         (data) => {
           const parser = new N3.Parser({format: 'Turtle'});
           // If 'N3' can parse it, then it must be valid turtle
-          parser.parse(data);
+          assert(parser.parse(data).length > 0);
         })
     });
 
@@ -48,7 +48,7 @@ describe('RdfConverter', function () {
         (data) => {
           const parser = new N3.Parser({format: 'N-Triples'});
           // If 'N3' can parse it, then it must be valid N-triples
-          parser.parse(data);
+          assert(parser.parse(data).length > 0);
         })
     });
 
@@ -60,7 +60,7 @@ describe('RdfConverter', function () {
         (data) => {
           const parser = new N3.Parser({format: 'N-Quads'});
           // If 'N3' can parse it, then it must be valid turtle
-          parser.parse(data);
+          assert(parser.parse(data).length > 0);
         })
     });
   })

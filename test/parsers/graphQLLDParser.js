@@ -37,7 +37,7 @@ describe('GraphQLLDParser', function () {
               "starring": "http://dbpedia.org/ontology/starring"
             }
           },
-          "query": "{ id @single ... on Film { starring(label: $actor) @single }}",
+          "queries": { 'data': "{ id @single ... on Film { starring(label: $actor) @single }}" },
         }
       )
     });
@@ -48,7 +48,7 @@ describe('GraphQLLDParser', function () {
       this.output.should.have.property('cache');
       this.output.should.have.property('comunicaConfig');
       this.output.should.have.property('context');
-      this.output.should.have.property('query');
+      this.output.should.have.property('queries');
     })
   });
 });

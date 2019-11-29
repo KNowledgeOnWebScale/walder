@@ -121,7 +121,7 @@ describe('Walter', function () {
       function checkBody(res) {
         const parser = new N3.Parser({format: 'Turtle'});
         // If 'N3' can parse it, then it must be valid turtle
-        parser.parse(res.text);
+        assert(parser.parse(res.text).length > 0);
       }
     });
 
@@ -136,7 +136,7 @@ describe('Walter', function () {
       function checkBody(res) {
         const parser = new N3.Parser({format: 'N-Triples'});
         // If 'N3' can parse it, then it must be valid N-triples
-        parser.parse(res.text);
+        assert(parser.parse(res.text).length > 0);
       }
     });
 
@@ -151,7 +151,7 @@ describe('Walter', function () {
       function checkBody(res) {
         const parser = new N3.Parser({format: 'N-Quads'});
         // If 'N3' can parse it, then it must be valid N-quads
-        parser.parse(res.text);
+        assert(parser.parse(res.text).length > 0);
       }
     });
   });
@@ -186,7 +186,34 @@ describe('Walter', function () {
           .end(done);
 
         function checkBody(res) {
-          assert(Array.isArray(res.body), 'GraphQL-LD query not correctly executed');
+          assert(res.body && Array.isArray(res.body.data), 'GraphQL-LD query not correctly executed');
+        }
+      });
+
+      it('should return an object of arrays when there are multiple queries', function (done) {
+        request(this.walter.app)
+          .get('/artist/David_Bowie')
+          .set('Accept', 'application/json')
+          .expect(res => {
+            assert(Object.keys(res.body).length === 2);
+            assert(Array.isArray(res.body.songs));
+            assert(Array.isArray(res.body.films));
+          })
+          .end(done);
+      });
+
+      it('should return valid RDF when there are multiple queries', function (done) {
+        request(this.walter.app)
+          .get('/artist/David_Bowie')
+          .set('Accept', 'application/n-quads')
+          .expect('Content-Type', /application\/n-quads/)
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          const parser = new N3.Parser({format: 'N-Quads'});
+          // If 'N3' can parse it, then it must be valid N-quads
+          assert(parser.parse(res.text).length > 0);
         }
       });
 
@@ -243,8 +270,8 @@ describe('Walter', function () {
           .end(done);
 
         function check(res) {
-          const origLength = res.body.length;
-          const filteredData = filter(res.body);
+          const origLength = res.body.data.length;
+          const filteredData = filter(res.body.data);
 
           assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
         }

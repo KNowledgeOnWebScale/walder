@@ -1,0 +1,62 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walter-resources:
+  path: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walter-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /artist/{artist}:
+    get:
+      # Working example: David Bowie
+      summary: Returns a list of songs and movies for a given artist.
+      parameters:
+        - in: path
+          name: artist
+          required: true
+          schema:
+            type: string
+          description: The target artist
+      x-walter-query:
+        graphql-query:
+          songs: >
+              {
+                label @single
+                writer(label_en: $artist)  @single
+                artist  @single(scope: all) {
+                  label
+                }
+              }
+          films: >
+              {
+                id @single
+                ... on Film {
+                  starring(label_en: $artist) @single
+                }
+              }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist",
+              "Film": "http://dbpedia.org/ontology/Film",
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      responses:
+        200:
+          description: list of songs and movies
+          x-walter-input-text/html: songs_movies.handlebars
+x-walter-errors:
+  404:
+    description: page not found error
+    x-walter-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walter-input-text/html: error500.html

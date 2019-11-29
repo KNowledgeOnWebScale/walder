@@ -109,7 +109,7 @@ path:  # The path linked to this query
             type: ... # Type of the parameter
           description: ...  # Description of the parameter
     x-walter-query:
-      graphql-query: ...  # The GraphQL query
+      graphql-query: ...  # One or more GraphQL queries
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
