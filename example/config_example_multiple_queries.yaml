@@ -12,6 +12,7 @@ x-walter-datasources:
 paths:
   /artist/{artist}:
     get:
+      # Working example: David Bowie
       summary: Returns a list of songs and movies for a given artist.
       parameters:
         - in: path
