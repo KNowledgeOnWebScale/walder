@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   title: 'Example site'
   version: 0.1.0
-x-walter-resources:
+x-walder-resources:
   path: .
   views: .
 paths:
@@ -12,11 +12,11 @@ paths:
       responses:
         200:
           description: a text
-          x-walter-input-text/html: text.pug
-x-walter-errors:
+          x-walder-input-text/html: text.pug
+x-walder-errors:
   404:
     description: page not found error
-    x-walter-input-text/html: error404.html
+    x-walder-input-text/html: error404.html
   500:
     description: internal server error
-    x-walter-input-text/html: error500.html
+    x-walder-input-text/html: error500.html

@@ -1,13 +1,13 @@
 {
-  "name": "walter",
+  "name": "walder",
   "version": "1.0.0",
-  "main": "./lib/walter",
+  "main": "./lib/walder",
   "scripts": {
-    "start": "node ./bin/walter.js",
+    "start": "node ./bin/walder.js",
     "test": "mocha --recursive \"./test/\" --timeout 5000 "
   },
   "bin": {
-    "walter": "./bin/walter.js"
+    "walder": "./bin/walder.js"
   },
   "dependencies": {
     "@comunica/core": "^1.9.0",

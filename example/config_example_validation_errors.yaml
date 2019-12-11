@@ -2,18 +2,18 @@ openapi: 3.0.2
 info:
   title: 'Example site'
   version: 0.1.0
-x-walter-resources:
+x-walder-resources:
   path: ./
   views: views
   pipe-modules: pipeModules
   public: public
-x-walter-datasources:
+x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in - will return a config file validation error
-      x-walter-query:
+      x-walder-query:
         graphql-query: >
           {
             id @single
@@ -32,4 +32,4 @@ paths:
       responses:
         200:
           description: list of movies
-          x-walter-input-text/html: movies.pug
+          x-walder-input-text/html: movies.pug

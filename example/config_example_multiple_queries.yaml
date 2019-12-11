@@ -2,12 +2,12 @@ openapi: 3.0.2
 info:
   title: 'Example site'
   version: 0.1.0
-x-walter-resources:
+x-walder-resources:
   path: ./
   views: views
   pipe-modules: pipeModules
   public: public
-x-walter-datasources:
+x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /artist/{artist}:
@@ -21,7 +21,7 @@ paths:
           schema:
             type: string
           description: The target artist
-      x-walter-query:
+      x-walder-query:
         graphql-query:
           songs: >
               {
@@ -52,11 +52,11 @@ paths:
       responses:
         200:
           description: list of songs and movies
-          x-walter-input-text/html: songs_movies.handlebars
-x-walter-errors:
+          x-walder-input-text/html: songs_movies.handlebars
+x-walder-errors:
   404:
     description: page not found error
-    x-walter-input-text/html: error404.html
+    x-walder-input-text/html: error404.html
   500:
     description: internal server error
-    x-walter-input-text/html: error500.html
+    x-walder-input-text/html: error500.html

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const Walter = require('../lib/walter');
+const Walder = require('../lib/walder');
 const program = require('commander');
 const utils = require('../lib/utils');
 const pjson = require('../package');
@@ -18,5 +18,5 @@ if (!program.config) {
   utils.printError('Error:\n\t-c --config <configFile> required. Use -h for more info.');
 }
 
-const walter = new Walter(program.config, program.port, program.log, program.cache);
-walter.activate();
+const walder = new Walder(program.config, program.port, program.log, program.cache);
+walder.activate();
