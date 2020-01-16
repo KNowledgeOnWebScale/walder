@@ -8,7 +8,7 @@ const isHTML = require('is-html');
 const jsonld = require('jsonld');
 const N3 = require('n3');
 
-const Walter = require('../lib/walter');
+const Walder = require('../lib/walder');
 const GraphQLLDHandler = require('../lib/handlers/graphQLLDHandler');
 const filter = require('./resources/filterT').filterT;
 
@@ -17,43 +17,43 @@ const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
 const CONFIG_FILE_NO_QUERY = './resources/config_test_no_query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config_test_image.yaml';
 
-describe('Walter', function () {
+describe('Walder', function () {
   this.timeout(5000);
 
   describe('#Activation', function () {
     it('should throw an error when no config file is given', function () {
-      expect(() => new Walter()).to.throw('Configuration file is required.')
+      expect(() => new Walder()).to.throw('Configuration file is required.')
     });
 
     it('should be listening on the given port', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      const walter = new Walter(configFile, port);
-      walter.activate();
+      const walder = new Walder(configFile, port);
+      walder.activate();
 
-      walter.server.listening.should.equal(true);
-      walter.server.address().port.should.equal(port);
+      walder.server.listening.should.equal(true);
+      walder.server.address().port.should.equal(port);
 
-      walter.deactivate();
+      walder.deactivate();
     });
   });
 
   describe('#Content negotiation', function () {
-    before('Activating Walter', function () {
+    before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      this.walter = new Walter(configFile, port);
-      this.walter.activate();
+      this.walder = new Walder(configFile, port);
+      this.walder.activate();
     });
 
-    after('Deactivating Walter', function () {
-      this.walter.deactivate();
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
     });
 
     it('should serve text/html when no content-type is specified by the client', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .expect('Content-Type', /text\/html/)
         .expect(checkBody)
@@ -66,7 +66,7 @@ describe('Walter', function () {
 
     it('should return status 415 and the response should have properties { status, message ) ' +
       'when an invalid content-type is requested', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'INVALID-CONTENT-TYPE')
         .expect(checkBody)
@@ -80,7 +80,7 @@ describe('Walter', function () {
     });
 
     it('should be able to serve text/html when requested', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'text/html')
         .expect('Content-Type', /text\/html/)
@@ -93,7 +93,7 @@ describe('Walter', function () {
     });
 
     it('should be able to serve application/ld+json when requested', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'application/ld+json')
         .expect('Content-Type', /application\/ld\+json/)
@@ -111,7 +111,7 @@ describe('Walter', function () {
     });
 
     it('should be able to serve text/turtle when requested', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'text/turtle')
         .expect('Content-Type', /text\/turtle/)
@@ -126,7 +126,7 @@ describe('Walter', function () {
     });
 
     it('should be able to serve application/n-triples when requested', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'application/n-triples')
         .expect('Content-Type', /application\/n-triples/)
@@ -141,7 +141,7 @@ describe('Walter', function () {
     });
 
     it('should be able to serve application/n-quads when requested', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .set('Accept', 'application/n-quads')
         .expect('Content-Type', /application\/n-quads/)
@@ -157,21 +157,21 @@ describe('Walter', function () {
   });
 
   describe('#Functionality', function () {
-    before('Activating Walter', function () {
+    before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      this.walter = new Walter(configFile, port);
-      this.walter.activate();
+      this.walder = new Walder(configFile, port);
+      this.walder.activate();
     });
 
-    after('Deactivating Walter', function () {
-      this.walter.deactivate();
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
     });
 
     describe('##Express', function () {
       it('should make the routes specified in the config file available', function (done) {
-        request(this.walter.app)
+        request(this.walder.app)
           .get('/movies/Angelina_Jolie')
           .expect(200, done);
       });
@@ -179,7 +179,7 @@ describe('Walter', function () {
 
     describe('##GraphQL-LD', function () {
       it('should execute the GraphQL-LD queries linked to a route', function (done) {
-        request(this.walter.app)
+        request(this.walder.app)
           .get('/movies/Angelina_Jolie')
           .set('Accept', 'application/json')
           .expect(checkBody)
@@ -191,7 +191,7 @@ describe('Walter', function () {
       });
 
       it('should return an object of arrays when there are multiple queries', function (done) {
-        request(this.walter.app)
+        request(this.walder.app)
           .get('/artist/David_Bowie')
           .set('Accept', 'application/json')
           .expect(res => {
@@ -203,7 +203,7 @@ describe('Walter', function () {
       });
 
       it('should return valid RDF when there are multiple queries', function (done) {
-        request(this.walter.app)
+        request(this.walder.app)
           .get('/artist/David_Bowie')
           .set('Accept', 'application/n-quads')
           .expect('Content-Type', /application\/n-quads/)
@@ -222,19 +222,19 @@ describe('Walter', function () {
           // Do two requests with the same data sources, only one query engine should be found in the cache
           const graphQLLHandler = new GraphQLLDHandler();
 
-          request(this.walter.app)
+          request(this.walder.app)
             .get('/movies/Angelina_Jolie')
             .end((err, res) => {
 
               if (err) throw err;
 
-              request(this.walter.app)
+              request(this.walder.app)
                 .get('/movies/Angelina_Jolie')
                 .end((err, res) => {
 
                   if (err) throw err;
 
-                  Object.keys(this.walter.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(1);
+                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(1);
                   done();
                 });
             });
@@ -242,17 +242,17 @@ describe('Walter', function () {
 
         it('should not reuse a comunica query engine when the datasources haven\'t been used before', function (done) {
           // Do two requests with different data sources, two query engines should be found in the cache
-          request(this.walter.app)
+          request(this.walder.app)
             .get('/movies/Angelina_Jolie')
             .end((err, res) => {
               if (err) throw err;
 
-              request(this.walter.app)
+              request(this.walder.app)
                 .get('/more_movies/Angelina_Jolie')
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(this.walter.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(2);
+                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(2);
                   done();
                 });
             });
@@ -263,7 +263,7 @@ describe('Walter', function () {
 
     describe('##PipeModules', function () {
       it('should apply the specified pipe modules', function (done) {
-        request(this.walter.app)
+        request(this.walder.app)
           .get('/movies/Angelina_Jolie')
           .set('Accept', 'application/json')
           .expect(check)
@@ -283,13 +283,13 @@ describe('Walter', function () {
     const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
     const port = 9000;
 
-    this.walter = new Walter(configFile, port);
-    this.walter.activate();
+    this.walder = new Walder(configFile, port);
+    this.walder.activate();
 
-    request(this.walter.app)
+    request(this.walder.app)
       .get('/')
       .expect(200, () => {
-        this.walter.deactivate();
+        this.walder.deactivate();
         done();
       });
   });
@@ -298,51 +298,51 @@ describe('Walter', function () {
     const configFile = path.resolve(__dirname, CONFIG_FILE_IMAGE);
     const port = 9000;
 
-    this.walter = new Walter(configFile, port);
-    this.walter.activate();
+    this.walder = new Walder(configFile, port);
+    this.walder.activate();
 
-    request(this.walter.app)
+    request(this.walder.app)
       .get('/device.jpg')
       .expect(200, () => {
-        this.walter.deactivate();
+        this.walder.deactivate();
         done();
       });
   });
 
   describe('#Error handling', function () {
-    before('Activating Walter', function () {
+    before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE_ERRORS);
       const port = 9000;
 
-      this.walter = new Walter(configFile, port);
-      this.walter.activate();
+      this.walder = new Walder(configFile, port);
+      this.walder.activate();
     });
 
-    after('Deactivating Walter', function () {
-      this.walter.deactivate();
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
     });
 
     it('should return status 404 when requesting a nonexistent page', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/thisPageSurelyDoesNotExist')
         .expect(404)
         .end(done);
     });
 
     it('should return status 500 when pipe modules could not be applied', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/Angelina_Jolie')
         .expect(500)
         .end(done);
     });
     it('should return status 500 when the GraphQL-LD query could not be executed', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/badmovies/Angelina_Jolie')
         .expect(500)
         .end(done);
     });
     it('should return status 404 when the GraphQL-LD query\'s required variables were not given', function (done) {
-      request(this.walter.app)
+      request(this.walder.app)
         .get('/movies/brad_pitt')
         .expect(404)
         .end(done);

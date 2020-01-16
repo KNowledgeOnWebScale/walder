@@ -1,11 +1,11 @@
-# Walter
+# Walder
 
-This is Walter  
+This is Walder  
 ![icon](https://i.ibb.co/DbSckBS/Screenshot-2019-08-30-at-13-59-02.png)
 
-Walter enables an easy way to set up and run a linked data based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, using only a configuration file describing the web server's API.
+Walder enables an easy way to set up and run a linked data based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, using only a configuration file describing the web server's API.
 
-Using content negotiation, Walter makes the underlying linked data resources (SPARQL, TPF, RDF files, ...) available to the clients in HTML, RDF formats and JSON-LD.
+Using content negotiation, Walder makes the underlying linked data resources (SPARQL, TPF, RDF files, ...) available to the clients in HTML, RDF formats and JSON-LD.
 
 
 ## Installation
@@ -17,18 +17,18 @@ Using content negotiation, Walter makes the underlying linked data resources (SP
 
 (To be used during development.)
 
-Running the following command in the project's root will install walter globally on your system:
+Running the following command in the project's root will install walder globally on your system:
 
 `$ yarn global add file:$(pwd)`
 
 ## Usage
 
-Walter is supposed to be used using the CLI but can also be activated using the programmatic API.
+Walder is supposed to be used using the CLI but can also be activated using the programmatic API.
 
 ### CLI
 
 ```bash
-Usage: node bin/walter.js [options]
+Usage: node bin/walder.js [options]
 
 Options:
   -v, --version              output the version number
@@ -43,17 +43,17 @@ Options:
 
 ```js
 // From the root directory
-const Walter = require('.');
+const Walder = require('.');
 
 const configFilePath = '.../...';
 const portNumber = 9000; // Defaults to 3000 if not passed
 const logging = 'info'; // Defaults to 'info' if not passed
 const cache = false;  // Defaults to true if not passed
 
-const walter = new Walter(configFilePath, portNumber, logging, cache);
+const walder = new Walder(configFilePath, portNumber, logging, cache);
 
-walter.activate();    // Starts the server
-walter.deactivate();  // Stops the server
+walder.activate();    // Starts the server
+walder.deactivate();  // Stops the server
 ```
 
 ### Config file structure
@@ -66,19 +66,19 @@ openapi: 3.0.2
 info:  # OpenAPI metadata
   title: 'Example site'
   version: 0.1.0
-x-walter-resources:  # Directories used by Walter - OPTIONAL
-  path:  # Path to the root folder of the directories used by Walter (absolute or relative to the directory containing the config file) - OPTIONAL
+x-walder-resources:  # Directories used by Walder - OPTIONAL
+  path:  # Path to the root folder of the directories used by Walder (absolute or relative to the directory containing the config file) - OPTIONAL
   views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
   pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
   public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
-x-walter-datasources:  # Default list of datasources
+x-walder-datasources:  # Default list of datasources
   - ...  # E.g. link to SPARQL endpoint
 paths:  # List of path entries.
   path-entry-1:
     ...
   path-entry-2:
     ...
-x-walter-errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
+x-walder-errors: # Default error page views - status codes with files containing the html template (absolute path or relative to the views directory)
   404: ...
   500: ...
   ...
@@ -86,13 +86,13 @@ x-walter-errors: # Default error page views - status codes with files containing
 
 #### Resources
 
-The resources section of the config file is meant to contain paths to directories used by Walter.
+The resources section of the config file is meant to contain paths to directories used by Walder.
 
 ##### Defaults
 
 The resources section and it's field are optional. If no paths are given, default values are used which lead to using the current working directory as the resource directory.
 
-To prevent the wrong files from being made public by Walter, when no path is given to the `public` field, Walter creates a new directory `public` if none is found in the CWD and uses that one.
+To prevent the wrong files from being made public by Walder, when no path is given to the `public` field, Walder creates a new directory `public` if none is found in the CWD and uses that one.
 
 #### Path entry
 
@@ -108,14 +108,14 @@ path:  # The path linked to this query
           schema:
             type: ... # Type of the parameter
           description: ...  # Description of the parameter
-    x-walter-query:
+    x-walder-query:
       graphql-query: ...  # One or more GraphQL queries
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
         sources:  # List of query specific datasources
           - ...  # E.g. link to SPARQL endpoint
-    x-walter-postprocessing:  # The (list of) pipe modules used for postprocessing
+    x-walder-postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
         soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
     responses:  # Status codes with files containing the html template (absolute path or relative to the views directory)
@@ -129,7 +129,7 @@ path:  # The path linked to this query
 
 The following command starts a server on port 9000 using an example config file.
 
-`$ node bin/walter.js -c example/config_example.yaml -p 9000`
+`$ node bin/walder.js -c example/config_example.yaml -p 9000`
 
 This will start a server on `localhost:9000` with the following routes:
 
@@ -140,7 +140,7 @@ This will start a server on `localhost:9000` with the following routes:
 
 ### Content negotiation
 
-Using content negotiation, Walter makes the following output formats available:
+Using content negotiation, Walder makes the following output formats available:
 
 * 'text/html'
 * 'application/ld+json'
@@ -150,18 +150,18 @@ Using content negotiation, Walter makes the following output formats available:
 
 #### RDF
 
-Since Walter uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) to execute the GraphQL queries, which returns JSON data, Walter first converts it into JSON-LD. This enables easy conversion to other RDF formats.
+Since Walder uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) to execute the GraphQL queries, which returns JSON data, Walder first converts it into JSON-LD. This enables easy conversion to other RDF formats.
 
 ### HTML templates
 
-Walter uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
+Walder uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) are dependent on consolidate.
 
-Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walter does this all by just looking at the file extension of the given template, no further specification required!
+Different template engines can be used for different routes, e.g. one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), while another one's can be rendered using [handlebars](https://handlebarsjs.com/). Walder does this all by just looking at the file extension of the given template, no further specification required!
 
 ## Input validation
 
-While parsing the config file, Walter also validates the correctness and completeness of the input.
-When the whole config file is parsed and errors were found, Walter returns all errors and deactivates.
+While parsing the config file, Walder also validates the correctness and completeness of the input.
+When the whole config file is parsed and errors were found, Walder returns all errors and deactivates.
  
 Currently the following is validated:
 
@@ -189,9 +189,9 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 ### Example
 
-When activating Walter using the the following command:
+When activating Walder using the the following command:
 
-`$ node bin/walter.js -c example/config_example_errors.yaml -p 9000`
+`$ node bin/walder.js -c example/config_example_errors.yaml -p 9000`
 
 the following paths lead to errors:
 
@@ -206,7 +206,7 @@ the following paths lead to errors:
 
 The following config file excerpt will use the path specific `moviesServerError.handlebars` template on errors leading to status code `500` when navigating to `/movies`.
 
-When the required query parameter `actor` is not passed, the status code `404` is returned. Walter will use the default `error404.html` file since no path specific html template is given for the corresponding status.
+When the required query parameter `actor` is not passed, the status code `404` is returned. Walder will use the default `error404.html` file since no path specific html template is given for the corresponding status.
 
 ```yaml
 ...
@@ -222,7 +222,7 @@ paths:
             minimum: 0
           description: The actor from whom the movies are requested
           required: true
-      x-walter-query:
+      x-walder-query:
         graphql-query: >
           {
             id @single
@@ -241,17 +241,17 @@ paths:
       responses:
         200:
           description: list of movies
-          x-walter-input-text/html: movies.pug
+          x-walder-input-text/html: movies.pug
         500:
           description: internal movie server error
-          x-walter-input-text/html: moviesServerError.handlebars
-x-walter-errors:
+          x-walder-input-text/html: moviesServerError.handlebars
+x-walder-errors:
   404:
     description: page not found error
-    x-walter-input-text/html: error404.html
+    x-walder-input-text/html: error404.html
   500:
     description: internal server error
-    x-walter-input-text/html: error500.html
+    x-walder-input-text/html: error500.html
 ```
 
 ## Dependencies

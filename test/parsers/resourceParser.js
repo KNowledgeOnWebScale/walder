@@ -15,7 +15,7 @@ describe('ResourceParser', function () {
       const file = fs.readFileSync(Path.resolve(CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
 
-      this.output = ResourceParser.parse(yamlData['x-walter-resources'], CONFIG_FILE);
+      this.output = ResourceParser.parse(yamlData['x-walder-resources'], CONFIG_FILE);
     });
 
     afterEach(function () {
