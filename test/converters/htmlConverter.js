@@ -5,6 +5,9 @@ const HtmlConverter = require('../../lib/converters/htmlConverter');
 const EX_1_HTML_INFO = require('../resources/exampleData').EX_1_HTML_CONVERTER_HTML_INFO;
 const EX_1_DATA = require('../resources/exampleData').EX_1_HTML_CONVERTER_DATA;
 const EX_2_HTML_INFO = require('../resources/exampleData').EX_2_HTML_CONVERTER_HTML_INFO;
+const EX_3_HTML_INFO = require('../resources/exampleData').EX_3_HTML_CONVERTER_HTML_INFO;
+const EX_3_DATA = require('../resources/exampleData').EX_3_HTML_CONVERTER_DATA;
+const EX_3_OUTPUT = require('../resources/exampleData').EX_3_HTML_CONVERTER_OUTPUT;
 
 describe('HtmlConverter', function () {
 
@@ -22,6 +25,14 @@ describe('HtmlConverter', function () {
     it('should be able to convert the given Markdown to HTML', function (done) {
       HtmlConverter.convert(EX_2_HTML_INFO, null, (html) => {
         isHTML(html).should.be.true;
+        done();
+      })
+    });
+
+    it('should be able to convert the given Pug with front matter to HTML', function (done) {
+      HtmlConverter.convert(EX_3_HTML_INFO, EX_3_DATA, (html) => {
+        isHTML(html).should.be.true;
+        html.should.deep.equal(EX_3_OUTPUT);
         done();
       })
     });

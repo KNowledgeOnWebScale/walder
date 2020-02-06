@@ -29,6 +29,15 @@ const EX_2_HTML_CONVERTER_HTML_INFO = {
   file: Path.resolve('test/resources/test.md')
 };
 
+const EX_3_HTML_CONVERTER_HTML_INFO = {
+  engine: 'pug',
+  file: Path.resolve('test/resources/book.pug')
+};
+const EX_3_HTML_CONVERTER_DATA = {
+  description: 'Test description.'
+};
+const EX_3_HTML_CONVERTER_OUTPUT = '<h1>My book</h1><div>Test description.</div>';
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
 //                                                    RdfConverter                                                    //
@@ -66,6 +75,9 @@ module.exports = {
   EX_1_HTML_CONVERTER_HTML_INFO,
   EX_1_HTML_CONVERTER_DATA,
   EX_2_HTML_CONVERTER_HTML_INFO,
+  EX_3_HTML_CONVERTER_HTML_INFO,
+  EX_3_HTML_CONVERTER_DATA,
+  EX_3_HTML_CONVERTER_OUTPUT,
   EX_1_RDF_CONVERTER_GRAPHQLLD,
   EX_1_RDF_CONVERTER_DATA,
 };
