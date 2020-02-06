@@ -24,6 +24,11 @@ const EX_1_HTML_CONVERTER_DATA = {
   ]
 };
 
+const EX_2_HTML_CONVERTER_HTML_INFO = {
+  engine: 'md',
+  file: Path.resolve('test/resources/test.md')
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
 //                                                    RdfConverter                                                    //
@@ -60,6 +65,7 @@ const EX_1_RDF_CONVERTER_DATA = {
 module.exports = {
   EX_1_HTML_CONVERTER_HTML_INFO,
   EX_1_HTML_CONVERTER_DATA,
+  EX_2_HTML_CONVERTER_HTML_INFO,
   EX_1_RDF_CONVERTER_GRAPHQLLD,
-  EX_1_RDF_CONVERTER_DATA
+  EX_1_RDF_CONVERTER_DATA,
 };
