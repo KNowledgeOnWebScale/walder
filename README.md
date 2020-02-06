@@ -28,7 +28,7 @@ Walder is supposed to be used using the CLI but can also be activated using the 
 ### CLI
 
 ```bash
-Usage: node bin/walder.js [options]
+Usage: node bin/cli.js [options]
 
 Options:
   -v, --version              output the version number
@@ -129,7 +129,7 @@ path:  # The path linked to this query
 
 The following command starts a server on port 9000 using an example config file.
 
-`$ node bin/walder.js -c example/config_example.yaml -p 9000`
+`$ node bin/cli.js -c example/config_example.yaml -p 9000`
 
 This will start a server on `localhost:9000` with the following routes:
 
@@ -191,7 +191,7 @@ Error pages are bound to a certain HTTP status code. Users can define default er
 
 When activating Walder using the the following command:
 
-`$ node bin/walder.js -c example/config_example_errors.yaml -p 9000`
+`$ node bin/cli.js -c example/config_example_errors.yaml -p 9000`
 
 the following paths lead to errors:
 
