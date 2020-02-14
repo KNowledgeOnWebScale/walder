@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "./lib/walder",
   "scripts": {
-    "start": "node ./bin/walder.js",
+    "start": "node ./bin/cli.js",
     "test": "mocha --recursive \"./test/\" --timeout 5000 "
   },
   "bin": {
-    "walder": "./bin/walder.js"
+    "walder": "./bin/cli.js"
   },
   "dependencies": {
     "@comunica/core": "^1.9.0",

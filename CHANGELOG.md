@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Serving static files
 - Cleaned up imports
 - Yaml format now conforms to OpenAPI spec
+- Renamed project to Walder
 
 ## [1.0.0] - 2019-08-30
 ### Added
