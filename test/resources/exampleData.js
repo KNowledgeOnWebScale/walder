@@ -38,6 +38,14 @@ const EX_3_HTML_CONVERTER_DATA = {
 };
 const EX_3_HTML_CONVERTER_OUTPUT = '<h1>My book</h1><div>Test description.</div>';
 
+const EX_4_HTML_CONVERTER_HTML_INFO = {
+  engine: 'md',
+  file: Path.resolve('test/resources/test-layout.md')
+};
+const EX_4_HTML_CONVERTER_OUTPUT = '<!DOCTYPE html><html lang="en"><head><title>Layout</title></head><body><h1>Introduction</h1>\n' +
+  '<p>This is an introduction to something cool.</p>\n' +
+  '</body></html>';
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
 //                                                    RdfConverter                                                    //
@@ -78,6 +86,8 @@ module.exports = {
   EX_3_HTML_CONVERTER_HTML_INFO,
   EX_3_HTML_CONVERTER_DATA,
   EX_3_HTML_CONVERTER_OUTPUT,
+  EX_4_HTML_CONVERTER_HTML_INFO,
+  EX_4_HTML_CONVERTER_OUTPUT,
   EX_1_RDF_CONVERTER_GRAPHQLLD,
   EX_1_RDF_CONVERTER_DATA,
 };
