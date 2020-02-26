@@ -1,0 +1,17 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  path: .
+  views: views
+  pipe-modules: pipeModules
+  public: public
+paths:
+  /:
+    get:
+      summary: Returns simple page based on Markdown with a layout in Pug
+      responses:
+        200:
+          description: Simple page
+          x-walder-input-text/html: text.md

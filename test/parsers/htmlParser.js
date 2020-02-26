@@ -11,7 +11,7 @@ describe('HtmlParser', function () {
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
 
-      this.output = HtmlParser.parse(yamlData.paths['/movies/{actor}']['get'].responses, '');
+      this.output = HtmlParser.parse(yamlData.paths['/movies/{actor}']['get'].responses, '', '');
     });
 
     describe('#functionality()', function () {
@@ -21,7 +21,8 @@ describe('HtmlParser', function () {
             '200': {
               "engine": "pug",
               "file": path.resolve('', 'movies.pug'),
-              "description": "list of movies"
+              "description": "list of movies",
+              "layoutsDir": ""
             }
           }
         )
