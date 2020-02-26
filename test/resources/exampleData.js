@@ -1,4 +1,4 @@
-const Path = require('path');
+const path = require('path');
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
@@ -8,7 +8,7 @@ const Path = require('path');
 
 const EX_1_HTML_CONVERTER_HTML_INFO = {
   engine: 'pug',
-  file: Path.resolve('test/resources/movies.pug')
+  file: path.resolve('test/resources/movies.pug')
 };
 const EX_1_HTML_CONVERTER_DATA = {
   data: [
@@ -26,12 +26,12 @@ const EX_1_HTML_CONVERTER_DATA = {
 
 const EX_2_HTML_CONVERTER_HTML_INFO = {
   engine: 'md',
-  file: Path.resolve('test/resources/test.md')
+  file: path.resolve('test/resources/test.md')
 };
 
 const EX_3_HTML_CONVERTER_HTML_INFO = {
   engine: 'pug',
-  file: Path.resolve('test/resources/book.pug')
+  file: path.resolve('test/resources/book.pug')
 };
 const EX_3_HTML_CONVERTER_DATA = {
   description: 'Test description.'
@@ -40,7 +40,8 @@ const EX_3_HTML_CONVERTER_OUTPUT = '<h1>My book</h1><div>Test description.</div>
 
 const EX_4_HTML_CONVERTER_HTML_INFO = {
   engine: 'md',
-  file: Path.resolve('test/resources/test-layout.md')
+  file: path.resolve('test/resources/test-layout.md'),
+  layoutsDir: path.resolve('test/resources/')
 };
 const EX_4_HTML_CONVERTER_OUTPUT = '<!DOCTYPE html><html lang="en"><head><title>Layout</title></head><body><h1>Introduction</h1>\n' +
   '<p>This is an introduction to something cool.</p>\n' +

@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Cleaned up imports
 - Yaml format now conforms to OpenAPI spec
 - Renamed project to Walder
+- Layout dir not set (see [issue 84](https://gitlab.ilabt.imec.be/KNoWS/walder/issues/84))
 
 ## [1.0.0] - 2019-08-30
 ### Added

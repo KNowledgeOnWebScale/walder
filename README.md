@@ -67,10 +67,11 @@ info:  # OpenAPI metadata
   title: 'Example site'
   version: 0.1.0
 x-walder-resources:  # Directories used by Walder - OPTIONAL
-  path:  # Path to the root folder of the directories used by Walder (absolute or relative to the directory containing the config file) - OPTIONAL
-  views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL
-  pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL
-  public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL
+  path:  # Path to the root folder of the directories used by Walder (absolute or relative to the directory containing the config file) - OPTIONAL (default: .)
+  views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL (default: .)
+  pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL (default: .)
+  public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL (default: ./public)
+  layouts: # Path to directory containing all files that can be used by template files (absolute or relative to the root folder) - OPTIONAL (default: ./layouts)
 x-walder-datasources:  # Default list of datasources
   - ...  # E.g. link to SPARQL endpoint
 paths:  # List of path entries.

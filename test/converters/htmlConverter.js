@@ -45,7 +45,7 @@ describe('HtmlConverter', function () {
         isHTML(html).should.be.true;
         html.should.deep.equal(EX_4_OUTPUT);
         done();
-      }, path.join(__dirname, '../resources'))
+      })
     });
   })
 });
