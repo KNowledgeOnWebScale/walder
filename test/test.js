@@ -7,6 +7,7 @@ const path = require('path');
 const isHTML = require('is-html');
 const jsonld = require('jsonld');
 const N3 = require('n3');
+const fs = require('fs-extra');
 
 const Walder = require('../lib/walder');
 const GraphQLLDHandler = require('../lib/handlers/graphQLLDHandler');
@@ -347,5 +348,59 @@ describe('Walder', function () {
         .expect(404)
         .end(done);
     });
-  })
+  });
+
+  describe('#Layouts', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, 'resources/layouts-test/config.yaml');
+      const port = 9000;
+
+      this.walder = new Walder(configFile, port);
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    it('should use layout', function (done) {
+      request(this.walder.app)
+        .get('/')
+        .expect('Content-Type', /text\/html/)
+        .end(async (err, res) => {
+          const actualOutput = res.text.replace(/\n/g,'');
+          let expectedOutput = await fs.readFile(path.resolve(__dirname, 'resources/layouts-test/expected-output.html'), 'utf8');
+          expectedOutput = expectedOutput.replace(/\n/g,'');
+          expect(actualOutput).to.equal(expectedOutput);
+          done();
+        });
+    });
+  });
+
+  describe('#Pug', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, 'resources/pug-include-test/config.yaml');
+      const port = 9000;
+
+      this.walder = new Walder(configFile, port);
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    it('should use include', function (done) {
+      request(this.walder.app)
+        .get('/')
+        .expect('Content-Type', /text\/html/)
+        .end(async (err, res) => {
+          const actualOutput = res.text.replace(/\n/g,'');
+          let expectedOutput = await fs.readFile(path.resolve(__dirname, 'resources/pug-include-test/expected-output.html'), 'utf8');
+          expectedOutput = expectedOutput.replace(/\n/g,'');
+          expect(actualOutput).to.equal(expectedOutput);
+          done();
+        });
+    });
+  });
 });
