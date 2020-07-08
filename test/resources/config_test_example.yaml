@@ -36,6 +36,10 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
+        options:
+          selectors:
+            - value: id
+              order: desc
       x-walder-postprocessing:
         filterT:
           source: filterT.js
@@ -118,6 +122,10 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
+        options:
+          duplicates:
+            object: songs
+            selector: label
       responses:
         200:
           description: list of songs and movies

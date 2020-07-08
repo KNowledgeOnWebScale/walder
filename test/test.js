@@ -218,6 +218,20 @@ describe('Walder', function () {
         }
       });
 
+      it('should sort the data in descending order when the option is given', function (done) {
+        request(this.walder.app)
+            .get('/movies/Angelina_Jolie')
+            .set('Accept', 'application/json')
+            .expect(checkBody)
+            .end(done);
+
+        function checkBody(res) {
+          for(let i = 0; i < res.body.data.length - 1; i++) {
+            assert(res.body.data[i]['id'] < res.body.data[i+1]['id'], 'data is not sorted in descending order');
+          }
+        }
+      })
+
       describe('###Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache
@@ -368,9 +382,11 @@ describe('Walder', function () {
         .get('/')
         .expect('Content-Type', /text\/html/)
         .end(async (err, res) => {
-          const actualOutput = res.text.replace(/\n/g,'');
+          let actualOutput = res.text.replace(/\n/g,'');
+          actualOutput = actualOutput.replace(/\r/g,'');
           let expectedOutput = await fs.readFile(path.resolve(__dirname, 'resources/layouts-test/expected-output.html'), 'utf8');
           expectedOutput = expectedOutput.replace(/\n/g,'');
+          expectedOutput = expectedOutput.replace(/\r/g,'');
           expect(actualOutput).to.equal(expectedOutput);
           done();
         });
@@ -395,9 +411,11 @@ describe('Walder', function () {
         .get('/')
         .expect('Content-Type', /text\/html/)
         .end(async (err, res) => {
-          const actualOutput = res.text.replace(/\n/g,'');
+          let actualOutput = res.text.replace(/\n/g,'');
+          actualOutput = actualOutput.replace(/\r/g,'');
           let expectedOutput = await fs.readFile(path.resolve(__dirname, 'resources/pug-include-test/expected-output.html'), 'utf8');
           expectedOutput = expectedOutput.replace(/\n/g,'');
+          expectedOutput = expectedOutput.replace(/\r/g,'');
           expect(actualOutput).to.equal(expectedOutput);
           done();
         });

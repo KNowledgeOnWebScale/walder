@@ -49,6 +49,15 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
+        options:
+          sort:
+            object: songs
+            selectors:
+              - value: label
+                order: desc
+          duplicates:
+            object: songs
+            selector: label
       responses:
         200:
           description: list of songs and movies
