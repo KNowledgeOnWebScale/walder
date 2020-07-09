@@ -43,7 +43,7 @@ paths:
             selectors:
               - value: label
                 order: desc
-          duplicates:
+          remove-duplicates:
             selector: label
       responses:
         200:

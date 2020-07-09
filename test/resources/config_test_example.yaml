@@ -37,9 +37,10 @@ paths:
             }
           }
         options:
-          selectors:
-            - value: id
-              order: desc
+          sort:
+            selectors:
+              - value: id
+                order: desc
       x-walder-postprocessing:
         filterT:
           source: filterT.js
@@ -96,7 +97,8 @@ paths:
           description: The target artist
       x-walder-query:
         graphql-query:
-          songs: >
+          songs:
+            query: >
               {
                 label @single
                 writer(label_en: $artist)  @single
@@ -104,6 +106,9 @@ paths:
                   label
                 }
               }
+            options:
+              remove-duplicates:
+                  selector: label
           films: >
               {
                 id @single
@@ -122,10 +127,6 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-        options:
-          duplicates:
-            object: songs
-            selector: label
       responses:
         200:
           description: list of songs and movies

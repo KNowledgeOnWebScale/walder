@@ -37,15 +37,21 @@ describe('GraphQLLDParser', function () {
               "starring": "http://dbpedia.org/ontology/starring"
             }
           },
-          "options": {
-            "selectors": [
-              {
-                "order": "desc",
-                "value": "id"
-              }
-            ]
-          },
-          "queries": { 'data': "{ id @single ... on Film { starring(label: $actor) @single }}" },
+          "queries":
+              { 'data':
+                    { "query":
+                          "{ id @single ... on Film { starring(label: $actor) @single }}",
+                      "options": {
+                        "sort": {
+                          "selectors": [
+                            {
+                              "order": "desc",
+                              "value": "id"
+                            }
+                          ]
+                        }
+                      }
+                    }},
         }
       )
     });

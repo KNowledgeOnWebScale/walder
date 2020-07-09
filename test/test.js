@@ -227,8 +227,26 @@ describe('Walder', function () {
 
         function checkBody(res) {
           for(let i = 0; i < res.body.data.length - 1; i++) {
-            assert(res.body.data[i]['id'] < res.body.data[i+1]['id'], 'data is not sorted in descending order');
+            assert(res.body.data[i]['id'] >= res.body.data[i+1]['id'], 'data is not sorted in descending order');
           }
+        }
+      })
+
+      it('should remove duplicates out of the data when the option is given', function (done) {
+        request(this.walder.app)
+            .get('/artist/David_Bowie')
+            .set('Accept', 'application/json')
+            .expect(checkBody)
+            .end(done);
+
+        function checkBody(res) {
+          let uniqueLabel = [];
+          for (const item of res.body.songs){
+            if (uniqueLabel.indexOf(item.label) === -1){
+              uniqueLabel.push(item.label);
+            }
+          }
+          assert(uniqueLabel.length === res.body.songs.length, 'there are still duplicates in the data');
         }
       })
 
