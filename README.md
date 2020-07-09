@@ -112,6 +112,14 @@ path:  # The path linked to this query
     x-walder-query:
       graphql-query: ...  # One or more GraphQL queries
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
+      options: # Global options that will be applied to all the graphql-queries (OPTIONAL)
+        sort: # Enable sorting on the data (OPTIONAL)
+          selectors: # The objects over which you want to sort
+            - ... # Default when you want ascending order
+            - value: ...  # When you want descending order, specify the value/order
+              order: desc 
+        remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
+          selector: ... # The object that has to be compared to determine whether it's duplicate
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
         sources:  # List of query specific datasources
@@ -124,7 +132,35 @@ path:  # The path linked to this query
       500: ...  # (OPTIONAL)
 ```
 
+### Options
 
+In the path entry above, options is defined as a global (optional) identifier. If you don't want the option to be global, one can also define options per query.
+Just like so:
+
+```yaml
+path:  # The path linked to this query
+  request:  # The HTTP request type (GET, POST, etc.)
+    summary: ...  # Short description
+     parameters:  # Path variables/Query parameters
+        - in: ...  # 'path' or 'query'
+          name: ...  # Name of the parameter
+          schema:
+            type: ... # Type of the parameter
+          description: ...  # Description of the parameter
+    x-walder-query:
+      graphql-query: ...  # One or more GraphQL queries
+        name:
+          query: ... # The GraphQL query
+          options: # options that will be applied only to this specific graphql-query (OPTIONAL)
+                  sort: # Enable sorting on the data (OPTIONAL)
+                    selectors: # The objects over which you want to sort
+                      - ... # Default when you want ascending order
+                      - value: ...  # When you want descending order, specify the value/order
+                        order: desc 
+                  remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
+                    selector: ... # The object that has to be compared to determine whether it's duplicate
+...
+```
 
 ### Example
 
@@ -135,7 +171,7 @@ The following command starts a server on port 9000 using an example config file.
 This will start a server on `localhost:9000` with the following routes:
 
 * <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library
-* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for
+* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Sorted in a descending manner by song name and removed duplicates as well.
 * <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
 * <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
