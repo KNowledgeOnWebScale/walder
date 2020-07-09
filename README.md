@@ -112,14 +112,7 @@ path:  # The path linked to this query
     x-walder-query:
       graphql-query: ...  # One or more GraphQL queries
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
-      options: # Global options that will be applied to all the graphql-queries (OPTIONAL)
-        sort: # Enable sorting on the data (OPTIONAL)
-          selectors: # The objects over which you want to sort
-            - ... # Default when you want ascending order
-            - value: ...  # When you want descending order, specify the value/order
-              order: desc 
-        remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
-          selector: ... # The object that has to be compared to determine whether it's duplicate
+      options: # Global options that will be applied to all the graphql-queries of this path (OPTIONAL)
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
         sources:  # List of query specific datasources
@@ -132,10 +125,43 @@ path:  # The path linked to this query
       500: ...  # (OPTIONAL)
 ```
 
+### Example
+
+The following command starts a server on port 9000 using an example config file.
+
+`$ node bin/cli.js -c example/config_example.yaml -p 9000`
+
+This will start a server on `localhost:9000` with the following routes:
+
+* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library
+* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for.
+* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
+* <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
+
 ### Options
 
-In the path entry above, options is defined as a global (optional) identifier. If you don't want the option to be global, one can also define options per query.
-Just like so:
+In the path entry above, options is defined as a global (optional) identifier that is being used by every query of that path.
+We have two options where we can choose from: 'sort' and 'remove-duplicates'. With given syntax:
+
+```yaml
+options:
+  sort: # Enable sorting on the data (OPTIONAL)
+    selectors: # The objects over which you want to sort
+      - ... # The default option when you want ascending order, just give the selector
+      - selector: ...  # When you want descending order, specify the selector/order
+        order: desc
+      - object: # When you want to sort with a selector that's inside an object
+        value: ...  # value of the object 
+        selector: ... # the selector inside the object, this can also be 'object:' again, if it's nested again
+        order: desc # if the ordering is descending (OPTIONAL)
+  remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
+    selector: ... # The object that has to be compared to determine whether it's duplicate
+    object: # When the object that has to be compared is inside another object
+      value: ... # The value of the object it is inside of it
+      selector: ... # The object that has to be compared,  can also again be 'object':, if it's more nested
+```
+
+If you don't want the options to be global for the whole path, one can also define options per query.
 
 ```yaml
 path:  # The path linked to this query
@@ -152,28 +178,20 @@ path:  # The path linked to this query
         name:
           query: ... # The GraphQL query
           options: # options that will be applied only to this specific graphql-query (OPTIONAL)
-            sort: # Enable sorting on the data (OPTIONAL)
-              selectors: # The objects over which you want to sort
-                - ... # Default when you want ascending order
-                - value: ...  # When you want descending order, specify the value/order
-                  order: desc 
-            remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
-              selector: ... # The object that has to be compared to determine whether it's duplicate
 ...
 ```
 
-### Example
+### Options example
 
-The following command starts a server on port 9000 using an example config file.
+The following command starts a server on port 9000 using a sorting/duplicate-removal config file.
 
-`$ node bin/cli.js -c example/config_example.yaml -p 9000`
+`$ node bin/cli.js -c example/config_example_sorting_duplicates.yaml -p 9000`
 
 This will start a server on `localhost:9000` with the following routes:
 
-* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library
-* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Sorted in a descending manner by song name and removed duplicates as well.
-* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
-* <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
+* <http://localhost:9000/music/{musician}/sorted> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Sorted in descending order by song number.
+* <http://localhost:9000/music/{musician}/no_duplicates> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Where all the duplicate song numbers are removed from the list.
+* <http://localhost:9000/movies/{musician}/everything_together> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Ordered in an ascending way by song number and removed the duplicate artists who performed a track written by the musician.
 
 ### Content negotiation
 
