@@ -154,7 +154,7 @@ paths:
         options:
           sort:
             selectors:
-              - value: label
+              - selector: label
                 order: desc
           remove-duplicates:
             selector: label

@@ -69,7 +69,7 @@ describe('GraphQLLDParser', function () {
                       "sort": {
                           "selectors": [
                               {
-                                  "value": "label",
+                                  "selector": "label",
                                   "order": "desc"
                               }
                           ]
