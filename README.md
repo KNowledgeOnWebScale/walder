@@ -152,13 +152,13 @@ path:  # The path linked to this query
         name:
           query: ... # The GraphQL query
           options: # options that will be applied only to this specific graphql-query (OPTIONAL)
-                  sort: # Enable sorting on the data (OPTIONAL)
-                    selectors: # The objects over which you want to sort
-                      - ... # Default when you want ascending order
-                      - value: ...  # When you want descending order, specify the value/order
-                        order: desc 
-                  remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
-                    selector: ... # The object that has to be compared to determine whether it's duplicate
+            sort: # Enable sorting on the data (OPTIONAL)
+              selectors: # The objects over which you want to sort
+                - ... # Default when you want ascending order
+                - value: ...  # When you want descending order, specify the value/order
+                  order: desc 
+            remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
+              selector: ... # The object that has to be compared to determine whether it's duplicate
 ...
 ```
 
