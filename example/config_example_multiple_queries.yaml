@@ -32,13 +32,6 @@ paths:
                   label
                 }
               }
-            options:
-              sort:
-                selectors:
-                  - value: label
-                    order: desc
-              remove-duplicates:
-                selector: label
           films: >
               {
                 id @single

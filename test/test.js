@@ -220,33 +220,33 @@ describe('Walder', function () {
 
       it('should sort the data in descending order when the option is given', function (done) {
         request(this.walder.app)
-            .get('/movies/Angelina_Jolie')
+            .get('/music/John_Lennon')
             .set('Accept', 'application/json')
             .expect(checkBody)
             .end(done);
 
         function checkBody(res) {
           for(let i = 0; i < res.body.data.length - 1; i++) {
-            assert(res.body.data[i]['id'] >= res.body.data[i+1]['id'], 'data is not sorted in descending order');
+            assert(res.body.data[i].label >= res.body.data[i+1].label, 'data is not sorted in descending order');
           }
         }
       })
 
       it('should remove duplicates out of the data when the option is given', function (done) {
         request(this.walder.app)
-            .get('/artist/David_Bowie')
+            .get('/music/John_Lennon')
             .set('Accept', 'application/json')
             .expect(checkBody)
             .end(done);
 
         function checkBody(res) {
           let uniqueLabel = [];
-          for (const item of res.body.songs){
+          for (const item of res.body.data){
             if (uniqueLabel.indexOf(item.label) === -1){
               uniqueLabel.push(item.label);
             }
           }
-          assert(uniqueLabel.length === res.body.songs.length, 'there are still duplicates in the data');
+          assert(uniqueLabel.length === res.body.data.length, 'there are still duplicates in the data');
         }
       })
 

@@ -38,13 +38,6 @@ paths:
               "artist": "http://dbpedia.org/ontology/musicalArtist"
             }
           }
-        options:
-          sort:
-            selectors:
-              - value: label
-                order: desc
-          remove-duplicates:
-            selector: label
       responses:
         200:
           description: list of songs

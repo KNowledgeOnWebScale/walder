@@ -36,11 +36,6 @@ paths:
               "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-        options:
-          sort:
-            selectors:
-              - value: id
-                order: desc
       x-walder-postprocessing:
         filterT:
           source: filterT.js
@@ -106,9 +101,6 @@ paths:
                   label
                 }
               }
-            options:
-              remove-duplicates:
-                  selector: label
           films: >
               {
                 id @single
@@ -131,6 +123,45 @@ paths:
         200:
           description: list of songs and movies
           x-walder-input-text/html: songs_movies.handlebars
+  /music/{musician}:
+    get:
+      summary: Returns a list of songs of the given musician, sorted by the label of the song and removes duplicates from the list.
+      parameters:
+        - in: path
+          name: musician
+          required: true
+          schema:
+            type: string
+          description: The target musician
+      x-walder-query:
+        graphql-query: >
+          {
+            label @single
+            writer(label_en: $musician)  @single
+            artist  @single(scope: all) {
+              label
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
+            }
+          }
+        options:
+          sort:
+            selectors:
+              - value: label
+                order: desc
+          remove-duplicates:
+            selector: label
+      responses:
+        200:
+          description: list of songs
+          x-walder-input-text/html: songs.handlebars
 x-walder-errors:
   404:
     description: page not found error
