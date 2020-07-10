@@ -12,6 +12,7 @@ x-walder-datasources:
 paths:
   /music/{musician}/sorted:
     get:
+      # Working example: John Lennon
       summary: Returns a list of songs of the given musician, sorted in descending order by song label.
       parameters:
         - in: path
@@ -50,6 +51,7 @@ paths:
 
   /music/{musician}/no_duplicates:
     get:
+      # Working example: John Lennon
       summary: Returns a list of songs of the given musician, where duplicate songe names are removed.
       parameters:
         - in: path
@@ -86,6 +88,7 @@ paths:
 
   /music/{musician}/everything_together:
     get:
+      # Working example: John Lennon
       summary: Returns a list of songs of the given musician, sorted in ascending order by label of the song and duplicate artists labels are removed.
       parameters:
         - in: path
@@ -124,6 +127,60 @@ paths:
         200:
           description: list of songs
           x-walder-input-text/html: songs.handlebars
+
+  /artist/{artist}:
+    get:
+      # Working example: David Bowie
+      summary: Returns a list of songs and movies for a given artist. Where duplicate songs are removed and the movies are ordered by id in descending manner.
+      parameters:
+        - in: path
+          name: artist
+          required: true
+          schema:
+            type: string
+          description: The target artist
+      x-walder-query:
+        graphql-query:
+          songs:
+            query: >
+              {
+                label @single
+                writer(label_en: $artist)  @single
+                artist  @single(scope: all) {
+                  label
+                }
+              }
+            options:
+              remove-duplicates:
+                selector: label
+          films:
+            query: >
+              {
+                id @single
+                ... on Film {
+                  starring(label_en: $artist) @single
+                }
+              }
+            options:
+              sort:
+                selectors:
+                  - selector: id
+                    order: desc
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist",
+              "Film": "http://dbpedia.org/ontology/Film",
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      responses:
+        200:
+          description: list of songs and movies
+          x-walder-input-text/html: songs_movies.handlebars
 
 x-walder-errors:
   404:

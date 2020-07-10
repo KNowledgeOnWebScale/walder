@@ -192,6 +192,7 @@ This will start a server on `localhost:9000` with the following routes:
 * <http://localhost:9000/music/{musician}/sorted> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Sorted in descending order by song number.
 * <http://localhost:9000/music/{musician}/no_duplicates> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Where all the duplicate song numbers are removed from the list.
 * <http://localhost:9000/movies/{musician}/everything_together> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Ordered in an ascending way by song number and removed the duplicate artists who performed a track written by the musician.
+* <http://localhost:9000/artist/{artist}> - Returns a list of songs and movies for a given artist (e.g. `David Bowie`). Where duplicate songs are removed and the movies are ordered by id in descending manner.
 
 ### Content negotiation
 
