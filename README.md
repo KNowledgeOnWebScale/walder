@@ -150,15 +150,16 @@ options:
       - ... # The default option when you want ascending order, just give the selector
       - selector: ...  # When you want descending order, specify the selector/order
         order: desc
-      - object: # When you want to sort with a selector that's inside an object
-        value: ...  # value of the object 
-        selector: ... # the selector inside the object, this can also be 'object:' again, if it's nested again
+      - value: ... # When you want to sort with a selector that's inside an object
         order: desc # if the ordering is descending (OPTIONAL)
+        selector: ... # the selector inside the object OR nothing and another value/selector pair if it's more nested
+          value: ... # if there is more nesting
+          selector: ...
   remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
-    selector: ... # The object that has to be compared to determine whether it's duplicate
-    object: # When the object that has to be compared is inside another object
+    value: ... # When the object that has to be compared is inside another object (OPTIONAL)
+    selector: ... # The object that has to be compared to determine whether it's duplicate OR nothing and another value/selector pair if it's more nested
       value: ... # The value of the object it is inside of it
-      selector: ... # The object that has to be compared,  can also again be 'object':, if it's more nested
+      selector: ... # The object that has to be compared
 ```
 
 If you don't want the options to be global for the whole path, one can also define options per query.

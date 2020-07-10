@@ -120,7 +120,6 @@ paths:
             selectors:
               - label
           remove-duplicates:
-            object:
               value: artist
               selector: label
       responses:
