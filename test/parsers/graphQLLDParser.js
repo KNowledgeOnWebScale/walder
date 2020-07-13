@@ -67,15 +67,17 @@ describe('GraphQLLDParser', function () {
                   "query": "{ label @single writer(label_en: $musician) @single artist @single(scope: all) { label }}",
                   "options": {
                       "sort": {
+                          "object": "$[*]",
                           "selectors": [
                               {
-                                  "selector": "label",
+                                  "value": "label",
                                   "order": "desc"
                               }
                           ]
                       },
                       "remove-duplicates": {
-                          "selector": "label"
+                          "object": "$[*]",
+                          "value": "label"
                       }
                   }
               }

@@ -133,9 +133,9 @@ The following command starts a server on port 9000 using an example config file.
 
 This will start a server on `localhost:9000` with the following routes:
 
-* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library
+* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library.
 * <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for.
-* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
+* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in.
 * <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
 
 ### Options
@@ -146,20 +146,14 @@ We have two options where we can choose from: 'sort' and 'remove-duplicates'. Wi
 ```yaml
 options:
   sort: # Enable sorting on the data (OPTIONAL)
-    selectors: # The objects over which you want to sort
-      - ... # The default option when you want ascending order, just give the selector
-      - selector: ...  # When you want descending order, specify the selector/order
+    object: # JSONPath to the object you want to sort for
+    selectors: # The values inside the object over which you want to sort
+      - ... # The default option when you want ascending order, just give the value 
+      - value: ...  # When you want descending order, specify the value/order
         order: desc
-      - value: ... # When you want to sort with a selector that's inside an object
-        order: desc # if the ordering is descending (OPTIONAL)
-        selector: ... # the selector inside the object OR nothing and another value/selector pair if it's more nested
-          value: ... # if there is more nesting
-          selector: ...
   remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
-    value: ... # When the object that has to be compared is inside another object (OPTIONAL)
-    selector: ... # The object that has to be compared to determine whether it's duplicate OR nothing and another value/selector pair if it's more nested
-      value: ... # The value of the object it is inside of it
-      selector: ... # The object that has to be compared
+    object: ... # The JSONPath tot the object that you want to compare
+    value: ... # The value that has to be compared to determine whether it's duplicate (JSONPath notation is also supported for further nesting)
 ```
 
 If you don't want the options to be global for the whole path, one can also define options per query.

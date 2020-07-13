@@ -153,11 +153,13 @@ paths:
           }
         options:
           sort:
+            object: $[*]
             selectors:
-              - selector: label
+              - value: label
                 order: desc
           remove-duplicates:
-            selector: label
+            object: $[*]
+            value: label
       responses:
         200:
           description: list of songs

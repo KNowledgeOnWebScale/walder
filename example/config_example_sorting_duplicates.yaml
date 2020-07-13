@@ -41,8 +41,9 @@ paths:
           }
         options:
           sort:
+            object: $[*]
             selectors:
-              - selector: label
+              - value: label
                 order: desc
       responses:
         200:
@@ -80,7 +81,8 @@ paths:
           }
         options:
           remove-duplicates:
-            selector: label
+            object: $[*]
+            value: label
       responses:
         200:
           description: list of songs
@@ -117,11 +119,12 @@ paths:
           }
         options:
           sort:
+            object: $[*]
             selectors:
               - label
           remove-duplicates:
-              value: artist
-              selector: label
+              object: $[*].artist
+              value: label
       responses:
         200:
           description: list of songs
@@ -151,7 +154,8 @@ paths:
               }
             options:
               remove-duplicates:
-                selector: label
+                object: $[*]
+                value: label
           films:
             query: >
               {
@@ -162,8 +166,9 @@ paths:
               }
             options:
               sort:
+                object: $[*]
                 selectors:
-                  - selector: id
+                  - value: id
                     order: desc
         json-ld-context: >
           {
