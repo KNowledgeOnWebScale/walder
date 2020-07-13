@@ -141,15 +141,15 @@ This will start a server on `localhost:9000` with the following routes:
 ### Options
 
 In the path entry above, options is defined as a global (optional) identifier that is being used by every query of that path.
-We have two options where we can choose from: 'sort' and 'remove-duplicates'. With given syntax:
+We have two options where we can choose from: `sort` and `remove-duplicates`. With given syntax:
 
 ```yaml
 options:
   sort: # Enable sorting on the data (OPTIONAL)
     object: # JSONPath to the object you want to sort for
     selectors: # The values inside the object over which you want to sort
-      - ... # The default option when you want ascending order, just give the value 
-      - value: ...  # When you want descending order, specify the value/order
+      - ... # The default option when you want ascending order, just give the value (JSONPath notation supported for further nesting)
+      - value: ...  # When you want descending order, specify the value/order (JSONPath notation supported for further nesting)
         order: desc
   remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
     object: ... # The JSONPath tot the object that you want to compare
