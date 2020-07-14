@@ -178,7 +178,7 @@ path:  # The path linked to this query
 
 ### Options example
 
-The following command starts a server on port 9000 using a sorting/duplicate-removal config file.
+The following command starts a server on port 9000 using [this](example/config_example_sorting_duplicates.yaml) config file.
 
 `$ node bin/cli.js -c example/config_example_sorting_duplicates.yaml -p 9000`
 

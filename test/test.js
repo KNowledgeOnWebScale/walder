@@ -220,7 +220,7 @@ describe('Walder', function () {
 
       it('should sort the data in descending order when the option is given', function (done) {
         request(this.walder.app)
-            .get('/music/John_Lennon')
+            .get('/music/John_Lennon/sorted')
             .set('Accept', 'application/json')
             .expect(checkBody)
             .end(done);
@@ -234,7 +234,7 @@ describe('Walder', function () {
 
       it('should remove duplicates out of the data when the option is given', function (done) {
         request(this.walder.app)
-            .get('/music/John_Lennon')
+            .get('/music/John_Lennon/no_duplicates')
             .set('Accept', 'application/json')
             .expect(checkBody)
             .end(done);

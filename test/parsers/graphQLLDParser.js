@@ -14,7 +14,8 @@ describe('GraphQLLDParser', function () {
 
 
     this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get']['x-walder-query'], this.yamlData['x-walder-datasources'], true);
-    this.global_options_output = GraphQLLDParser.parse(this.yamlData.paths['/music/{musician}']['get']['x-walder-query'], this.yamlData['x-walder-datasources'], true);
+    this.sorting_options_output = GraphQLLDParser.parse(this.yamlData.paths['/music/{musician}/sorted']['get']['x-walder-query'], this.yamlData['x-walder-datasources'], true);
+    this.duplicate_removal_options_output = GraphQLLDParser.parse(this.yamlData.paths['/music/{musician}/no_duplicates']['get']['x-walder-query'], this.yamlData['x-walder-datasources'], true);
   });
 
   describe('#functionality()', function () {
@@ -42,8 +43,8 @@ describe('GraphQLLDParser', function () {
       )
     });
 
-    it('should be able to parse sorting/duplicate-removal options correctly from a YAML config file', function () {
-      this.global_options_output.should.eql(
+    it('should be able to parse sorting options correctly from a YAML config file', function () {
+      this.sorting_options_output.should.eql(
           {
             "cache": true,
             "comunicaConfig": {
@@ -74,10 +75,6 @@ describe('GraphQLLDParser', function () {
                                   "order": "desc"
                               }
                           ]
-                      },
-                      "remove-duplicates": {
-                          "object": "$[*]",
-                          "value": "label"
                       }
                   }
               }
@@ -85,6 +82,41 @@ describe('GraphQLLDParser', function () {
           }
       )
     });
+
+    it('should be able to parse duplicate removal options correctly from a YAML config file', function () {
+          this.duplicate_removal_options_output.should.eql(
+              {
+                  "cache": true,
+                  "comunicaConfig": {
+                      "sources": [
+                          "http://fragments.dbpedia.org/2016-04/en"
+                      ]
+                  },
+                  "context": {
+                      "@context": {
+                          "label": "http://www.w3.org/2000/01/rdf-schema#label",
+                          "label_en": {
+                              "@id": "http://www.w3.org/2000/01/rdf-schema#label",
+                              "@language": "en"
+                          },
+                          "writer": "http://dbpedia.org/ontology/writer",
+                          "artist": "http://dbpedia.org/ontology/musicalArtist"
+                      }
+                  },
+                  "queries": {
+                      "data": {
+                          "query": "{ label @single writer(label_en: $musician) @single artist @single(scope: all) { label }}",
+                          "options": {
+                              "remove-duplicates": {
+                                  "object": "$[*]",
+                                  "value": "label"
+                              }
+                          }
+                      }
+                  }
+              }
+          )
+      });
   });
 
     describe('#outputFormat()', function () {
