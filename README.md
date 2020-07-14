@@ -112,6 +112,7 @@ path:  # The path linked to this query
     x-walder-query:
       graphql-query: ...  # One or more GraphQL queries
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
+      options: # Global options that will be applied to all the graphql-queries of this path (OPTIONAL)
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
         sources:  # List of query specific datasources
@@ -124,8 +125,6 @@ path:  # The path linked to this query
       500: ...  # (OPTIONAL)
 ```
 
-
-
 ### Example
 
 The following command starts a server on port 9000 using an example config file.
@@ -134,10 +133,61 @@ The following command starts a server on port 9000 using an example config file.
 
 This will start a server on `localhost:9000` with the following routes:
 
-* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library
-* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for
-* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in
+* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library.
+* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for.
+* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in.
 * <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
+
+### Options
+
+In the path entry above, options is defined as a global (optional) identifier that is being used by every query of that path.
+We have two options where we can choose from: `sort` and `remove-duplicates`. With given syntax:
+
+```yaml
+options:
+  sort: # Enable sorting on the data (OPTIONAL)
+    object: # JSONPath to the object you want to sort for
+    selectors: # The values inside the object over which you want to sort
+      - ... # The default option when you want ascending order, just give the value (JSONPath notation supported for further nesting)
+      - value: ...  # When you want descending order, specify the value/order (JSONPath notation supported for further nesting)
+        order: desc
+  remove-duplicates: # Enable the removal of duplicates of the data (OPTIONAL)
+    object: ... # The JSONPath tot the object that you want to compare
+    value: ... # The value that has to be compared to determine whether it's duplicate (JSONPath notation is also supported for further nesting)
+```
+
+If you don't want the options to be global for the whole path, one can also define options per query.
+
+```yaml
+path:  # The path linked to this query
+  request:  # The HTTP request type (GET, POST, etc.)
+    summary: ...  # Short description
+     parameters:  # Path variables/Query parameters
+        - in: ...  # 'path' or 'query'
+          name: ...  # Name of the parameter
+          schema:
+            type: ... # Type of the parameter
+          description: ...  # Description of the parameter
+    x-walder-query:
+      graphql-query: ...  # One or more GraphQL queries
+        name:
+          query: ... # The GraphQL query
+          options: # options that will be applied only to this specific graphql-query (OPTIONAL)
+...
+```
+
+### Options example
+
+The following command starts a server on port 9000 using [this](example/config_example_sorting_duplicates.yaml) config file.
+
+`$ node bin/cli.js -c example/config_example_sorting_duplicates.yaml -p 9000`
+
+This will start a server on `localhost:9000` with the following routes:
+
+* <http://localhost:9000/music/{musician}/sorted> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Sorted in descending order by song number.
+* <http://localhost:9000/music/{musician}/no_duplicates> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Where all the duplicate song numbers are removed from the list.
+* <http://localhost:9000/movies/{musician}/everything_together> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Ordered in an ascending way by song number and removed the duplicate artists who performed a track written by the musician.
+* <http://localhost:9000/artist/{artist}> - Returns a list of songs and movies for a given artist (e.g. `David Bowie`). Where duplicate songs are removed and the movies are ordered by id in descending manner.
 
 ### Content negotiation
 
