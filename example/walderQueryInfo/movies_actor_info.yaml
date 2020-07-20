@@ -1,0 +1,15 @@
+graphql-query: >
+  {
+    id @single
+    ... on Film {
+      starring(label: $actor) @single
+    }
+  }
+json-ld-context: >
+  {
+    "@context": {
+      "Film": "http://dbpedia.org/ontology/Film",
+      "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+      "starring": "http://dbpedia.org/ontology/starring"
+    }
+  }

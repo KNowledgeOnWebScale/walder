@@ -189,6 +189,59 @@ This will start a server on `localhost:9000` with the following routes:
 * <http://localhost:9000/movies/{musician}/everything_together> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for. Ordered in an ascending way by song number and removed the duplicate artists who performed a track written by the musician.
 * <http://localhost:9000/artist/{artist}> - Returns a list of songs and movies for a given artist (e.g. `David Bowie`). Where duplicate songs are removed and the movies are ordered by id in descending manner.
 
+### Referencing
+
+When you are having a very big config file, the possibility is there that you want to split up your config file.
+This can be obtained by using the `$ref` keyword. We follow the [OpenAPI 3.0 spec](https://swagger.io/docs/specification/using-ref/) that explains how to use the referencing.
+
+When first referenced you need to use the path beginning from the project root, but if the referenced file has references itself, it can use paths relative to its own location, as shown below.
+
+##### Example:
+The actual config file referencing its paths
+```yaml
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  path: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /music/{musician}:
+    $ref: './example/paths/music_musician.yaml'
+  /movies/{actor}:
+    $ref: './example/paths/movies_actor.yaml'
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html
+```
+Below you see `./example/paths/music_musician.yaml` with reference with path relative to its own location
+```yaml
+get:
+  summary: Returns a list of the all movies the given actor stars in
+  parameters:
+    - in: path
+      name: actor
+      required: true
+      schema:
+        type: string
+      description: The target actor
+  x-walder-query:
+    $ref: '../walderQueryInfo/movies_actor_info.yaml'
+  responses:
+    200:
+      description: list of movies
+      x-walder-input-text/html: movies.pug
+
+```
 ### Content negotiation
 
 Using content negotiation, Walder makes the following output formats available:

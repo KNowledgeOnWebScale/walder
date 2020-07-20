@@ -1,0 +1,16 @@
+get:
+  summary: Returns a list of the all movies the given actor stars in
+  parameters:
+    - in: path
+      name: actor
+      required: true
+      schema:
+        type: string
+      description: The target actor
+  x-walder-query:
+    $ref: '../walderQueryInfo/movies_actor_info.yaml'
+  responses:
+    200:
+      description: list of movies
+      x-walder-input-text/html: movies.pug
+

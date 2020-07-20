@@ -1,0 +1,35 @@
+get:
+  summary: Returns a list of songs of the given musician, with no duplicate song labels.
+  parameters:
+    - in: path
+      name: musician
+      required: true
+      schema:
+        type: string
+      description: The target musician
+  x-walder-query:
+    graphql-query: >
+      {
+        label @single
+        writer(label_en: $musician)  @single
+        artist  @single(scope: all) {
+          label
+        }
+      }
+    json-ld-context: >
+      {
+        "@context": {
+          "label": "http://www.w3.org/2000/01/rdf-schema#label",
+          "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+          "writer": "http://dbpedia.org/ontology/writer",
+          "artist": "http://dbpedia.org/ontology/musicalArtist"
+        }
+      }
+    options:
+      remove-duplicates:
+        object: $[*]
+        value: label
+  responses:
+    200:
+      description: list of songs
+      x-walder-input-text/html: songs.handlebars

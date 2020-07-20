@@ -24,6 +24,7 @@
     "graphql-ld-comunica": "^1.0.0",
     "handlebars": "^4.1.2",
     "jade-to-handlebars": "^2.3.0",
+    "json-refs": "^3.0.15",
     "jsonld": "^1.6.2",
     "jsonpath": "^1.0.2",
     "markdown-it": "^10.0.0",

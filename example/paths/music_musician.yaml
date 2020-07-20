@@ -1,0 +1,15 @@
+get:
+  summary: Returns a list of songs of the given musician.
+  parameters:
+    - in: path
+      name: musician
+      required: true
+      schema:
+        type: string
+      description: The target musician
+  x-walder-query:
+    $ref: '../walderQueryInfo/music_musician_info.yaml'
+  responses:
+    200:
+      description: list of songs
+      x-walder-input-text/html: songs.handlebars
