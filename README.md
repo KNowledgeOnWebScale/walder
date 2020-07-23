@@ -119,7 +119,10 @@ path:  # The path linked to this query
           - ...  # E.g. link to SPARQL endpoint
     x-walder-postprocessing:  # The (list of) pipe modules used for postprocessing
       module-id:  # Identifier of the pipe module
-        soure: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
+        source: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
+        parameters: # the parameters for the pipe module (OPTIONAL)
+          - _data # (DEFAULT) this gives all the data, but all paths in the data object are supported (e.g. _data.0.employee)
+          - ... # Additional parameters if you're function supports those (OPTIONAL)
     responses:  # Status codes with files containing the html template (absolute path or relative to the views directory)
       200: ...  # (REQUIRED)
       500: ...  # (OPTIONAL)

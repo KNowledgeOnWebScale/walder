@@ -13,6 +13,8 @@ describe('PipeModuleParser', function () {
 
       this.output = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}']['get']['x-walder-postprocessing'],
         Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules']));
+      this.output_with_param = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}/postprocessed']['get']['x-walder-postprocessing'],
+          Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules']));
     });
 
     describe('#functionality()', function () {
@@ -21,17 +23,29 @@ describe('PipeModuleParser', function () {
           [
             {
               "name": "filterT",
-              "source": Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT.js')
+              "source": Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT.js'),
+              "parameters": []
             }]
+        )
+      });
+      it('should be able to parse and extract pipe modules correctly from a YAML config file', function () {
+        this.output_with_param.should.eql(
+            [
+              {
+                "name": "filterT_withParameters",
+                "source": Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT_withParameters.js'),
+                "parameters": ["_data", true]
+              }]
         )
       });
     });
 
     describe('#outputFormat()', function () {
-      it('output should be a list of objects with {name, source} properties', function () {
+      it('output should be a list of objects with {name, source, parameters} properties', function () {
         this.output.forEach((o) => {
           o.should.have.property('name');
           o.should.have.property('source');
+          o.should.have.property('parameters');
         })
       })
     });
