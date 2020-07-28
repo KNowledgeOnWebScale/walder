@@ -1,7 +1,4 @@
-# Walder
-
-This is Walder  
-![icon](https://i.ibb.co/DbSckBS/Screenshot-2019-08-30-at-13-59-02.png)
+![logo of Walder](logo/logo.png)
 
 Walder enables an easy way to set up and run a linked data based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, using only a configuration file describing the web server's API.
 
