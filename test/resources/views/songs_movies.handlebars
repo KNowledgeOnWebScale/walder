@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href='/stylesheets/list.css'>
+</head>
+<body>
+<h1>Songs & Movies</h1>
+<div>
+  <ul>
+    {{#each films}}
+      {{#if this.id}}
+        <li>{{this.id}}</li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>
+<div>
+  <ul>
+    {{#each songs}}
+      {{#if this.label}}
+        <li>{{this.label}}</li>
+      {{/if}}
+    {{/each}}
+  </ul>
+</div>
+</body>
+</html>

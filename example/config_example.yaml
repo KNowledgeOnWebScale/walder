@@ -42,112 +42,89 @@ paths:
         200:
           description: list of songs
           x-walder-input-text/html: songs.handlebars
-  /movies/{actor}:
+  /artist/{artist}:
     get:
-      summary: Returns a list of the all movies the given actor stars in
+      summary: Returns a list of a given artist's songs written by a specific person.
       parameters:
         - in: path
-          name: actor
+          name: artist
           required: true
           schema:
             type: string
-          description: The target actor
+          description: The target artist
+        - in: query
+          name: writer
+          required: true
+          schema:
+            type: string
       x-walder-query:
         graphql-query: >
           {
-            id @single
-            ... on Film {
-              starring(label: $actor) @single
+            label @single
+            writer(label: $writer)  @single
+            artist  @single(scope: all) {
+              label(_:$artist)
             }
           }
         json-ld-context: >
           {
             "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
               "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
             }
           }
       responses:
         200:
-          description: list of movies
-          x-walder-input-text/html: movies.pug
-  /books/harvard:
+          description: list of songs
+          x-walder-input-text/html: artist-writer.pug
+  /bradpitt-directors:
     get:
-      summary: Returns a list of books by San Franciscans owned by the Harvard Library
-      parameters:
-        - in: query
-          name: page
-          schema:
-            type: integer
-            minimum: 0
-          description: The page that must be shown.
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            minimum: 1
-          description: Maximum number of elements to be shown on the current page.
+      summary: Returns a list of directors of movies starring Brad Pitt
       x-walder-query:
         graphql-query: >
           {
-            birthPlace(label_en: "San Francisco") @single
-            viafPerson @single(scope: all) {
-              name {
-                nameOf {
-                  contributedTo {
-                    bookTitle(first:$limit offset:$offset)
-                  }
-                }
-              }
+            director @single(scope: all) {
+              label
             }
+            starring(label_en: "Brad Pitt")  @single
           }
         json-ld-context: >
           {
             "@context": {
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label" },
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
               "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "birthPlace": "http://dbpedia.org/ontology/birthPlace",
-              "viafPerson": { "@reverse": "http://schema.org/sameAs" },
-              "name": { "@id": "http://schema.org/name" },
-              "nameOf": { "@reverse": "http://xmlns.com/foaf/0.1/name" },
-              "contributedTo": { "@reverse": "http://purl.org/dc/terms/contributor" },
-              "bookTitle": { "@id": "http://purl.org/dc/terms/title" }
+              "director": "http://dbpedia.org/ontology/director",
+              "starring": "http://dbpedia.org/ontology/starring"
             }
           }
-        datasources:
-          additional: true
-          sources:
-            - http://data.linkeddatafragments.org/viaf
-            - http://data.linkeddatafragments.org/harvard
       responses:
         200:
-          description: list of books
-          x-walder-input-text/html: books.pug
-  /movies/{actor}/postprocessed:
+          description: list of directors of movies starring Brad Pitt
+          x-walder-input-text/html: directors.pug
+  /music/{artist}/postprocessed:
     get:
-      summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
+      summary: Returns a list of the all songs of a given artist, only keeping those with titles containing 'star'.
       parameters:
         - in: path
-          name: actor
+          name: artist
           required: true
           schema:
             type: string
-          description: The target actor
+          description: The target artist
       x-walder-query:
         graphql-query: >
           {
-            id @single
-            ... on Film {
-              starring(label: $actor) @single
+            label @single
+            artist {
+              label(_:$artist)
             }
           }
         json-ld-context: >
           {
             "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
               "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
             }
           }
       x-walder-postprocessing:
@@ -155,8 +132,8 @@ paths:
           source: filterT.js
       responses:
         200:
-          description: list of movies
-          x-walder-input-text/html: movies.pug
+          description: list of songs
+          x-walder-input-text/html: artist-writer.pug
   /movies/{actor}/postprocessed_with_variables:
     get:
       summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'

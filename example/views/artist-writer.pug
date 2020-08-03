@@ -3,8 +3,8 @@ html(lang="en")
     head
         link(rel='stylesheet', href='/stylesheets/list.css')
     body
-        h1 Books
+        h1 Songs
         div
             ul
                 each val in data
-                    li= val.viafPerson.name.nameOf.contributedTo.bookTitle
+                    li #{val.label}

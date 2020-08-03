@@ -4,7 +4,7 @@
   "main": "./lib/walder",
   "scripts": {
     "start": "node ./bin/cli.js",
-    "test": "mocha --recursive \"./test/\" --timeout 5000 "
+    "test": "mocha --recursive \"./test/\" --timeout 10000 "
   },
   "bin": {
     "walder": "./bin/cli.js"

@@ -42,12 +42,13 @@ Options:
 // From the root directory
 const Walder = require('.');
 
-const configFilePath = '.../...';
-const portNumber = 9000; // Defaults to 3000 if not passed
-const logging = 'info'; // Defaults to 'info' if not passed
-const cache = false;  // Defaults to true if not passed
+const configFilePath = 'path/to/configfile';
+const port = 9000; // Defaults to 3000 
+const logging = 'info'; // Defaults to 'info' 
+const cache = false;  // Defaults to true 
+const cwd = 'path/to/dir' // Defaults to path where code is executed
 
-const walder = new Walder(configFilePath, portNumber, logging, cache);
+const walder = new Walder(configFilePath, {port, logging, cache, cwd});
 
 walder.activate();    // Starts the server
 walder.deactivate();  // Stops the server
@@ -133,10 +134,16 @@ The following command starts a server on port 9000 using an example config file.
 
 This will start a server on `localhost:9000` with the following routes:
 
-* <http://localhost:9000/books/harvard> - Returns a list of books by San Franciscans owned by the Harvard Library.
-* <http://localhost:9000/music/{musician}> - Returns a list of bands the given musician (e.g. `John Lennon`) has wrote a song for.
-* <http://localhost:9000/movies/{actor}?page=0&limit=8> - Returns a paginated list of all movies the given actor (e.g. `Angelina_Jolie`) stars in.
-* <http://localhost:9000/movies/{actor}/postprocessed> - Returns a list of the all movies the given actor (e.g. `Johnny_Depp`) stars in, filtered on movie titles containing 'A' and 'T' using pipe modules.
+* <http://localhost:9000/bradpitt-directors> - Returns a list of directors of movies starring Brad Pitt.
+* <http://localhost:9000/music/{musician}> - Returns a list of bands a given musician has written a song for.
+For example, <http://localhost:9000/music/John%20Lennon> returns a list of bands John Lennon has written a song for.
+* <http://localhost:9000/artist/{artist}?writer={name}> - Returns a list of a given artist's songs 
+selecting only those written by a specific person identified by name. 
+For example, <http://localhost:9000/artist/David%20Bowie?writer=John%20Lennon> returns a list of a given artist's songs written by a specific person.
+* <http://localhost:9000/music/{artist}/postprocessed> - Returns a list of songs by a given artist 
+that have 'star' in the title, using pipe modules.
+For example, <http://localhost:9000/music/David%20Bowie/postprocessed> returns a list of songs by David Bowie that 
+have 'star' in the title.
 
 ### Options
 

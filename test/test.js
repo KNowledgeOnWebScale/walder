@@ -19,7 +19,6 @@ const CONFIG_FILE_NO_QUERY = './resources/config_test_no_query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config_test_image.yaml';
 
 describe('Walder', function () {
-  this.timeout(5000);
 
   describe('#Activation', function () {
     it('should throw an error when no config file is given', function () {
@@ -30,7 +29,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      const walder = new Walder(configFile, port);
+      const walder = new Walder(configFile, {port, logging: 'error'});
       walder.activate();
 
       walder.server.listening.should.equal(true);
@@ -45,7 +44,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      this.walder = new Walder(configFile, port);
+      this.walder = new Walder(configFile, {port, logging:'error', cwd: path.resolve(__dirname, 'resources')});
       this.walder.activate();
     });
 
@@ -162,7 +161,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      this.walder = new Walder(configFile, port);
+      this.walder = new Walder(configFile, {port, logging: 'error'});
       this.walder.activate();
     });
 
@@ -316,7 +315,7 @@ describe('Walder', function () {
     const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
     const port = 9000;
 
-    this.walder = new Walder(configFile, port);
+    this.walder = new Walder(configFile, {port, logging: 'error'});
     this.walder.activate();
 
     request(this.walder.app)
@@ -331,7 +330,7 @@ describe('Walder', function () {
     const configFile = path.resolve(__dirname, CONFIG_FILE_IMAGE);
     const port = 9000;
 
-    this.walder = new Walder(configFile, port);
+    this.walder = new Walder(configFile, {port, logging: 'error'});
     this.walder.activate();
 
     request(this.walder.app)
@@ -347,7 +346,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE_ERRORS);
       const port = 9000;
 
-      this.walder = new Walder(configFile, port);
+      this.walder = new Walder(configFile, {port, logging: 'error'});
       this.walder.activate();
     });
 
@@ -377,7 +376,7 @@ describe('Walder', function () {
     it('should return status 404 when the GraphQL-LD query\'s required variables were not given', function (done) {
       request(this.walder.app)
         .get('/movies/brad_pitt')
-        .expect(404)
+        .expect(400)
         .end(done);
     });
   });
@@ -387,7 +386,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, 'resources/layouts-test/config.yaml');
       const port = 9000;
 
-      this.walder = new Walder(configFile, port);
+      this.walder = new Walder(configFile, {port, logging: 'error'});
       this.walder.activate();
     });
 
@@ -416,7 +415,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, 'resources/pug-include-test/config.yaml');
       const port = 9000;
 
-      this.walder = new Walder(configFile, port);
+      this.walder = new Walder(configFile, {port, logging: 'error'});
       this.walder.activate();
     });
 

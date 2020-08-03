@@ -22,6 +22,7 @@ describe('GraphQLLDParser', function () {
     it('should be able to parse and extract GraphQL-LD information correctly from a YAML config file', function () {
       this.output.should.eql(
         {
+          "parameters": [],
           "cache": true,
           "comunicaConfig": {
             "sources": [
@@ -46,6 +47,7 @@ describe('GraphQLLDParser', function () {
     it('should be able to parse sorting options correctly from a YAML config file', function () {
       this.sorting_options_output.should.eql(
           {
+            "parameters": [],
             "cache": true,
             "comunicaConfig": {
               "sources": [
@@ -86,6 +88,7 @@ describe('GraphQLLDParser', function () {
     it('should be able to parse duplicate removal options correctly from a YAML config file', function () {
           this.duplicate_removal_options_output.should.eql(
               {
+                "parameters": [],
                   "cache": true,
                   "comunicaConfig": {
                       "sources": [

@@ -19,6 +19,7 @@ describe('ParameterParser', function () {
         this.output.should.eql(
           {
             actor: {
+              in: 'path',
               required: true,
               type: 'string',
               description: 'The target actor'

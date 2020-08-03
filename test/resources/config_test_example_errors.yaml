@@ -16,12 +16,14 @@ paths:
       parameters:
         - in: query
           name: page
+          required: true
           schema:
             type: integer
             minimum: 0
           description: The page that must be shown.
         - in: query
           name: limit
+          required: true
           schema:
             type: integer
             minimum: 1
