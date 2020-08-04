@@ -44,7 +44,7 @@ describe('Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
-      this.walder = new Walder(configFile, {port, logging:'error', cwd: path.resolve(__dirname, 'resources')});
+      this.walder = new Walder(configFile, {port, logging:'error'});
       this.walder.activate();
     });
 

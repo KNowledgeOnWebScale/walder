@@ -18,5 +18,5 @@ if (!program.config) {
   utils.printError('Error:\n\t-c --config <configFile> required. Use -h for more info.');
 }
 
-const walder = new Walder(program.config, {port: program.port, logging: program.log, cache: program.cache, cwd: process.cwd()});
+const walder = new Walder(program.config, {port: program.port, logging: program.log, cache: program.cache});
 walder.activate();

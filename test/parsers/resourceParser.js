@@ -22,8 +22,9 @@ describe('ResourceParser', function () {
     it('should be able to parse, extract and format resources information correctly from a YAML config file', function () {
       const file = fs.readFileSync(path.resolve(CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
+      const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData['x-walder-resources'], CONFIG_FILE);
+      const output = ResourceParser.parse(yamlData['x-walder-resources'], cwd);
 
       output.should.eql(
         {
@@ -41,7 +42,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData, CONFIG_FILE_NO_RESOURCES, cwd);
+      const output = ResourceParser.parse(yamlData, cwd);
       output.should.eql({
         path: cwd,
         views: cwd,
@@ -56,7 +57,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData, CONFIG_FILE_PARTIAL_RESOURCES, cwd);
+      const output = ResourceParser.parse(yamlData, cwd);
       output.should.eql({
         path: cwd,
         views: cwd,
@@ -71,7 +72,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData, CONFIG_FILE_NO_RESOURCES, cwd);
+      const output = ResourceParser.parse(yamlData, cwd);
 
       fs.existsSync(output.public).should.be.true;
     });
@@ -82,7 +83,7 @@ describe('ResourceParser', function () {
     const yamlData = YAML.parse(file);
     const cwd = path.resolve(__dirname, '../resources');
 
-    output = ResourceParser.parse(yamlData['x-walder-resources'], CONFIG_FILE, cwd);
+    output = ResourceParser.parse(yamlData['x-walder-resources'], cwd);
 
     it('output object should have {path, views, pipeModules, public} properties', function () {
       output.should.have.property('path');
