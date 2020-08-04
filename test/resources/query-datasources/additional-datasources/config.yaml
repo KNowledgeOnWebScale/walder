@@ -1,0 +1,66 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  path: .
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+  - graphql-query: >
+      {
+        id @single
+        starring(label: "Brad Pitt")  @single
+      }
+    json-ld-context: >
+      {
+        "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+        "starring": "http://dbpedia.org/ontology/starring"
+      }
+    datasources:
+     additional: false
+     sources:
+       - http://fragments.dbpedia.org/2014/en
+    postprocessing:
+      getIds:
+        source: getIds.js
+        parameters:
+          - _data
+paths:
+  /test:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "Film": "http://dbpedia.org/ontology/Film",
+            "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+            "starring": "http://dbpedia.org/ontology/starring"
+          }
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html
