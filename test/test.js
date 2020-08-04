@@ -311,36 +311,6 @@ describe('Walder', function () {
     })
   });
 
-  it('should just return the HTML when no query is provided', function (done) {
-    const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
-    const port = 9000;
-
-    this.walder = new Walder(configFile, {port, logging: 'error'});
-    this.walder.activate();
-
-    request(this.walder.app)
-      .get('/')
-      .expect(200, () => {
-        this.walder.deactivate();
-        done();
-      });
-  });
-
-  it('Should return image in public folder', function (done) {
-    const configFile = path.resolve(__dirname, CONFIG_FILE_IMAGE);
-    const port = 9000;
-
-    this.walder = new Walder(configFile, {port, logging: 'error'});
-    this.walder.activate();
-
-    request(this.walder.app)
-      .get('/device.jpg')
-      .expect(200, () => {
-        this.walder.deactivate();
-        done();
-      });
-  });
-
   describe('#Error handling', function () {
     before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE_ERRORS);
@@ -377,6 +347,13 @@ describe('Walder', function () {
       request(this.walder.app)
         .get('/movies/brad_pitt')
         .expect(400)
+        .end(done);
+    });
+
+    it('should return status 500 when requesting a page with missing template', function (done) {
+      request(this.walder.app)
+        .get('/missing-template')
+        .expect(500)
         .end(done);
     });
   });
@@ -437,5 +414,35 @@ describe('Walder', function () {
           done();
         });
     });
+  });
+
+  it('should just return the HTML when no query is provided', function (done) {
+    const configFile = path.resolve(__dirname, CONFIG_FILE_NO_QUERY);
+    const port = 9000;
+
+    this.walder = new Walder(configFile, {port, logging: 'error'});
+    this.walder.activate();
+
+    request(this.walder.app)
+      .get('/')
+      .expect(200, () => {
+        this.walder.deactivate();
+        done();
+      });
+  });
+
+  it('Should return image in public folder', function (done) {
+    const configFile = path.resolve(__dirname, CONFIG_FILE_IMAGE);
+    const port = 9000;
+
+    this.walder = new Walder(configFile, {port, logging: 'error'});
+    this.walder.activate();
+
+    request(this.walder.app)
+      .get('/device.jpg')
+      .expect(200, () => {
+        this.walder.deactivate();
+        done();
+      });
   });
 });

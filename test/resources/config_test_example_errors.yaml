@@ -114,6 +114,13 @@ paths:
         200:
           description: list of movies
           x-walder-input-text/html: movies.pug
+  /missing-template:
+    get:
+      summary: Show some text
+      responses:
+        200:
+          description: Some text
+          x-walder-input-text/html: missing-template.pug
 x-walder-errors:
   404:
     description: page not found error

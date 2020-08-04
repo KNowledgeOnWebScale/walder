@@ -12,56 +12,51 @@ describe('RdfConverter', function () {
   });
 
   describe('#functionality()', function () {
-    it('should be able to convert the given JSON to JSON-LD', function (done) {
-      RdfConverter.convert(
+    it('should be able to convert the given JSON to JSON-LD', async () => {
+      const data = await RdfConverter.convert(
         RDF_TYPES.JSON_LD,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
-        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD,
-        async (data) => {
-          // If 'JsonLD' can turn it into N-Quads without errors, then it must be valid JSON-LD
-          await jsonld.toRDF(data, {format: 'application/n-quads'}, (err, nquads) => {
-            if (err) {
-              throw new Error(err);
-            }
-            done();
-          });
-        })
+        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
+
+      // If 'JsonLD' can turn it into N-Quads without errors, then it must be valid JSON-LD
+      await jsonld.toRDF(data, {format: 'application/n-quads'}, (err, nquads) => {
+        if (err) {
+          throw new Error(err);
+        }
+      });
     });
 
-    it('should be able to convert the given JSON to Turtle', function () {
-      RdfConverter.convert(
+    it('should be able to convert the given JSON to Turtle', async () => {
+      const data = await RdfConverter.convert(
         RDF_TYPES.TURTLE,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
-        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD,
-        (data) => {
-          const parser = new N3.Parser({format: 'Turtle'});
-          // If 'N3' can parse it, then it must be valid turtle
-          assert(parser.parse(data).length > 0);
-        })
+        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
+
+      const parser = new N3.Parser({format: 'Turtle'});
+      // If 'N3' can parse it, then it must be valid turtle
+      parser.parse(data).length.should.be.above(0);
     });
 
-    it('should be able to convert the given JSON to N-Triples', function () {
-      RdfConverter.convert(
+    it('should be able to convert the given JSON to N-Triples', async () => {
+      const data = await RdfConverter.convert(
         RDF_TYPES.NT,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
-        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD,
-        (data) => {
-          const parser = new N3.Parser({format: 'N-Triples'});
-          // If 'N3' can parse it, then it must be valid N-triples
-          assert(parser.parse(data).length > 0);
-        })
+        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
+
+      const parser = new N3.Parser({format: 'N-Triples'});
+      // If 'N3' can parse it, then it must be valid N-triples
+      parser.parse(data).length.should.be.above(0);
     });
 
-    it('should be able to convert the given JSON to N-Quads', function () {
-      RdfConverter.convert(
+    it('should be able to convert the given JSON to N-Quads', async () => {
+      const data = await RdfConverter.convert(
         RDF_TYPES.NQ,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
-        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD,
-        (data) => {
-          const parser = new N3.Parser({format: 'N-Quads'});
-          // If 'N3' can parse it, then it must be valid turtle
-          assert(parser.parse(data).length > 0);
-        })
+        ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
+
+      const parser = new N3.Parser({format: 'N-Quads'});
+      // If 'N3' can parse it, then it must be valid turtle
+      parser.parse(data).length.should.be.above(0);
     });
   })
 });
