@@ -1,5 +1,6 @@
 require('chai').should();
-const ParameterParser = require('../../lib/parsers/parameterParser');
+
+const parseParameter = require('../../lib/parsers/parameterParser');
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +12,7 @@ describe('ParameterParser', function () {
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
 
-      this.output = ParameterParser.parse(yamlData.paths['/movies/{actor}']['get'].parameters);
+      this.output = parseParameter(yamlData.paths['/movies/{actor}']['get'].parameters);
     });
 
     describe('#functionality()', function () {

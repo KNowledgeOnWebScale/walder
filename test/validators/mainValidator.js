@@ -3,8 +3,8 @@ const expect = require('chai').expect;
 
 const MainValidator = require('../../lib/validators/mainValidator');
 const RouteInfo = require('../../lib/models/routeInfo');
-const GraphQLLDParser = require('../../lib/parsers/graphQLLDParser');
-const ParameterParser = require('../../lib/parsers/parameterParser');
+const parseGraphQLLD = require('../../lib/parsers/graphQLLDParser');
+const parseParameter = require('../../lib/parsers/parameterParser');
 
 const YAML = require('yaml');
 const fs = require('fs');
@@ -25,8 +25,8 @@ describe('mainValidator', function () {
         const mainValidator = new MainValidator();
 
         const routeInfo = new RouteInfo(path, method);
-        const graphQLLDInfo = GraphQLLDParser.parse(yamlData.paths[path][method]['x-walder-query'], {});
-        const parameters = valid ? ParameterParser.parse(yamlData.paths[path][method].parameters) : {};
+        const graphQLLDInfo = parseGraphQLLD(yamlData.paths[path][method]['x-walder-query'], {});
+        const parameters = valid ? parseParameter(yamlData.paths[path][method].parameters) : {};
 
         mainValidator.validate(routeInfo, graphQLLDInfo, parameters);
         mainValidator.finish();

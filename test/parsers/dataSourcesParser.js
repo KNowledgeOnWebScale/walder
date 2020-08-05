@@ -1,6 +1,6 @@
 require('chai').should();
 
-const dataSourcesParser = require('../../lib/parsers/dataSourcesParser');
+const parseDataSources = require('../../lib/parsers/dataSourcesParser');
 const GraphQLLDHandler = require('../../lib/handlers/graphQLLDHandler');
 const createLogger = require('../../lib/createLogger');
 const path = require('path');
@@ -16,7 +16,7 @@ describe('DataSourcesParser', function () {
       this.yamlData = YAML.parse(file);
       const graphQLLDHandler = new GraphQLLDHandler(createLogger());
 
-      const actual = await dataSourcesParser.parse(this.yamlData['x-walder-datasources'], graphQLLDHandler, pipeModulesPath);
+      const actual = await parseDataSources(this.yamlData['x-walder-datasources'], graphQLLDHandler, pipeModulesPath);
       const expected = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../resources/query-datasources/single-query/expected-output.json')));
       actual.should.eql(expected);
     });
@@ -27,7 +27,7 @@ describe('DataSourcesParser', function () {
       this.yamlData = YAML.parse(file);
       const graphQLLDHandler = new GraphQLLDHandler(createLogger());
 
-      const actual = await dataSourcesParser.parse(this.yamlData['x-walder-datasources'], graphQLLDHandler, pipeModulesPath);
+      const actual = await parseDataSources(this.yamlData['x-walder-datasources'], graphQLLDHandler, pipeModulesPath);
       const expected = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../resources/query-datasources/additional-datasources/expected-output.json')));
       actual.should.eql(expected);
     });

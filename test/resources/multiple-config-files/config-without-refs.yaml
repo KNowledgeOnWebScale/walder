@@ -1,0 +1,210 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  path: .
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      x-walder-postprocessing:
+        filterT:
+          source: filterT.js
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+
+  /more_movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            ... on Film {
+              starring(label: $actor) @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "Film": "http://dbpedia.org/ontology/Film",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+        datasources:
+          additional: true
+          sources:
+            - http://data.linkeddatafragments.org/harvard
+      x-walder-postprocessing:
+        filterT:
+          source: filterT.js
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+
+  /artist/{artist}:
+    get:
+      summary: Returns a list of songs and movies for a given artist.
+      parameters:
+        - in: path
+          name: artist
+          required: true
+          schema:
+            type: string
+          description: The target artist
+      x-walder-query:
+        graphql-query:
+          songs: >
+            {
+              label @single
+              writer(label_en: $artist)  @single
+              artist  @single(scope: all) {
+                label
+              }
+            }
+          films: >
+            {
+              id @single
+              ... on Film {
+                starring(label_en: $artist) @single
+              }
+            }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist",
+              "Film": "http://dbpedia.org/ontology/Film",
+              "starring": "http://dbpedia.org/ontology/starring"
+            }
+          }
+      responses:
+        200:
+          description: list of songs and movies
+          x-walder-input-text/html: songs_movies.handlebars
+
+  /music/{musician}/sorted:
+    get:
+      summary: Returns a list of songs of the given musician, sorted by the label of the song.
+      parameters:
+        - in: path
+          name: musician
+          required: true
+          schema:
+            type: string
+          description: The target musician
+      x-walder-query:
+        graphql-query: >
+          {
+            label @single
+            writer(label_en: $musician)  @single
+            artist  @single(scope: all) {
+              label
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
+            }
+          }
+        options:
+          sort:
+            object: $[*]
+            selectors:
+              - value: label
+                order: desc
+      responses:
+        200:
+          description: list of songs
+          x-walder-input-text/html: songs.handlebars
+
+  /music/{musician}/no_duplicates:
+    get:
+      summary: Returns a list of songs of the given musician, with no duplicate song labels.
+      parameters:
+        - in: path
+          name: musician
+          required: true
+          schema:
+            type: string
+          description: The target musician
+      x-walder-query:
+        graphql-query: >
+          {
+            label @single
+            writer(label_en: $musician)  @single
+            artist  @single(scope: all) {
+              label
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": "http://www.w3.org/2000/01/rdf-schema#label",
+              "label_en": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
+            }
+          }
+        options:
+          remove-duplicates:
+            object: $[*]
+            value: label
+      responses:
+        200:
+          description: list of songs
+          x-walder-input-text/html: songs.handlebars
+
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html

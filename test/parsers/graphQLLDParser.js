@@ -1,5 +1,5 @@
 require('chai').should();
-const GraphQLLDParser = require('../../lib/parsers/graphQLLDParser');
+const parseGraphQLLD = require('../../lib/parsers/graphQLLDParser');
 
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 const YAML = require('yaml');
@@ -13,10 +13,10 @@ describe('GraphQLLDParser', function () {
     this.yamlData = YAML.parse(file);
     const options = {defaultDataSources: this.yamlData['x-walder-datasources'], cache: true};
 
-    this.output = GraphQLLDParser.parse(this.yamlData.paths['/movies/{actor}']['get']['x-walder-query'], options);
-    this.sortingOptionsOutput = GraphQLLDParser.parse(this.yamlData.paths['/music/{musician}/sorted']['get']['x-walder-query'], options);
-    this.duplicateRemovalOptionsOutput = GraphQLLDParser.parse(this.yamlData.paths['/music/{musician}/no_duplicates']['get']['x-walder-query'], options);
-    this.smallerContextOutput = GraphQLLDParser.parse(this.yamlData.paths['/movies2/{actor}']['get']['x-walder-query'], options);
+    this.output = parseGraphQLLD(this.yamlData.paths['/movies/{actor}']['get']['x-walder-query'], options);
+    this.sortingOptionsOutput = parseGraphQLLD(this.yamlData.paths['/music/{musician}/sorted']['get']['x-walder-query'], options);
+    this.duplicateRemovalOptionsOutput = parseGraphQLLD(this.yamlData.paths['/music/{musician}/no_duplicates']['get']['x-walder-query'], options);
+    this.smallerContextOutput = parseGraphQLLD(this.yamlData.paths['/movies2/{actor}']['get']['x-walder-query'], options);
   });
 
   describe('#functionality()', function () {

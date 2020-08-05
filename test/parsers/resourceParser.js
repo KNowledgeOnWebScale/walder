@@ -1,9 +1,9 @@
 require('chai').should();
-const expect = require('chai').expect;
+
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
-const ResourceParser = require('../../lib/parsers/resourceParser');
+const parseResources = require('../../lib/parsers/resourceParser');
 
 const CONFIG_FILE = 'test/resources/config_test_example.yaml';
 const CONFIG_FILE_NO_RESOURCES = 'test/resources/config_test_example_no_resources.yaml';
@@ -24,7 +24,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData['x-walder-resources'], cwd);
+      const output = parseResources(yamlData['x-walder-resources'], cwd);
 
       output.should.eql(
         {
@@ -42,7 +42,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData, cwd);
+      const output = parseResources(yamlData, cwd);
       output.should.eql({
         path: cwd,
         views: cwd,
@@ -57,7 +57,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData, cwd);
+      const output = parseResources(yamlData, cwd);
       output.should.eql({
         path: cwd,
         views: cwd,
@@ -72,7 +72,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = ResourceParser.parse(yamlData, cwd);
+      const output = parseResources(yamlData, cwd);
 
       fs.existsSync(output.public).should.be.true;
     });
@@ -83,7 +83,7 @@ describe('ResourceParser', function () {
     const yamlData = YAML.parse(file);
     const cwd = path.resolve(__dirname, '../resources');
 
-    output = ResourceParser.parse(yamlData['x-walder-resources'], cwd);
+    output = parseResources(yamlData['x-walder-resources'], cwd);
 
     it('output object should have {path, views, pipeModules, public} properties', function () {
       output.should.have.property('path');

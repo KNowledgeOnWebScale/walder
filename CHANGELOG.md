@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Options are provided now to Walder via a single object.
 - Tests no longer use files in `example`.
 - Converters use promises, instead of callbacks.
+- Refactor parsers (see [issue 94](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/94))
 
 ## [1.0.0] - 2019-08-30
 ### Added

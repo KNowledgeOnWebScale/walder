@@ -1,5 +1,5 @@
 require('chai').should();
-const PipeModuleParser = require('../../lib/parsers/pipeModuleParser');
+const parsePipeModule = require('../../lib/parsers/pipeModuleParser');
 const Path = require('path');
 const CONFIG_FILE = '../resources/config_test_example.yaml';
 const YAML = require('yaml');
@@ -11,9 +11,9 @@ describe('PipeModuleParser', function () {
     const file = fs.readFileSync(Path.resolve(__dirname, CONFIG_FILE), 'utf8');
     this.yamlData = YAML.parse(file);
 
-    this.output = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}']['get']['x-walder-postprocessing'],
+    this.output = parsePipeModule(this.yamlData.paths['/movies/{actor}']['get']['x-walder-postprocessing'],
       Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules']));
-    this.output_with_param = PipeModuleParser.parse(this.yamlData.paths['/movies/{actor}/postprocessed']['get']['x-walder-postprocessing'],
+    this.output_with_param = parsePipeModule(this.yamlData.paths['/movies/{actor}/postprocessed']['get']['x-walder-postprocessing'],
         Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules']));
   });
 
