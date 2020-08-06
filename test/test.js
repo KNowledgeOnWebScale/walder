@@ -25,12 +25,12 @@ describe('Walder', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
     });
 
-    it('should be listening on the given port', function () {
+    it('should be listening on the given port', async function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
 
       const walder = new Walder(configFile, {port, logging: 'error'});
-      walder.activate();
+      await walder.activate();
 
       walder.server.listening.should.equal(true);
       walder.server.address().port.should.equal(port);
