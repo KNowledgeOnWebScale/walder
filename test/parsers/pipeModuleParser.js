@@ -12,9 +12,9 @@ describe('PipeModuleParser', function () {
     this.yamlData = YAML.parse(file);
 
     this.output = parsePipeModule(this.yamlData.paths['/movies/{actor}']['get']['x-walder-postprocessing'],
-      Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules']));
+      Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules']));
     this.output_with_param = parsePipeModule(this.yamlData.paths['/movies/{actor}/postprocessed']['get']['x-walder-postprocessing'],
-        Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules']));
+        Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules']));
   });
 
   describe('#functionality()', function () {
@@ -23,7 +23,7 @@ describe('PipeModuleParser', function () {
         [
           {
             "name": "filterT",
-            "source": Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT.js'),
+            "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT.js'),
             "parameters": []
           }]
       )
@@ -33,7 +33,7 @@ describe('PipeModuleParser', function () {
           [
             {
               "name": "filterT_withParameters",
-              "source": Path.resolve(this.yamlData['x-walder-resources'].path, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT_withParameters.js'),
+              "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT_withParameters.js'),
               "parameters": ["_data", true]
             }]
       )

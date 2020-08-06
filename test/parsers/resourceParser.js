@@ -8,6 +8,7 @@ const parseResources = require('../../lib/parsers/resourceParser');
 const CONFIG_FILE = 'test/resources/config_test_example.yaml';
 const CONFIG_FILE_NO_RESOURCES = 'test/resources/config_test_example_no_resources.yaml';
 const CONFIG_FILE_PARTIAL_RESOURCES = 'test/resources/config_test_example_partial_resources.yaml';
+const CONFIG_FILE_PATH = 'test/resources/config-resources-path.yaml';
 
 describe('ResourceParser', function () {
 
@@ -28,7 +29,7 @@ describe('ResourceParser', function () {
 
       output.should.eql(
         {
-          "path": path.resolve('test/resources'),
+          "root": path.resolve('test/resources'),
           "views": path.resolve('test/resources', 'views'),
           "pipe-modules": path.resolve('test/resources', 'pipeModules'),
           "public": path.resolve('test/resources', 'public'),
@@ -44,9 +45,9 @@ describe('ResourceParser', function () {
 
       const output = parseResources(yamlData, cwd);
       output.should.eql({
-        path: cwd,
-        views: cwd,
-        'pipe-modules': cwd,
+        root: cwd,
+        views: path.resolve(cwd, 'views'),
+        'pipe-modules': path.resolve(cwd, 'pipe-modules'),
         public: path.resolve(cwd, 'public'),
         layouts: path.resolve(cwd, 'layouts')
       })
@@ -59,9 +60,9 @@ describe('ResourceParser', function () {
 
       const output = parseResources(yamlData, cwd);
       output.should.eql({
-        path: cwd,
-        views: cwd,
-        'pipe-modules': cwd,
+        root: cwd,
+        views: path.resolve(cwd, 'views'),
+        'pipe-modules': path.resolve(cwd, 'pipe-modules'),
         public: path.resolve(cwd, 'public'),
         layouts: path.resolve(cwd, 'layouts')
       })
@@ -76,6 +77,24 @@ describe('ResourceParser', function () {
 
       fs.existsSync(output.public).should.be.true;
     });
+
+    it('should be able to convert "path" to "root"', function () {
+      const file = fs.readFileSync(path.resolve(CONFIG_FILE_PATH), 'utf8');
+      const yamlData = YAML.parse(file);
+      const cwd = path.resolve(__dirname, '../resources');
+
+      const output = parseResources(yamlData['x-walder-resources'], cwd);
+
+      output.should.eql(
+        {
+          "root": path.resolve('test/resources'),
+          "views": path.resolve('test/resources', 'views'),
+          "pipe-modules": path.resolve('test/resources', 'pipeModules'),
+          "public": path.resolve('test/resources', 'public'),
+          "layouts": path.resolve('test/resources', 'layouts'),
+        }
+      )
+    });
   });
 
   describe('#outputFormat()', function () {
@@ -86,14 +105,14 @@ describe('ResourceParser', function () {
     output = parseResources(yamlData['x-walder-resources'], cwd);
 
     it('output object should have {path, views, pipeModules, public} properties', function () {
-      output.should.have.property('path');
+      output.should.have.property('root');
       output.should.have.property('views');
       output.should.have.property('pipe-modules');
       output.should.have.property('public');
     });
 
     it('output object\'s values should always be absolute paths', function () {
-      path.isAbsolute(output.path).should.be.true;
+      path.isAbsolute(output.root).should.be.true;
       path.isAbsolute(output.views).should.be.true;
       path.isAbsolute(output['pipe-modules']).should.be.true;
       path.isAbsolute(output.public).should.be.true;

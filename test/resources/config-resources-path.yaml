@@ -9,27 +9,8 @@ x-walder-resources:
   public: public
 x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
-  - graphql-query: >
-      {
-        id @single
-        starring(label: "Brad Pitt")  @single
-      }
-    json-ld-context: >
-      {
-        "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-        "starring": "http://dbpedia.org/ontology/starring"
-      }
-    datasources:
-     additional: false
-     sources:
-       - http://fragments.dbpedia.org/2014/en
-    postprocessing:
-      getIds:
-        source: getIds.js
-        parameters:
-          - _data
 paths:
-  /test:
+  /movies2/{actor}:
     get:
       summary: Returns a list of the all movies the given actor stars in
       parameters:
@@ -57,10 +38,3 @@ paths:
         200:
           description: list of movies
           x-walder-input-text/html: movies.pug
-x-walder-errors:
-  404:
-    description: page not found error
-    x-walder-input-text/html: error404.html
-  500:
-    description: internal server error
-    x-walder-input-text/html: error500.html

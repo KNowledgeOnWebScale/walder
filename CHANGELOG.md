@@ -26,12 +26,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix examples in README (see [issue 70](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/70))
 - Better status code and message when query parameters are missing in request (see [issue 93](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/93))
 - Status code still 200 when template engine fails (see [issue 82](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/82))
+- Clean up README (see [issue 95](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/95))
 
 ### Changes
-- Options are provided now to Walder via a single object.
-- Tests no longer use files in `example`.
-- Converters use promises, instead of callbacks.
+- Options are provided now to Walder via a single object
+- Tests no longer use files in `example`
+- Converters use promises, instead of callbacks
 - Refactor parsers (see [issue 94](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/94))
+- Use `root` instead of `path` for root path of `x-walder-resources`
+- Defaults for `views` and `pipe-modules` in `x-walder-resources`
 
 ## [1.0.0] - 2019-08-30
 ### Added

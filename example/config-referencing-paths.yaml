@@ -3,7 +3,7 @@ info:
   title: 'Example site'
   version: 0.1.0
 x-walder-resources:
-  path: ./
+  root: ./
   views: views
   pipe-modules: pipeModules
   public: public
@@ -11,9 +11,9 @@ x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /music/{musician}:
-    $ref: './example/paths/music_musician.yaml'
+    $ref: './paths/music_musician.yaml'
   /movies/{actor}:
-    $ref: './example/paths/movies_actor.yaml'
+    $ref: './paths/movies_actor.yaml'
 x-walder-errors:
   404:
     description: page not found error

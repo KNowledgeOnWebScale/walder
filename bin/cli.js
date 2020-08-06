@@ -11,7 +11,7 @@ program
   .option('-c, --config <configFile>', 'YAML configuration file input')
   .option('-p, --port <portNumber>', 'server port number', 3000)
   .option('-l, --log <level>', 'enable logging and set logging level (one of [error, warn, info, verbose, debug])', 'info')
-  .option('--no-cache', 'disable comunica default caching')
+  .option('--no-cache', 'disable Comunica default caching')
   .parse(process.argv);
 
 if (!program.config) {

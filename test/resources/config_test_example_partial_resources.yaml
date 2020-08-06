@@ -3,7 +3,7 @@ info:
   title: 'Example site'
   version: 0.1.0
 x-walder-resources:
-  path: ../../example
+  root: ../../example
   pipe-modules: pipeModules
   public: public
 x-walder-datasources:

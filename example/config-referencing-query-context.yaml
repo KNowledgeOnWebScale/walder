@@ -3,7 +3,7 @@ info:
   title: 'Example site'
   version: 0.1.0
 x-walder-resources:
-  path: ./
+  root: ./
   views: views
   pipe-modules: pipeModules
   public: public
@@ -21,7 +21,7 @@ paths:
             type: string
           description: The target musician
       x-walder-query:
-        $ref: './example/walderQueryInfo/music_musician_info.yaml'
+        $ref: './walderQueryInfo/music_musician_info.yaml'
       responses:
         200:
           description: list of songs
@@ -37,7 +37,7 @@ paths:
             type: string
           description: The target actor
       x-walder-query:
-        $ref: './example/walderQueryInfo/movies_actor_info.yaml'
+        $ref: './walderQueryInfo/movies_actor_info.yaml'
       responses:
         200:
           description: list of movies
