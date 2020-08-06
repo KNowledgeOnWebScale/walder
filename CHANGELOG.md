@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Define layout via front matter (see [issue 80](https://gitlab.ilabt.imec.be/KNoWS/walder/issues/80))
 - Support simpler JSON-LD context in config file (see [issue 71](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/71))
 - Give error when $ref is not found (see [issue 96](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/96))
+- ToC to README (see [issue 97](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/97))
 
 ### Fixed
 - Logger is no longer a singleton

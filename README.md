@@ -4,6 +4,22 @@ Walder enables an easy way to set up and run a linked data based ([NodeJS](https
 
 Using content negotiation, Walder makes the underlying linked data resources (SPARQL, TPF, RDF files, ...) available to the clients in HTML, RDF formats and JSON-LD.
 
+**Table of contents**
+
+- [Installation](#Installation)
+- [Usage](#Usage)
+  - [CLI](#CLI)
+  - [Library](#Library)
+  - [Config file structure](#Config-file-structure)
+  - [Example](#Example)
+  - [Options](#Options)
+  - [Multiple config files](#Multiple-config-files)
+  - [Content negotiation](#Content-negotiation)
+  - [HTML templates](#HTML-templates)
+- [Input validation](#Input-validation)
+- [Error handling](#Error-handling)
+- [Dependencies](#Dependencies)
+- [Tests](#Tests)
 
 ## Installation
 
@@ -17,7 +33,7 @@ For development, follow these steps:
 
 ## Usage
 
-Walder is available as a [CLI](#cli) and JavaScript [library](#library).
+Walder is available as a [CLI](#CLI) and JavaScript [library](#Library).
 
 ### CLI
 
@@ -215,7 +231,7 @@ Returns a list of songs and movies for a given artist.
 Duplicate songs are removed and movies are descendingly ordered by id.
 For example, <http://localhost:3000/artist/David%20Bowie> returns a list of such songs and movies.
 
-### Referencing
+### Multiple config files
 
 It is possible to split a config file in multiple files.
 This is done by using the `$ref` keyword. 
@@ -273,6 +289,7 @@ get:
       x-walder-input-text/html: movies.pug
 
 ```
+
 ### Content negotiation
 
 Using content negotiation, 
