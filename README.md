@@ -1,25 +1,29 @@
 ![logo of Walder](logo/logo.png)
 
-Walder enables an easy way to set up and run a linked data based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, using only a configuration file describing the web server's API.
+Walder enables an easy way to set up and 
+run a Linked Data-based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, 
+using only a configuration file describing the web server's API.
 
-Using content negotiation, Walder makes the underlying linked data resources (SPARQL, TPF, RDF files, ...) available to the clients in HTML, RDF formats and JSON-LD.
+Using content negotiation, 
+Walder makes the underlying Linked Data resources (SPARQL endpoints, TPF endpoints, RDF files...) 
+available to the clients in HTML, RDF, and JSON-LD.
 
 **Table of contents**
 
-- [Installation](#Installation)
-- [Usage](#Usage)
-  - [CLI](#CLI)
-  - [Library](#Library)
-  - [Config file structure](#Config-file-structure)
-  - [Example](#Example)
-  - [Options](#Options)
-  - [Multiple config files](#Multiple-config-files)
-  - [Content negotiation](#Content-negotiation)
-  - [HTML templates](#HTML-templates)
-- [Input validation](#Input-validation)
-- [Error handling](#Error-handling)
-- [Dependencies](#Dependencies)
-- [Tests](#Tests)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [CLI](#cli)
+  - [Library](#library)
+  - [Config file structure](#config-file-structure)
+  - [Example](#example)
+  - [Options](#options)
+  - [Multiple config files](#multiple-config-files)
+  - [Content negotiation](#content-negotiation)
+  - [HTML templates](#html-templates)
+- [Input validation](#input-validation)
+- [Error handling](#error-handling)
+- [Dependencies](#dependencies)
+- [Tests](#tests)
 
 ## Installation
 
@@ -33,7 +37,7 @@ For development, follow these steps:
 
 ## Usage
 
-Walder is available as a [CLI](#CLI) and JavaScript [library](#Library).
+Walder is available as a [CLI](#cli) and JavaScript [library](#library).
 
 ### CLI
 
