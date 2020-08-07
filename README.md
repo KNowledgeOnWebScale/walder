@@ -2,7 +2,7 @@
 
 Walder enables an easy way to set up and 
 run a Linked Data-based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, 
-using only a configuration file describing the web server's API.
+using a configuration file describing the web server's API.
 
 Using content negotiation, 
 Walder makes the underlying Linked Data resources (SPARQL endpoints, TPF endpoints, RDF files...) 
@@ -72,8 +72,8 @@ walder.deactivate();  // Stops the server
 
 ### Config file structure
 
-* The config file is written in YAML following [OpenAPI 3.0](https://swagger.io/docs/specification/basic-structure/).
-* The config file must have the following structure:
+You write a config file in YAML following the [OpenAPI 3.0 specification](https://swagger.io/docs/specification/basic-structure/).
+The config file must have the following structure:
 
 ```yaml
 openapi: 3.0.2
@@ -103,8 +103,8 @@ x-walder-errors: # Default error page views - status codes with files containing
 
 The `x-walder-resources` key of the config file contains paths to directories used by Walder.
 This key and it's values are optional. 
-If no paths are given, 
-the following default values are used relative to the directory of the config file.
+If a user does not give paths, 
+Walder uses the following default values relative to the directory of the config file.
 
 ```yaml
 root: .
@@ -114,9 +114,9 @@ public: public
 layouts: layouts
 ```
 
-To prevent the wrong files from being made public by Walder, 
-when no path is given to the `public` field, 
-Walder creates a new directory `public` if none is found in the current working directory and uses that one.
+To prevent Walder from making the wrong files public, 
+when a user does not give a path to the `public` field, 
+Walder creates a new directory `public` if it does not find this directory in the current working directory and uses that one.
 
 #### Path entry
 
@@ -163,8 +163,9 @@ This will start a server on `localhost:3000` with the following routes:
 * <http://localhost:3000/music/{musician}> - Returns a list of bands a given musician has written a song for.
 For example, <http://localhost:3000/music/John%20Lennon> returns a list of bands John Lennon has written a song for.
 * <http://localhost:3000/artist/{artist}?writer={name}> - Returns a list of a given artist's songs 
-selecting only those written by a specific person identified by name. 
-For example, <http://localhost:3000/artist/David%20Bowie?writer=John%20Lennon> returns a list of a given artist's songs written by a specific person.
+selecting those written by a specific person identified by name. 
+For example, <http://localhost:3000/artist/David%20Bowie?writer=John%20Lennon> returns a list of 
+a given artist's songs written by a specific person.
 * <http://localhost:3000/music/{artist}/postprocessed> - Returns a list of songs by a given artist 
 that have 'star' in the title, using pipe modules.
 For example, <http://localhost:3000/music/David%20Bowie/postprocessed> returns a list of songs by David Bowie that 
@@ -173,7 +174,7 @@ have 'star' in the title.
 ### Options
 
 In the path entry above, 
-`options` is defined as a global (optional) identifier that is being used by every query of that path.
+the user defined `options` as a global (optional) identifier that Walder uses for every query of that path.
 We have two options where we can choose from: 
 `sort` and `remove-duplicates`. 
 With given syntax:
@@ -220,25 +221,25 @@ This will start a server on `localhost:3000` with the following routes:
 
 * <http://localhost:3000/music/{musician}/sorted> - 
 Returns a list of bands a given musician has written a song for. 
-The songs are sorted in descending order by song number.
+Walder sorts the songs in descending order by song number.
 For example, <http://localhost:3000/music/John%20Lennon/sorted> returns a list of such songs by John Lennon.
 * <http://localhost:3000/music/{musician}/no_duplicates> - 
 Returns a list of bands a given musician has written a song for.
-All the duplicate song numbers are removed from the list.
+Walder removes duplicate song numbers from the list.
 For example, <http://localhost:3000/music/John%20Lennon/no_duplicates> returns a list of such songs by John Lennon.
 * <http://localhost:3000/movies/{musician}/everything_together> - 
 Returns a list of bands a given musician has written a song for.
-The songs are ascendingly ordered by song number and only one song per artist is kept.
+Walder sorts the songs in ascending order by song number and keeps one song per artist.
 For example, <http://localhost:3000/music/John%20Lennon/everything_together> returns a list of such songs by John Lennon.
 * <http://localhost:3000/artist/{artist}> - 
 Returns a list of songs and movies for a given artist. 
-Duplicate songs are removed and movies are descendingly ordered by id.
+Walder removes duplicate songs and sorts movies in descending order by the ids of the movies.
 For example, <http://localhost:3000/artist/David%20Bowie> returns a list of such songs and movies.
 
 ### Multiple config files
 
-It is possible to split a config file in multiple files.
-This is done by using the `$ref` keyword. 
+You can split a config file in multiple files, 
+using the `$ref` keyword. 
 We follow the [OpenAPI 3.0 spec](https://swagger.io/docs/specification/using-ref/) 
 that explains how to use the referencing.
 
@@ -318,29 +319,29 @@ Walder uses [consolidate](https://www.npmjs.com/package/consolidate) to automati
 This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) 
 are dependent on consolidate.
 
-Different template engines can be used for different routes, e.g., 
-one route's HTML can be rendered using [pug](https://pugjs.org/api/getting-started.html), 
-while another one's can be rendered using [handlebars](https://handlebarsjs.com/). 
+You can use different template engines for different routes, e.g., 
+[pug](https://pugjs.org/api/getting-started.html) renders one route's HTML, 
+while [handlebars](https://handlebarsjs.com/) renders another route's HTML. 
 Walder does this all by looking at the file extension of the given template.
 
 ## Input validation
 
 While parsing the config file, 
 Walder also validates the correctness and completeness of the input.
-When the whole config file is parsed and errors were found, 
+When Walder has parsed the whole config file and found errors, 
 Walder returns all errors and exits.
  
-Currently, the following is validated:
+At the moment, Walder validates the following:
 
-- All variables in the GraphQL-LD query are described in the parameters section
+- The config files describes all variables in the GraphQL-LD query in the parameters section.
 
 ## Error handling
 
-Error pages are bound to a certain HTTP status code. 
+Walder binds error pages to a certain HTTP status code. 
 You can define default error pages, 
 but also path specific error pages by adding them to the `responses` key in the corresponding path entry.
 
-### Currently-handled errors
+### Errors
 
 #### Global
 
@@ -371,8 +372,8 @@ the following paths lead to errors:
 
 The following config file excerpt will use the path specific `moviesServerError.handlebars` template on errors leading to status code `500` when navigating to `/movies`.
 
-When the required query parameter `actor` is not passed, the status code `404` is returned. 
-Walder will use the default `error404.html` file since no path specific HTML template is given for the corresponding status.
+When the required query parameter `actor` is not passed, Walder returns the status code `404`. 
+Walder will use the default `error404.html` file since the config file has no path-specific HTML template for the corresponding status.
 
 ```yaml
 ...
