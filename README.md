@@ -482,3 +482,4 @@ Please create a pull request!
 ## License
 This code is copyrighted ©2019–2020 by [Ghent University – imec](http://idlab.ugent.be/)
 and released under the [MIT license](http://opensource.org/licenses/MIT).
+
