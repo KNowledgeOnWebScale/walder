@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better status code and message when query parameters are missing in request (see [issue 93](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/93))
 - Status code still 200 when template engine fails (see [issue 82](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/82))
 - Clean up README (see [issue 95](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/95))
+- Enhance README slightly to include Solid / decentralized knowledge graphs (see [issue 98](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/98))
 
 ### Changes
 - Options are provided now to Walder via a single object

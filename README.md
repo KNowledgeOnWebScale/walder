@@ -1,12 +1,21 @@
 ![logo of Walder](logo/logo.png)
 
-Walder enables an easy way to set up and 
-run a Linked Data-based ([NodeJS](https://nodejs.org/en/)/[Express](https://expressjs.com/)) web server, 
-using a configuration file describing the web server's API.
-
+Walder offers an easy way to set up a website or Web API on top of decentralized knowledge graphs.
+Knowledge graphs incorporate data together with the meaning of that data.
+This makes it possible to combine data from multiple knowledge graphs,
+even if different, independent parties maintain or host them.
+Knowledge graphs can be hosted via 
+[Solid](https://solidproject.org/) PODs, 
+[SPARQL](https://www.w3.org/TR/sparql11-query/) endpoints, 
+[Triple Pattern Fragments](https://linkeddatafragments.org/) interfaces, 
+[RDF](https://www.w3.org/TR/rdf11-concepts/) files, 
+and so on.
 Using content negotiation, 
-Walder makes the underlying Linked Data resources (SPARQL endpoints, TPF endpoints, RDF files...) 
-available to the clients in HTML, RDF, and JSON-LD.
+Walder makes the data in these knowledge graphs available to clients 
+via HTML, RDF, and JSON-LD.
+Users define in a configuration file which data Walder uses and 
+how it processes this data.
+Find out which APIs are built with Walder [here](#built-with-walder).
 
 **Table of contents**
 
@@ -24,6 +33,8 @@ available to the clients in HTML, RDF, and JSON-LD.
 - [Error handling](#error-handling)
 - [Dependencies](#dependencies)
 - [Tests](#tests)
+- [Built with Walder](#built-with-walder)
+- [License](#license)
 
 ## Installation
 
@@ -459,3 +470,15 @@ x-walder-errors:
 * Test framework: [Mocha](https://www.npmjs.com/package/mocha)
 * BDD / assertion library: [Chai](https://www.npmjs.com/package/chai)
 * HTTP assertions: [SuperTest](https://www.npmjs.com/package/supertest)
+
+## Built with Walder
+
+- [KNoWS](https://knows.idlab.ugent.be)
+
+Did you build something Walder and
+want to add it to the list?
+Please create a pull request! 
+
+## License
+This code is copyrighted ©2019–2020 by [Ghent University – imec](http://idlab.ugent.be/)
+and released under the [MIT license](http://opensource.org/licenses/MIT).
