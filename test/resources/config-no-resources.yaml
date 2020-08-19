@@ -33,7 +33,7 @@ paths:
           }
       x-walder-postprocessing:
         filterT:
-          source: filterT.js
+          source: filter-t.js
       responses:
         200:
           description: a list

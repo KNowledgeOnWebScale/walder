@@ -1,7 +1,7 @@
 require('chai').should();
-const parsePipeModule = require('../../lib/parsers/pipeModuleParser');
+const parsePipeModule = require('../../lib/parsers/pipe-module-parser');
 const Path = require('path');
-const CONFIG_FILE = '../resources/config_test_example.yaml';
+const CONFIG_FILE = '../resources/config.yaml';
 const YAML = require('yaml');
 const fs = require('fs');
 
@@ -17,13 +17,13 @@ describe('PipeModuleParser', function () {
         Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules']));
   });
 
-  describe('#functionality()', function () {
+  describe('# Functionality', function () {
     it('should be able to parse and extract pipe modules correctly from a YAML config file', function () {
       this.output.should.eql(
         [
           {
             "name": "filterT",
-            "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT.js'),
+            "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filter-t.js'),
             "parameters": []
           }]
       )
@@ -33,14 +33,14 @@ describe('PipeModuleParser', function () {
           [
             {
               "name": "filterT_withParameters",
-              "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filterT_withParameters.js'),
+              "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filter-t-with-parameters.js'),
               "parameters": ["_data", true]
             }]
       )
     });
   });
 
-  describe('#outputFormat()', function () {
+  describe('# Output format', function () {
     it('output should be a list of objects with {name, source, parameters} properties', function () {
       this.output.forEach((o) => {
         o.should.have.property('name');

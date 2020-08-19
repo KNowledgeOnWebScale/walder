@@ -3,9 +3,9 @@ info:
   title: 'Example site'
   version: 0.1.0
 x-walder-resources:
-  root: ../../example
+  root: .
   views: views
-  pipe-modules: pipeModules
+  pipe-modules: pipe-modules
   public: public
 x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
@@ -76,7 +76,7 @@ paths:
           }
       x-walder-postprocessing:
         filterT:
-          source: filterT_bad.js
+          source: filter-t-bad.js
       responses:
         200:
           description: list of movies
@@ -109,7 +109,7 @@ paths:
           }
       x-walder-postprocessing:
         filterT:
-          source: filterT_bad.js
+          source: filter-t-bad.js
       responses:
         200:
           description: list of movies

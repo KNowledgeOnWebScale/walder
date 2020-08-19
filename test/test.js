@@ -10,17 +10,17 @@ const N3 = require('n3');
 const fs = require('fs-extra');
 
 const Walder = require('../lib/walder');
-const GraphQLLDHandler = require('../lib/handlers/graphQLLDHandler');
-const filter = require('./resources/filterT').filterT;
+const GraphQLLDHandler = require('../lib/handlers/graphql-ld-handler');
+const filter = require('./resources/filter-t').filterT;
 
-const CONFIG_FILE = './resources/config_test_example.yaml';
-const CONFIG_FILE_ERRORS = './resources/config_test_example_errors.yaml';
-const CONFIG_FILE_NO_QUERY = './resources/config_test_no_query.yaml';
-const CONFIG_FILE_IMAGE = './resources/config_test_image.yaml';
+const CONFIG_FILE = './resources/config.yaml';
+const CONFIG_FILE_ERRORS = './resources/config-errors.yaml';
+const CONFIG_FILE_NO_QUERY = './resources/config-no-query.yaml';
+const CONFIG_FILE_IMAGE = './resources/config-image.yaml';
 
 describe('Walder', function () {
 
-  describe('#Activation', function () {
+  describe('# Activation', function () {
     it('should throw an error when no config file is given', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
     });
@@ -39,7 +39,7 @@ describe('Walder', function () {
     });
   });
 
-  describe('#Content negotiation', function () {
+  describe('# Content negotiation', function () {
     before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
@@ -64,7 +64,7 @@ describe('Walder', function () {
       }
     });
 
-    it('should return status 415 and the response should have properties { status, message ) ' +
+    it('should return status 415 and the response should have properties { status, message } ' +
       'when an invalid content-type is requested', function (done) {
       request(this.walder.app)
         .get('/movies/Angelina_Jolie')
@@ -156,7 +156,7 @@ describe('Walder', function () {
     });
   });
 
-  describe('#Functionality', function () {
+  describe('# Functionality', function () {
     before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE);
       const port = 9000;
@@ -169,7 +169,7 @@ describe('Walder', function () {
       this.walder.deactivate();
     });
 
-    describe('##Express', function () {
+    describe('## Express', function () {
       it('should make the routes specified in the config file available', function (done) {
         request(this.walder.app)
           .get('/movies/Angelina_Jolie')
@@ -177,7 +177,7 @@ describe('Walder', function () {
       });
     });
 
-    describe('##GraphQL-LD', function () {
+    describe('## GraphQL-LD', function () {
       it('should execute the GraphQL-LD queries linked to a route', function (done) {
         request(this.walder.app)
           .get('/movies/Angelina_Jolie')
@@ -249,7 +249,7 @@ describe('Walder', function () {
         }
       })
 
-      describe('###Caching', function () {
+      describe('### Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache
           const graphQLLHandler = new GraphQLLDHandler();
@@ -293,7 +293,7 @@ describe('Walder', function () {
 
     });
 
-    describe('##PipeModules', function () {
+    describe('## Pipe modules', function () {
       it('should apply the specified pipe modules', function (done) {
         request(this.walder.app)
           .get('/movies/Angelina_Jolie')
@@ -311,7 +311,7 @@ describe('Walder', function () {
     })
   });
 
-  describe('#Error handling', function () {
+  describe('# Error handling', function () {
     before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE_ERRORS);
       const port = 9000;
@@ -358,7 +358,7 @@ describe('Walder', function () {
     });
   });
 
-  describe('#Layouts', function () {
+  describe('# Layouts', function () {
     before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, 'resources/layouts-test/config.yaml');
       const port = 9000;
@@ -387,7 +387,7 @@ describe('Walder', function () {
     });
   });
 
-  describe('#Pug', function () {
+  describe('# Pug', function () {
     before('Activating Walder', function () {
       const configFile = path.resolve(__dirname, 'resources/pug-include-test/config.yaml');
       const port = 9000;

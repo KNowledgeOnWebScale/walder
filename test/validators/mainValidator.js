@@ -1,20 +1,20 @@
 require('chai').should();
 const expect = require('chai').expect;
 
-const MainValidator = require('../../lib/validators/mainValidator');
-const RouteInfo = require('../../lib/models/routeInfo');
-const parseGraphQLLD = require('../../lib/parsers/graphQLLDParser');
-const parseParameter = require('../../lib/parsers/parameterParser');
+const MainValidator = require('../../lib/validators/main-validator');
+const RouteInfo = require('../../lib/models/route-info');
+const parseGraphQLLD = require('../../lib/parsers/graphql-ld-parser');
+const parseParameter = require('../../lib/parsers/parameter-parser');
 
 const YAML = require('yaml');
 const fs = require('fs');
 const Path = require('path');
 
-const CONFIG_FILE = '../resources/config_test_example.yaml';
+const CONFIG_FILE = '../resources/config.yaml';
 
-describe('mainValidator', function () {
+describe('MainValidator', function () {
   {
-    describe('#functionality', function () {
+    describe('# Functionality', function () {
       function validateConfig (valid) {
         const file = fs.readFileSync(Path.resolve(__dirname, CONFIG_FILE), 'utf8');
         const yamlData = YAML.parse(file);

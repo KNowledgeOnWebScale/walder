@@ -5,7 +5,7 @@ info:
 x-walder-resources:
   root: .
   views: views
-  pipe-modules: pipeModules
+  pipe-modules: pipe-modules
   public: public
 x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en

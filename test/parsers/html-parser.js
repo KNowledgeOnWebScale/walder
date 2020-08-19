@@ -1,9 +1,9 @@
 require('chai').should();
-const parseHTML = require('../../lib/parsers/htmlParser');
+const parseHTML = require('../../lib/parsers/html-parser');
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
-const CONFIG_FILE = '../resources/config_test_example.yaml';
+const CONFIG_FILE = '../resources/config.yaml';
 
 describe('HtmlParser', function () {
   {
@@ -14,7 +14,7 @@ describe('HtmlParser', function () {
       this.output = parseHTML(yamlData.paths['/movies/{actor}']['get'].responses, '', '');
     });
 
-    describe('#functionality()', function () {
+    describe('# Functionality', function () {
       it('should be able to parse, extract and format html information correctly from a YAML config file', function () {
         this.output.should.eql(
           {
@@ -29,7 +29,7 @@ describe('HtmlParser', function () {
       });
     });
 
-    describe('#outputFormat()', function () {
+    describe('# Output format', function () {
       it('output object should have {statusCode: {engine, file}} properties', function () {
         this.output.should.have.property('200');
         this.output['200'].should.have.property('engine');

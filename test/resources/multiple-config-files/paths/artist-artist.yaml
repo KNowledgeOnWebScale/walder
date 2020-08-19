@@ -38,4 +38,4 @@ get:
   responses:
     200:
       description: list of songs and movies
-      x-walder-input-text/html: songs_movies.handlebars
+      x-walder-input-text/html: songs-movies.handlebars

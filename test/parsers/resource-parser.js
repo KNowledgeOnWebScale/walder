@@ -3,11 +3,11 @@ require('chai').should();
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
-const parseResources = require('../../lib/parsers/resourceParser');
+const parseResources = require('../../lib/parsers/resource-parser');
 
-const CONFIG_FILE = 'test/resources/config_test_example.yaml';
-const CONFIG_FILE_NO_RESOURCES = 'test/resources/config_test_example_no_resources.yaml';
-const CONFIG_FILE_PARTIAL_RESOURCES = 'test/resources/config_test_example_partial_resources.yaml';
+const CONFIG_FILE = 'test/resources/config.yaml';
+const CONFIG_FILE_NO_RESOURCES = 'test/resources/config-no-resources.yaml';
+const CONFIG_FILE_PARTIAL_RESOURCES = 'test/resources/config-partial-resources.yaml';
 const CONFIG_FILE_PATH = 'test/resources/config-resources-path.yaml';
 
 describe('ResourceParser', function () {
@@ -19,7 +19,7 @@ describe('ResourceParser', function () {
     }
   });
 
-  describe('#functionality()', function () {
+  describe('# Functionality', function () {
     it('should be able to parse, extract and format resources information correctly from a YAML config file', function () {
       const file = fs.readFileSync(path.resolve(CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
@@ -31,7 +31,7 @@ describe('ResourceParser', function () {
         {
           "root": path.resolve('test/resources'),
           "views": path.resolve('test/resources', 'views'),
-          "pipe-modules": path.resolve('test/resources', 'pipeModules'),
+          "pipe-modules": path.resolve('test/resources', 'pipe-modules'),
           "public": path.resolve('test/resources', 'public'),
           "layouts": path.resolve('test/resources', 'layouts'),
         }
@@ -89,7 +89,7 @@ describe('ResourceParser', function () {
         {
           "root": path.resolve('test/resources'),
           "views": path.resolve('test/resources', 'views'),
-          "pipe-modules": path.resolve('test/resources', 'pipeModules'),
+          "pipe-modules": path.resolve('test/resources', 'pipe-modules'),
           "public": path.resolve('test/resources', 'public'),
           "layouts": path.resolve('test/resources', 'layouts'),
         }
@@ -97,14 +97,14 @@ describe('ResourceParser', function () {
     });
   });
 
-  describe('#outputFormat()', function () {
+  describe('# Output format', function () {
     const file = fs.readFileSync(path.resolve(CONFIG_FILE), 'utf8');
     const yamlData = YAML.parse(file);
     const cwd = path.resolve(__dirname, '../resources');
 
     output = parseResources(yamlData['x-walder-resources'], cwd);
 
-    it('output object should have {path, views, pipeModules, public} properties', function () {
+    it('output object should have {path, views, pipe-modules, public} properties', function () {
       output.should.have.property('root');
       output.should.have.property('views');
       output.should.have.property('pipe-modules');

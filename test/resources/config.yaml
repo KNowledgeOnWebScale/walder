@@ -5,7 +5,7 @@ info:
 x-walder-resources:
   root: .
   views: views
-  pipe-modules: pipeModules
+  pipe-modules: pipe-modules
   public: public
 x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
@@ -67,7 +67,7 @@ paths:
           }
       x-walder-postprocessing:
         filterT:
-          source: filterT.js
+          source: filter-t.js
       responses:
         200:
           description: list of movies
@@ -104,7 +104,7 @@ paths:
             - http://data.linkeddatafragments.org/harvard
       x-walder-postprocessing:
         filterT:
-          source: filterT.js
+          source: filter-t.js
       responses:
         200:
           description: list of movies
@@ -150,7 +150,7 @@ paths:
       responses:
         200:
           description: list of songs and movies
-          x-walder-input-text/html: songs_movies.handlebars
+          x-walder-input-text/html: songs-movies.handlebars
   /music/{musician}/sorted:
     get:
       summary: Returns a list of songs of the given musician, sorted by the label of the song.
@@ -253,7 +253,7 @@ paths:
           }
       x-walder-postprocessing:
         filterT_withParameters:
-          source: filterT_withParameters.js
+          source: filter-t-with-parameters.js
           parameters:
             - _data
             - true

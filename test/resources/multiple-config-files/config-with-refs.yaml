@@ -5,21 +5,21 @@ info:
 x-walder-resources:
   root: .
   views: views
-  pipe-modules: pipeModules
+  pipe-modules: pipe-modules
   public: public
 x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:
-    $ref: './paths/movies_actor.yaml'
+    $ref: './paths/movies-actor.yaml'
   /more_movies/{actor}:
-    $ref: './paths/more_movies_actor.yaml'
+    $ref: './paths/more-movies-actor.yaml'
   /artist/{artist}:
-    $ref: './paths/artist_artist.yaml'
+    $ref: './paths/artist-artist.yaml'
   /music/{musician}/sorted:
-    $ref: './paths/music_musician_sorted.yaml'
+    $ref: './paths/music-musician-sorted.yaml'
   /music/{musician}/no_duplicates:
-    $ref: './paths/music_musician_no_duplicates.yaml'
+    $ref: './paths/music-musician-no-duplicates.yaml'
 x-walder-errors:
   404:
     description: page not found error

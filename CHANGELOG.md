@@ -38,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactor parsers (see [issue 94](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/94))
 - Use `root` instead of `path` for root path of `x-walder-resources`
 - Defaults for `views` and `pipe-modules` in `x-walder-resources`
+- Test resource structure (see [issue 81](https://gitlab.ilabt.imec.be/KNoWS/walder/-/issues/81))
 
 ## [1.0.0] - 2019-08-30
 ### Added

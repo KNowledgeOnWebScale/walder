@@ -1,7 +1,7 @@
 require('chai').should();
 const expect = require('chai').expect;
 
-const parseConfigFile = require('../../lib/parsers/configFileParser');
+const parseConfigFile = require('../../lib/parsers/config-file-parser');
 const path = require('path');
 
 describe('ConfigFileParser', function () {

@@ -1,10 +1,10 @@
 require('chai').should();
 
-const parseParameter = require('../../lib/parsers/parameterParser');
+const parseParameter = require('../../lib/parsers/parameter-parser');
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
-const CONFIG_FILE = '../resources/config_test_example.yaml';
+const CONFIG_FILE = '../resources/config.yaml';
 
 describe('ParameterParser', function () {
   {
@@ -15,7 +15,7 @@ describe('ParameterParser', function () {
       this.output = parseParameter(yamlData.paths['/movies/{actor}']['get'].parameters);
     });
 
-    describe('#functionality()', function () {
+    describe('# Functionality', function () {
       it('should be able to parse, extract and format parameter information correctly from a YAML config file', function () {
         this.output.should.eql(
           {
@@ -30,7 +30,7 @@ describe('ParameterParser', function () {
       });
     });
 
-    describe('#outputFormat()', function () {
+    describe('# Output format', function () {
       it('output object should have { parameter: { required, type, description }} properties', function () {
         this.output.should.have.property('actor');
         this.output['actor'].should.have.property('required');

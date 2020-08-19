@@ -1,7 +1,7 @@
 require('chai').should();
-const parseGraphQLLD = require('../../lib/parsers/graphQLLDParser');
+const parseGraphQLLD = require('../../lib/parsers/graphql-ld-parser');
 
-const CONFIG_FILE = '../resources/config_test_example.yaml';
+const CONFIG_FILE = '../resources/config.yaml';
 const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
@@ -19,7 +19,7 @@ describe('GraphQLLDParser', function () {
     this.smallerContextOutput = parseGraphQLLD(this.yamlData.paths['/movies2/{actor}']['get']['x-walder-query'], options);
   });
 
-  describe('#functionality()', function () {
+  describe('# Functionality', function () {
     it('should be able to parse and extract GraphQL-LD information correctly from a YAML config file', function () {
       this.output.should.eql(
         {
@@ -148,7 +148,7 @@ describe('GraphQLLDParser', function () {
     });
   });
 
-  describe('#outputFormat()', function () {
+  describe('# Output format', function () {
     it('output object should have { cache, comunicaConfig, context, query } properties', function () {
       this.output.should.have.property('cache');
       this.output.should.have.property('comunicaConfig');

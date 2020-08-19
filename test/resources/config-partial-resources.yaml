@@ -3,8 +3,8 @@ info:
   title: 'Example site'
   version: 0.1.0
 x-walder-resources:
-  root: ../../example
-  pipe-modules: pipeModules
+  root: .
+  pipe-modules: pipe-modules
   public: public
 x-walder-datasources:
   - http://dbpedia.org/sparql
@@ -37,7 +37,7 @@ paths:
           }
       x-walder-postprocessing:
         filterT:
-          source: filterT.js
+          source: filter-t.js
       responses:
         200:
           description: a list

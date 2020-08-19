@@ -23,13 +23,9 @@ get:
           "starring": "http://dbpedia.org/ontology/starring"
         }
       }
-    datasources:
-      additional: true
-      sources:
-        - http://data.linkeddatafragments.org/harvard
   x-walder-postprocessing:
     filterT:
-      source: filterT.js
+      source: filter-t.js
   responses:
     200:
       description: list of movies

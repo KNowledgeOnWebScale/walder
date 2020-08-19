@@ -1,16 +1,16 @@
 require('chai').should();
 const expect = require('chai').expect;
 
-const GraphQLLDValidator = require('../../lib/validators/graphQLLDValidator');
-const RouteInfo = require('../../lib/models/routeInfo');
-const parseGraphQLLD = require('../../lib/parsers/graphQLLDParser');
-const parseParameter = require('../../lib/parsers/parameterParser');
+const GraphQLLDValidator = require('../../lib/validators/graphql-ld-validator');
+const RouteInfo = require('../../lib/models/route-info');
+const parseGraphQLLD = require('../../lib/parsers/graphql-ld-parser');
+const parseParameter = require('../../lib/parsers/parameter-parser');
 
 const YAML = require('yaml');
 const fs = require('fs');
 const Path = require('path');
 
-const CONFIG_FILE = '../resources/config_test_example.yaml';
+const CONFIG_FILE = '../resources/config.yaml';
 
 describe('GraphQLValidator', function () {
   {
@@ -26,7 +26,7 @@ describe('GraphQLValidator', function () {
       this.parameters = parseParameter(yamlData.paths[path][method].parameters);
     });
 
-    describe('#Variables', function () {
+    describe('# Variables', function () {
       it('Should return \'undefined\' when all GraphQL-LD variables are correctly described', function () {
         expect(GraphQLLDValidator.validate(this.routeInfo, this.graphQLLDInfo, this.parameters)).to.be.undefined;
       });

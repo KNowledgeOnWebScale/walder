@@ -1,13 +1,13 @@
 require('chai').should();
 const Path = require('path');
-const PipeModuleLoader = require('../../lib/loaders/pipeModuleLoader');
+const PipeModuleLoader = require('../../lib/loaders/pipe-module-loader');
 
 describe('PipeModuleLoader', function () {
   it('should return a list of {pipe functions, parameters}, given a list of pipe module objects {name, source, parameters}', function () {
     const pipeModules = [
       {
         "name": "filterT",
-        "source": Path.resolve(__dirname, '../resources/filterT.js'),
+        "source": Path.resolve(__dirname, '../resources/filter-t.js'),
         "parameters": []
       }];
 

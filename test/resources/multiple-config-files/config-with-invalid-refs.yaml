@@ -5,15 +5,15 @@ info:
 x-walder-resources:
   root: .
   views: views
-  pipe-modules: pipeModules
+  pipe-modules: pipe-modules
   public: public
 x-walder-datasources:
   - http://fragments.dbpedia.org/2016-04/en
 paths:
   /movies/{actor}:
-    $ref: './invalid/paths/movies_actor.yaml'
+    $ref: './invalid/paths/movies-actor.yaml'
   /more_movies/{actor}:
-    $ref: './invalid/paths/more_movies_actor.yaml'
+    $ref: './invalid/paths/more-movies-actor.yaml'
 
 x-walder-errors:
   404:

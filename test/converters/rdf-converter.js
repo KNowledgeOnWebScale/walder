@@ -1,7 +1,7 @@
 require('chai').should();
-const RDF_TYPES = require('../../lib/converters/rdfConverter').RDF_TYPES;
-const RdfConverter = require('../../lib/converters/rdfConverter').RdfConverter;
-const ExampleData = require('../resources/exampleData');
+const RDF_TYPES = require('../../lib/converters/rdf-converter').RDF_TYPES;
+const RdfConverter = require('../../lib/converters/rdf-converter').RdfConverter;
+const ExampleData = require('../resources/example-data');
 const jsonld = require('jsonld');
 const N3 = require('n3');
 
@@ -11,7 +11,7 @@ describe('RdfConverter', function () {
 
   });
 
-  describe('#functionality()', function () {
+  describe('# Functionality', function () {
     it('should be able to convert the given JSON to JSON-LD', async () => {
       const data = await RdfConverter.convert(
         RDF_TYPES.JSON_LD,
