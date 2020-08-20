@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.0.1] - 2020-08-20
+
 ### Fixed
 - Add license in package.json  (see [issue 11](https://github.com/KNowledgeOnWebScale/walder/issues/11))
 - Add repo information in package.json  (see [issue 12](https://github.com/KNowledgeOnWebScale/walder/issues/12))
@@ -77,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+[2.0.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/KNowledgeOnWebScale/walder/releases/tag/v2.0.0
 [1.0.0]: https://gitlab.ilabt.imec.be/KNoWS/walder/compare/v0.0.1...v1.0.0
 [0.0.1]: https://gitlab.ilabt.imec.be/KNoWS/walder/-/tags/v0.0.1
