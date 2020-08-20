@@ -48,7 +48,7 @@ paths:
       responses:
         200:
           description: list of songs
-          x-walder-input-text/html: songs.handlebars
+          x-walder-input-text/html: songs-with-artist.handlebars
 
   /music/{musician}/no_duplicates:
     get:
@@ -121,9 +121,10 @@ paths:
           sort:
             object: $[*]
             selectors:
-              - label
+              - value: label
+                order: desc
           remove-duplicates:
-              object: $[*].artist
+              object: $[*]
               value: label
       responses:
         200:
