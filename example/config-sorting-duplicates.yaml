@@ -12,7 +12,7 @@ x-walder-datasources:
 paths:
   /music/{musician}/sorted:
     get:
-      # Working example: John Lennon
+      # Working example: Marcella Detroit
       summary: Returns a list of songs of the given musician, sorted in descending order by song label.
       parameters:
         - in: path
@@ -48,11 +48,11 @@ paths:
       responses:
         200:
           description: list of songs
-          x-walder-input-text/html: songs.handlebars
+          x-walder-input-text/html: songs-with-artist.handlebars
 
   /music/{musician}/no_duplicates:
     get:
-      # Working example: John Lennon
+      # Working example: Marcella Detroit
       summary: Returns a list of songs of the given musician, where duplicate songe names are removed.
       parameters:
         - in: path
@@ -90,8 +90,8 @@ paths:
 
   /music/{musician}/everything_together:
     get:
-      # Working example: John Lennon
-      summary: Returns a list of songs of the given musician, sorted in ascending order by label of the song and duplicate artists labels are removed.
+      # Working example: Marcella Detroit
+      summary: Returns a list of songs of the given musician, sorted in descending order by label of the song and duplicates songs are removed.
       parameters:
         - in: path
           name: musician
@@ -121,9 +121,10 @@ paths:
           sort:
             object: $[*]
             selectors:
-              - label
+              - value: label
+                order: desc
           remove-duplicates:
-              object: $[*].artist
+              object: $[*]
               value: label
       responses:
         200:

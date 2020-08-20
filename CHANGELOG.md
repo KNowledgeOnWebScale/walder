@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add license in package.json  (see [issue 11](https://github.com/KNowledgeOnWebScale/walder/issues/11))
 - Add repo information in package.json  (see [issue 12](https://github.com/KNowledgeOnWebScale/walder/issues/12))
 
+### Changed
+- Examples
+
 ## [2.0.0] - 2020-08-19
 
 ### Added
