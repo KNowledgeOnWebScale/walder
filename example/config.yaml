@@ -24,10 +24,7 @@ paths:
         graphql-query: >
           {
             label @single
-            writer(label_en: $musician)  @single
-            artist  @single(scope: all) {
-              label
-            }
+            artist(label_en: $musician)
           }
         json-ld-context: >
           {

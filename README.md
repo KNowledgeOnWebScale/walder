@@ -171,8 +171,8 @@ The following command starts a server on port 3000 (default) using an example co
 This will start a server on `localhost:3000` with the following routes:
 
 * <http://localhost:3000/bradpitt-directors> - Returns a list of directors of movies starring Brad Pitt.
-* <http://localhost:3000/music/{musician}> - Returns a list of bands a given musician has written a song for.
-For example, <http://localhost:3000/music/John%20Lennon> returns a list of bands John Lennon has written a song for.
+* <http://localhost:3000/music/{musician}> - Returns a list of songs by a given musician.
+For example, <http://localhost:3000/music/Lady%20Gaga> returns a list of songs by Lady Gaga.
 * <http://localhost:3000/artist/{artist}?writer={name}> - Returns a list of a given artist's songs 
 selecting those written by a specific person identified by name. 
 For example, <http://localhost:3000/artist/David%20Bowie?writer=John%20Lennon> returns a list of 
@@ -231,20 +231,21 @@ The following command starts a server using [this](example/config-sorting-duplic
 This will start a server on `localhost:3000` with the following routes:
 
 * <http://localhost:3000/music/{musician}/sorted> - 
-Returns a list of bands a given musician has written a song for. 
-Walder sorts the songs in descending order by song number.
-For example, <http://localhost:3000/music/John%20Lennon/sorted> returns a list of such songs by John Lennon.
+Returns a list of songs with their artists written by a given musician. 
+Walder sorts the songs in descending order by song name.
+For example, <http://localhost:3000/music/Marcella%20Detroit/sorted> returns a list of such songs written by Marcella Detroit.
 * <http://localhost:3000/music/{musician}/no_duplicates> - 
-Returns a list of bands a given musician has written a song for.
-Walder removes duplicate song numbers from the list.
-For example, <http://localhost:3000/music/John%20Lennon/no_duplicates> returns a list of such songs by John Lennon.
+Returns a list of songs with their artists written by a given musician.
+Walder removes duplicate song names from the list.
+For example, <http://localhost:3000/music/Marcella%20Detroit/no_duplicates> returns a list of such songs by John Marcella Detroit.
 * <http://localhost:3000/movies/{musician}/everything_together> - 
-Returns a list of bands a given musician has written a song for.
-Walder sorts the songs in ascending order by song number and keeps one song per artist.
-For example, <http://localhost:3000/music/John%20Lennon/everything_together> returns a list of such songs by John Lennon.
+Returns a list of songs with their artists written by a given musician.
+Walder sorts the songs in descending order by song name and removes duplicate song names.
+For example, <http://localhost:3000/music/Marcella%20Detroit/everything_together> returns a list of such songs by Marcella Detroit.
 * <http://localhost:3000/artist/{artist}> - 
-Returns a list of songs and movies for a given artist. 
-Walder removes duplicate songs and sorts movies in descending order by the ids of the movies.
+Returns a list of song names and movie URLs for a given artist. 
+Walder removes duplicate songs based on their names and 
+sorts movies in descending order by their URLs.
 For example, <http://localhost:3000/artist/David%20Bowie> returns a list of such songs and movies.
 
 ### Multiple config files
