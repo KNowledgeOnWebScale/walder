@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Support integer variables in query (see [issue 20](https://github.com/KNowledgeOnWebScale/walder/issues/20))
+
 ### Fixed
 - Incorrect test for config file with resources (see [issue 17](https://github.com/KNowledgeOnWebScale/walder/issues/17))
 
