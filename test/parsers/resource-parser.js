@@ -43,7 +43,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = parseResources(yamlData, cwd);
+      const output = parseResources(yamlData['x-walder-resources'], cwd);
       output.should.eql({
         root: cwd,
         views: path.resolve(cwd, 'views'),
@@ -58,7 +58,7 @@ describe('ResourceParser', function () {
       const yamlData = YAML.parse(file);
       const cwd = path.resolve(__dirname, '../resources');
 
-      const output = parseResources(yamlData, cwd);
+      const output = parseResources(yamlData['x-walder-resources'], cwd);
       output.should.eql({
         root: cwd,
         views: path.resolve(cwd, 'views'),
@@ -98,11 +98,15 @@ describe('ResourceParser', function () {
   });
 
   describe('# Output format', function () {
-    const file = fs.readFileSync(path.resolve(CONFIG_FILE), 'utf8');
-    const yamlData = YAML.parse(file);
-    const cwd = path.resolve(__dirname, '../resources');
+    let output;
 
-    output = parseResources(yamlData['x-walder-resources'], cwd);
+    before(() => {
+      const file = fs.readFileSync(path.resolve(CONFIG_FILE), 'utf8');
+      const yamlData = YAML.parse(file);
+      const cwd = path.resolve(__dirname, '../resources');
+
+      output = parseResources(yamlData['x-walder-resources'], cwd);
+    });
 
     it('output object should have {path, views, pipe-modules, public} properties', function () {
       output.should.have.property('root');
