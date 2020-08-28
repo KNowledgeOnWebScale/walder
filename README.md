@@ -24,13 +24,22 @@ Find out which APIs are built with Walder [here](#built-with-walder).
   - [CLI](#cli)
   - [Library](#library)
   - [Config file structure](#config-file-structure)
+    - [Resources](#resources)
+    - [Path entry](#path-entry)
   - [Example](#example)
   - [Options](#options)
   - [Multiple config files](#multiple-config-files)
   - [Content negotiation](#content-negotiation)
+    - [RDF](#rdf)
   - [HTML templates](#html-templates)
 - [Input validation](#input-validation)
 - [Error handling](#error-handling)
+  - [Errors](#errors)
+    - [Global](#global)
+    - [Pipe modules](#pipe-modules)
+    - [GraphQL-LD](#graphql-ld)
+  - [Example](#example-1)
+- [Developing your website](#developing-your-website)
 - [Dependencies](#dependencies)
 - [Tests](#tests)
 - [Built with Walder](#built-with-walder)
@@ -432,6 +441,33 @@ x-walder-errors:
     description: internal server error
     x-walder-input-text/html: error500.html
 ```
+
+## Developing your website
+
+Whilst developing your website,
+you probably want your website to reload while making changes to `config.yaml`.
+You can easily do this using [npm-watch](https://www.npmjs.com/package/npm-watch).
+See the `package.json` snippet below on how to start
+
+```json
+{
+  "watch": {
+    "run": "config.yaml"
+  },
+  "scripts": {
+    "run": "walder -c config.yaml --no-cache",
+    "watch": "npm-watch"
+  },
+  "dependencies": {
+    "walder": "^2.0.1"
+  },
+  "devDependencies": {
+    "npm-watch": "^0.7.0"
+  }
+}
+```
+
+Run `npm run watch` and Walder reloads every `config.yaml` change!
 
 ## Dependencies
 
