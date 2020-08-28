@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.0.2] - 2020-08-28
+
 ### Added
 - Support integer variables in query (see [issue 20](https://github.com/KNowledgeOnWebScale/walder/issues/20))
+- Dev explanation in the README
 
 ### Fixed
 - Incorrect test for config file with resources (see [issue 17](https://github.com/KNowledgeOnWebScale/walder/issues/17))
@@ -85,6 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+[2.0.2]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/KNowledgeOnWebScale/walder/releases/tag/v2.0.0
 [1.0.0]: https://gitlab.ilabt.imec.be/KNoWS/walder/compare/v0.0.1...v1.0.0
