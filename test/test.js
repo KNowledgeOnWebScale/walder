@@ -249,6 +249,18 @@ describe('Walder', function () {
         }
       })
 
+      it('should replace query parameter in GraphQL-LD query', function (done) {
+        request(this.walder.app)
+          .get('/artist2/David%20Bowie?writer=John%20Lennon')
+          .set('Accept', 'application/json')
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          assert(res.body.data.length > 0, 'no results returned');
+        }
+      })
+
       describe('### Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache
