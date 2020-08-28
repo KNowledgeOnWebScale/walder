@@ -261,6 +261,42 @@ paths:
         200:
           description: list of movies
           x-walder-input-text/html: movies.pug
+  /artist2/{artist}:
+    get:
+      summary: Returns a list of a given artist's songs written by a specific person.
+      parameters:
+        - in: path
+          name: artist
+          required: true
+          schema:
+            type: string
+          description: The target artist
+        - in: query
+          name: writer
+          required: true
+          schema:
+            type: string
+      x-walder-query:
+        graphql-query: >
+          {
+            label @single
+            writer(label: $writer)  @single
+            artist  @single(scope: all) {
+              label(_:$artist)
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "writer": "http://dbpedia.org/ontology/writer",
+              "artist": "http://dbpedia.org/ontology/musicalArtist"
+            }
+          }
+      responses:
+        200:
+          description: list of songs
+          x-walder-input-text/html: artist-writer.pug
 x-walder-errors:
   404:
     description: page not found error
