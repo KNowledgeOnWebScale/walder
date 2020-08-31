@@ -247,8 +247,8 @@ For example, <http://localhost:3000/music/Marcella%20Detroit/sorted> returns a l
 Returns a list of songs with their artists written by a given musician.
 Walder removes duplicate song names from the list.
 For example, <http://localhost:3000/music/Marcella%20Detroit/no_duplicates> returns a list of such songs by John Marcella Detroit.
-* <http://localhost:3000/movies/{musician}/everything_together> - 
-Returns a list of songs with their artists written by a given musician.
+* <http://localhost:3000/music/{musician}/everything_together> - 
+Returns a list of songs written by a given musician.
 Walder sorts the songs in descending order by song name and removes duplicate song names.
 For example, <http://localhost:3000/music/Marcella%20Detroit/everything_together> returns a list of such songs by Marcella Detroit.
 * <http://localhost:3000/artist/{artist}> - 
