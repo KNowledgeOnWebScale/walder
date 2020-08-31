@@ -343,6 +343,18 @@ describe('Walder', function () {
         .end(done);
     });
 
+    it('should return 404 HTML page when requesting a nonexistent page', function (done) {
+      request(this.walder.app)
+        .get('/thisPageSurelyDoesNotExist')
+        .expect('Content-Type', /text\/html/)
+        .expect(checkBody)
+        .end(done);
+
+      function checkBody(res) {
+        res.text.should.includes('moon.svg'); // This SVG is used in the default 404 page.
+      }
+    });
+
     it('should return status 500 when pipe modules could not be applied', function (done) {
       request(this.walder.app)
         .get('/movies/Angelina%20Jolie')
