@@ -388,7 +388,6 @@ the following paths lead to errors:
 
 * <http://localhost:3000/thisPageSurelyWontExist> &rarr; error `404` (Global: Page not found)
 * <http://localhost:3000/bad_pipeModule> &rarr; error `500` (Pipe modules: Could not apply the given pipe modules)
-* <http://localhost:3000/movies/brad_pitt> &rarr; error `404` (GraphQL-LD: Expected variable (page/limit) was not given)
 * <http://localhost:3000/bad_query> &rarr; error `500` (GraphQL-LD: Could not execute the given query)
 
 The following config file excerpt will use the path specific `moviesServerError.handlebars` template on errors leading to status code `500` when navigating to `/movies`.
