@@ -295,7 +295,7 @@ x-walder-errors:
     x-walder-input-text/html: error500.html
 ```
 
-Below you see `./example/paths/music_musician.yaml` with reference with path relative to its own location
+Below you see `./example/paths/movies_actor.yaml` with reference with path relative to its own location
 
 ```yaml
 get:
