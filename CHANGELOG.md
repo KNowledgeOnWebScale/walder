@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Filter query/path parameters before substituting variables  (see [issue 36](https://github.com/KNowledgeOnWebScale/walder/issues/36))
+
 ## [2.0.3] - 2020-08-31
 
 ### Fixed
