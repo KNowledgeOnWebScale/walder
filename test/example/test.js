@@ -1,8 +1,6 @@
 require('chai').should();
 const request = require('supertest');
-
 const path = require('path');
-
 const Walder = require('../../lib/walder');
 
 const CONFIG_FILE = '../../example/config.yaml';
