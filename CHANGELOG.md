@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update dependencies
 
 ### Fixed
-- Filter query/path parameters before substituting variables  (see [issue 36](https://github.com/KNowledgeOnWebScale/walder/issues/36))
+- Filter query/path parameters before substituting variables (see [issue 36](https://github.com/KNowledgeOnWebScale/walder/issues/36))
+- 404 error on /favicon.ico in examples (see [issue 31](https://github.com/KNowledgeOnWebScale/walder/issues/31))
 
 ## [2.0.3] - 2020-08-31
 
