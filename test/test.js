@@ -1,3 +1,6 @@
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 require('chai').should();
@@ -17,12 +20,26 @@ const CONFIG_FILE = './resources/config.yaml';
 const CONFIG_FILE_ERRORS = './resources/config-errors.yaml';
 const CONFIG_FILE_NO_QUERY = './resources/config-no-query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config-image.yaml';
+const CONFIG_FILE_MISSING_HTML = './resources/config-missing-html.yaml';
+const CONFIG_FILE_DEFAULT_ERROR_PAGES = './resources/config-missing-default-error-pages.yaml';
 
 describe('Walder', function () {
 
   describe('# Activation', function () {
     it('should throw an error when no config file is given', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
+    });
+
+    it('should be rejected with an error when the config file contains missing HTML files in a route', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_MISSING_HTML);
+      const walder = new Walder(configFile);
+      return walder.activate().should.be.rejectedWith(Error);
+    });
+
+    it('should should be rejected with an error when the config file contains missing HTML files in the default error pages', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_DEFAULT_ERROR_PAGES);
+      const walder = new Walder(configFile);
+      return walder.activate().should.be.rejectedWith(Error);
     });
 
     it('should be listening on the given port', async function () {
@@ -371,13 +388,6 @@ describe('Walder', function () {
       request(this.walder.app)
         .get('/movies/brad_pitt')
         .expect(400)
-        .end(done);
-    });
-
-    it('should return status 500 when requesting a page with missing template', function (done) {
-      request(this.walder.app)
-        .get('/missing-template')
-        .expect(500)
         .end(done);
     });
   });

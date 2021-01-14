@@ -12,7 +12,7 @@ const Path = require('path');
 
 const CONFIG_FILE = '../resources/config.yaml';
 
-describe('GraphQLValidator', function () {
+describe('GraphQLLDValidator', function () {
   {
     before(function () {
       const file = fs.readFileSync(Path.resolve(__dirname, CONFIG_FILE), 'utf8');
@@ -28,11 +28,11 @@ describe('GraphQLValidator', function () {
 
     describe('# Variables', function () {
       it('Should return \'undefined\' when all GraphQL-LD variables are correctly described', function () {
-        expect(GraphQLLDValidator.validate(this.routeInfo, this.graphQLLDInfo, this.parameters)).to.be.undefined;
+        expect(GraphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: this.parameters, graphQLLDInfo: this.graphQLLDInfo})).to.be.undefined;
       });
 
       it('Should return an error string when there are undescribed variables', function () {
-        const output = GraphQLLDValidator.validate(this.routeInfo, this.graphQLLDInfo, {});
+        const output = GraphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: {}, graphQLLDInfo: this.graphQLLDInfo});
         output.should.be.a.string;
         output.should.include('error');
       })
