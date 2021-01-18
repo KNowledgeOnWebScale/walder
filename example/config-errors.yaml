@@ -62,7 +62,14 @@ paths:
 x-walder-errors:
   404:
     description: page not found error
-    x-walder-input-text/html: error404.html
+#    x-walder-input-text/html: error404.html
+#    x-walder-input-text/html: error404alt.pug
+#    x-walder-input-text/html: error404alt.handlebars
+    x-walder-input-text/html: error404alt.md
   500:
     description: internal server error
-    x-walder-input-text/html: error500.html
+#    x-walder-input-text/html: error500.html
+#    x-walder-input-text/html: error500alt.pug
+#    x-walder-input-text/html: error500alt.handlebars
+    x-walder-input-text/html: error500alt.md
+
