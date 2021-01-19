@@ -27,7 +27,7 @@ describe('HTMLValidator', function () {
         const method = 'get';
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
-        expect(HTMLValidator.validate({routeInfo: routeInfo, htmlInfoDictionary: htmlInfoDictionary})).to.be.undefined;
+        expect(HTMLValidator.validate({routeInfo, htmlInfoDictionary})).to.be.undefined;
       });
 
       it('Should return an error string when there are unavailable HTML or template files', function () {
@@ -35,7 +35,7 @@ describe('HTMLValidator', function () {
         const method = 'get';
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
-        const output = HTMLValidator.validate({routeInfo: routeInfo, htmlInfoDictionary: htmlInfoDictionary});
+        const output = HTMLValidator.validate({routeInfo, htmlInfoDictionary});
         output.should.be.a.string;
         output.should.include('error');
       });
