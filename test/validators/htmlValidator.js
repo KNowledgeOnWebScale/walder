@@ -23,7 +23,7 @@ describe('HTMLValidator', function () {
 
     describe('# Files', function () {
       it('Should return \'undefined\' when all HTML and template files are available', function () {
-        const path = '/movies/{actor}';
+        const path = '/simple';
         const method = 'get';
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);

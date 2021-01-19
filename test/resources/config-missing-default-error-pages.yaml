@@ -8,13 +8,13 @@ x-walder-resources:
   pipe-modules: pipe-modules
   public: public
 paths:
-  /dummy:
+  /simple:
     get:
-      summary: A dummy path
+      summary: A simple path
       responses:
         200:
-          description: A dummy response
-          x-walder-input-text/html: movies.pug
+          description: A simple response
+          x-walder-input-text/html: text.pug
 x-walder-errors:
   404:
     description: page not found error
