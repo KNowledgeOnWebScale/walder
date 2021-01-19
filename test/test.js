@@ -36,7 +36,7 @@ describe('Walder', function () {
       return walder.activate().should.be.rejectedWith(Error);
     });
 
-    it('should should be rejected with an error when the config file contains missing HTML files in the default error pages', function () {
+    it('should be rejected with an error when the config file contains missing HTML files in the default error pages', function () {
       const configFile = path.resolve(__dirname, CONFIG_FILE_DEFAULT_ERROR_PAGES);
       const walder = new Walder(configFile);
       return walder.activate().should.be.rejectedWith(Error);

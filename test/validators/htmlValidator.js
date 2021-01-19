@@ -37,7 +37,8 @@ describe('HTMLValidator', function () {
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
         const output = HTMLValidator.validate({routeInfo, htmlInfoDictionary});
         output.should.be.a.string;
-        output.should.include('error');
+        output.should.include('missing-template.pug');
+        output.should.include('missing-html.html');
       });
     })
   }
