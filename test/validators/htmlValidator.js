@@ -23,7 +23,7 @@ describe('HTMLValidator', function () {
     });
 
     describe('# Files', function () {
-      it('Should return \'undefined\' when all HTML and template files are available', async function () {
+      it(`Should return 'undefined' when all HTML and template files are available`, async function () {
         const path = '/simple';
         const method = 'get';
         const routeInfo = new RouteInfo(path, method);

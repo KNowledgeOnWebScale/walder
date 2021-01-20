@@ -1,6 +1,4 @@
 const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-chai.use(chaiAsPromised);
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 require('chai').should();
@@ -30,16 +28,23 @@ describe('Walder', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
     });
 
-    it('should be rejected with an error when the config file contains missing HTML files in a route', function () {
-      const configFile = path.resolve(__dirname, CONFIG_FILE_MISSING_HTML);
+    async function activateFromConfigFile(configFileName) {
+      const configFile = path.resolve(__dirname, configFileName);
       const walder = new Walder(configFile);
-      return walder.activate().should.be.rejectedWith(Error);
+      try {
+        await walder.activate();
+        throw 'not an instance of Error'; // on request: not using chai-as-promised here, using nice solution from https://arpadt.com/articles/testing-asynchronous-code-with-mocha
+      } catch (e) {
+        e.should.be.instanceOf(Error);
+      }
+    }
+
+    it('should be rejected with an error when the config file contains missing HTML files in a route', async function () {
+      await activateFromConfigFile(CONFIG_FILE_MISSING_HTML);
     });
 
-    it('should be rejected with an error when the config file contains missing HTML files in the default error pages', function () {
-      const configFile = path.resolve(__dirname, CONFIG_FILE_DEFAULT_ERROR_PAGES);
-      const walder = new Walder(configFile);
-      return walder.activate().should.be.rejectedWith(Error);
+    it('should be rejected with an error when the config file contains missing HTML files in the default error pages', async function () {
+      await activateFromConfigFile(CONFIG_FILE_DEFAULT_ERROR_PAGES);
     });
 
     it('should be listening on the given port', async function () {

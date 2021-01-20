@@ -28,7 +28,7 @@ describe('GraphQLLDValidator', function () {
     });
 
     describe('# Variables', function () {
-      it('Should return \'undefined\' when all GraphQL-LD variables are correctly described', async function () {
+      it(`Should return 'undefined' when all GraphQL-LD variables are correctly described`, async function () {
         expect(await this.graphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: this.parameters, graphQLLDInfo: this.graphQLLDInfo})).to.be.undefined;
       });
 
