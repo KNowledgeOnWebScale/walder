@@ -27,12 +27,12 @@ describe('GraphQLLDValidator', function () {
     });
 
     describe('# Variables', function () {
-      it('Should return \'undefined\' when all GraphQL-LD variables are correctly described', function () {
-        expect(GraphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: this.parameters, graphQLLDInfo: this.graphQLLDInfo})).to.be.undefined;
+      it('Should return \'undefined\' when all GraphQL-LD variables are correctly described', async function () {
+        expect(await GraphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: this.parameters, graphQLLDInfo: this.graphQLLDInfo})).to.be.undefined;
       });
 
-      it('Should return an error string when there are undescribed variables', function () {
-        const output = GraphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: {}, graphQLLDInfo: this.graphQLLDInfo});
+      it('Should return an error string when there are undescribed variables', async function () {
+        const output = await GraphQLLDValidator.validate({routeInfo: this.routeInfo, parameters: {}, graphQLLDInfo: this.graphQLLDInfo});
         output.should.be.a.string;
         output.should.include('error');
       })

@@ -1,5 +1,6 @@
 require('chai').should();
 const expect = require('chai').expect;
+const assert = require('chai').assert;
 
 const MainValidator = require('../../lib/validators/main-validator');
 const RouteInfo = require('../../lib/models/route-info');
@@ -15,7 +16,7 @@ const CONFIG_FILE = '../resources/config.yaml';
 describe('MainValidator', function () {
   {
     describe('# Functionality', function () {
-      function validateConfig (valid) {
+      async function validateConfig (valid) {
         const file = fs.readFileSync(Path.resolve(__dirname, CONFIG_FILE), 'utf8');
         const yamlData = YAML.parse(file);
 
@@ -28,16 +29,25 @@ describe('MainValidator', function () {
         const graphQLLDInfo = parseGraphQLLD(yamlData.paths[path][method]['x-walder-query'], {});
         const parameters = valid ? parseParameter(yamlData.paths[path][method].parameters) : {};
 
-        mainValidator.validate({routeInfo, parameters, graphQLLDInfo});
+        await mainValidator.validate({routeInfo, parameters, graphQLLDInfo});
         mainValidator.finish();
       }
 
-      it('Should not throw an error when the given config file does not contain errors', function() {
-        expect(() => validateConfig(true)).to.not.throw();
+      it('Should not throw an error when the given config file does not contain errors', async function() {
+        try {
+          await validateConfig(true);
+        } catch (e) {
+          assert.fail("Has thrown");
+        }
       });
 
-      it('Should throw an error when the given config file contains errors', function () {
-        expect(() => validateConfig(false)).to.throw();
+      it('Should throw an error when the given config file contains errors', async function () {
+        try {
+          await validateConfig(false);
+          assert.fail("Hasn't thrown");
+        } catch (e) {
+          // OK
+        }
       });
     })
   }
