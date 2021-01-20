@@ -19,6 +19,7 @@ describe('HTMLValidator', function () {
       const file = fs.readFileSync(fileAbsPath, 'utf8');
       this.yamlData = YAML.parse(file);
       this.resources = parseResources(this.yamlData['x-walder-resources'], Path.dirname(fileAbsPath));
+      this.htmlValidator = new HTMLValidator();
     });
 
     describe('# Files', function () {
@@ -27,7 +28,7 @@ describe('HTMLValidator', function () {
         const method = 'get';
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
-        const output = await HTMLValidator.validate({routeInfo, htmlInfoDictionary});
+        const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
         expect(output).to.be.undefined;
       });
 
@@ -36,7 +37,7 @@ describe('HTMLValidator', function () {
         const method = 'get';
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
-        const output = await HTMLValidator.validate({routeInfo, htmlInfoDictionary});
+        const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
         output.should.be.a.string;
         output.should.include('missing-template.pug');
         output.should.include('missing-html.html');
