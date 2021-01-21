@@ -38,5 +38,12 @@ describe('HtmlConverter', function () {
       isHTML(html).should.be.true;
       html.should.deep.equal(EX_4_OUTPUT);
     });
+
+    it(`should be able to provide a default HTML, when calling convertWithDefault with input that otherwise can't be converted`, async () => {
+      const testMessage = 'test-with-default';
+      const html = await HtmlConverter.convertWithDefault(null, null, testMessage);
+      isHTML(html).should.be.true;
+      html.should.include(testMessage);
+    });
   })
 });
