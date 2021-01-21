@@ -33,36 +33,11 @@ paths:
         200:
           description: list of movies
           x-walder-input-text/html: movies.handlebars
-  /bad_pipeModule:
-    get:
-      summary: Returns a status 500 error page - bad pipe module.
-      x-walder-query:
-        graphql-query: >
-          {
-            id @single
-            ... on Film{
-              starring(label: "Brad Pitt") @single
-            }
-          }
-        json-ld-context: >
-          {
-            "@context": {
-              "Film": "http://dbpedia.org/ontology/Film",
-              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
-              "starring": "http://dbpedia.org/ontology/starring"
-            }
-          }
-      x-walder-postprocessing:
-        filterT:
-          source: filterT_bad.js
-      responses:
-        200:
-          description: list of movies
-          x-walder-input-text/html: movies.handlebars
 x-walder-errors:
   404:
     description: page not found error
-    x-walder-input-text/html: error404.html
+    x-walder-input-text/html: error404alt.pug
   500:
     description: internal server error
-    x-walder-input-text/html: error500.html
+    x-walder-input-text/html: error500alt.pug
+
