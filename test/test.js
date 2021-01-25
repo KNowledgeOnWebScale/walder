@@ -28,23 +28,26 @@ describe('Walder', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
     });
 
-    async function activateFromConfigFile(configFileName) {
+    // remark: on request, not using chai-as-promised here
+    async function testActivationWithBadConfigFile(configFileName, textInErrorMessage) {
       const configFile = path.resolve(__dirname, configFileName);
       const walder = new Walder(configFile);
       try {
         await walder.activate();
-        throw 'not an instance of Error'; // on request: not using chai-as-promised here, using nice solution from https://arpadt.com/articles/testing-asynchronous-code-with-mocha
       } catch (e) {
         e.should.be.instanceOf(Error);
+        e.message.should.contain(textInErrorMessage);
+        return;
       }
+      assert.fail("Hasn't thrown");
     }
 
-    it('should be rejected with an error when the config file contains missing HTML files in a route', async function () {
-      await activateFromConfigFile(CONFIG_FILE_MISSING_HTML);
+    it('should throw an error when the config file contains missing HTML files in a route', async function () {
+      await testActivationWithBadConfigFile(CONFIG_FILE_MISSING_HTML, `Config file validation error for route '/missing-html' - 'get':`);
     });
 
-    it('should be rejected with an error when the config file contains missing HTML files in the default error pages', async function () {
-      await activateFromConfigFile(CONFIG_FILE_DEFAULT_ERROR_PAGES);
+    it('should throw an error when the config file contains missing HTML files in the default error pages', async function () {
+      let error = await testActivationWithBadConfigFile(CONFIG_FILE_DEFAULT_ERROR_PAGES, `Config file validation error for route 'any' - 'default error pages':`);
     });
 
     it('should be listening on the given port', async function () {
