@@ -29,7 +29,7 @@ describe('MainValidator', function () {
         const graphQLLDInfo = parseGraphQLLD(yamlData.paths[path][method]['x-walder-query'], {});
         const parameters = valid ? parseParameter(yamlData.paths[path][method].parameters) : {};
 
-        await mainValidator.validate({routeInfo, parameters, graphQLLDInfo});
+        await mainValidator.validateAll({routeInfo, parameters, graphQLLDInfo});
         mainValidator.finish();
       }
 
