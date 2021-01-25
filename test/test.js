@@ -32,14 +32,15 @@ describe('Walder', function () {
     async function testActivationWithBadConfigFile(configFileName, textInErrorMessage) {
       const configFile = path.resolve(__dirname, configFileName);
       const walder = new Walder(configFile);
+      let error;
       try {
         await walder.activate();
       } catch (e) {
-        e.should.be.instanceOf(Error);
-        e.message.should.contain(textInErrorMessage);
-        return;
+        error = e;
       }
-      assert.fail("Hasn't thrown");
+      assert.isDefined(error);
+      error.should.be.instanceOf(Error);
+      error.message.should.contain(textInErrorMessage);
     }
 
     it('should throw an error when the config file contains missing HTML files in a route', async function () {
