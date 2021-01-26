@@ -19,6 +19,9 @@ const CONFIG_FILE_NO_QUERY = './resources/config-no-query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config-image.yaml';
 const CONFIG_FILE_MISSING_HTML = './resources/config-missing-html.yaml';
 const CONFIG_FILE_DEFAULT_ERROR_PAGES = './resources/config-missing-default-error-pages.yaml';
+const CONFIG_FILE_ERRORS_PUG = './resources/conf-x-walder-errors-pug.yaml'
+const CONFIG_FILE_ERRORS_HANDLEBARS = './resources/conf-x-walder-errors-handlebars.yaml'
+const CONFIG_FILE_ERRORS_MD = './resources/conf-x-walder-errors-md.yaml'
 
 describe('Walder', function () {
 
@@ -397,6 +400,86 @@ describe('Walder', function () {
         .get('/movies/brad_pitt')
         .expect(400)
         .end(done);
+    });
+  });
+
+  describe('# Error pages (different from html)', function () {
+    async function activateWithConfigFile(configFilename) {
+      const configFile = path.resolve(__dirname, configFilename);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error'});
+      await this.walder.activate();
+    }
+
+    function checkResponse(route, textToBeContained, done) {
+      request(this.walder.app)
+          .get(route)
+          .expect('Content-Type', /text\/html/)
+          .expect(checkText)
+          .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain(textToBeContained);
+      }
+    }
+
+    function deactivate() {
+      this.walder.deactivate();
+    }
+
+    describe('## Error pages (pug)', function() {
+      before('Activating Walder', async function () {
+        await activateWithConfigFile(CONFIG_FILE_ERRORS_PUG);
+      });
+
+      after('Deactivating Walder', function () {
+        deactivate();
+      });
+
+      it('Should serve 404 page based on pug input', function (done) {
+        checkResponse('/thisPageDoesNotExit', 'This page was generated using error404alt.pug.', done);
+      });
+
+      it('Should serve 500 page based on pug input', function (done) {
+        checkResponse('/bad_query', 'This page was generated using error500alt.pug.', done);
+      });
+    });
+
+    describe('## Error pages (handlebars)', function() {
+      before('Activating Walder', async function () {
+        await activateWithConfigFile(CONFIG_FILE_ERRORS_HANDLEBARS);
+      });
+
+      after('Deactivating Walder', function () {
+        deactivate();
+      });
+
+      it('Should serve 404 page based on handlebars input', function (done) {
+        checkResponse('/thisPageDoesNotExit', 'This page was generated using error404alt.handlebars.', done);
+      });
+
+      it('Should serve 500 page based on handlebars input', function (done) {
+        checkResponse('/bad_query', 'This page was generated using error500alt.handlebars.', done);
+      });
+    });
+
+    describe('## Error pages (md)', function() {
+      before('Activating Walder', async function () {
+        await activateWithConfigFile(CONFIG_FILE_ERRORS_MD);
+      });
+
+      after('Deactivating Walder', function () {
+        deactivate();
+      });
+
+      it('Should serve 404 page based on md input', function (done) {
+        checkResponse('/thisPageDoesNotExit', 'This page was generated using error404alt.md.', done);
+      });
+
+      it('Should serve 500 page based on md input', function (done) {
+        checkResponse('/bad_query', 'This page was generated using error500alt.md.', done);
+      });
     });
   });
 
