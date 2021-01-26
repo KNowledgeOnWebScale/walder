@@ -1,4 +1,3 @@
-const chai = require('chai');
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 require('chai').should();
