@@ -17,12 +17,37 @@ const CONFIG_FILE = './resources/config.yaml';
 const CONFIG_FILE_ERRORS = './resources/config-errors.yaml';
 const CONFIG_FILE_NO_QUERY = './resources/config-no-query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config-image.yaml';
+const CONFIG_FILE_MISSING_HTML = './resources/config-missing-html.yaml';
+const CONFIG_FILE_DEFAULT_ERROR_PAGES = './resources/config-missing-default-error-pages.yaml';
 
 describe('Walder', function () {
 
   describe('# Activation', function () {
     it('should throw an error when no config file is given', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
+    });
+
+    // remark: on request, not using chai-as-promised here
+    async function testActivationWithBadConfigFile(configFileName, textInErrorMessage) {
+      const configFile = path.resolve(__dirname, configFileName);
+      const walder = new Walder(configFile);
+      let error;
+      try {
+        await walder.activate();
+      } catch (e) {
+        error = e;
+      }
+      assert.isDefined(error);
+      error.should.be.instanceOf(Error);
+      error.message.should.contain(textInErrorMessage);
+    }
+
+    it('should throw an error when the config file contains missing HTML files in a route', async function () {
+      await testActivationWithBadConfigFile(CONFIG_FILE_MISSING_HTML, `Config file validation error for route '/missing-html' - 'get':`);
+    });
+
+    it('should throw an error when the config file contains missing HTML files in the default error pages', async function () {
+      let error = await testActivationWithBadConfigFile(CONFIG_FILE_DEFAULT_ERROR_PAGES, `Config file validation error for route 'any' - 'default error pages':`);
     });
 
     it('should be listening on the given port', async function () {
@@ -371,13 +396,6 @@ describe('Walder', function () {
       request(this.walder.app)
         .get('/movies/brad_pitt')
         .expect(400)
-        .end(done);
-    });
-
-    it('should return status 500 when requesting a page with missing template', function (done) {
-      request(this.walder.app)
-        .get('/missing-template')
-        .expect(500)
         .end(done);
     });
   });

@@ -1,0 +1,34 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: .
+  views: views
+  pipe-modules: pipe-modules
+  public: public
+paths:
+  /simple:
+    get:
+      summary: A simple path
+      responses:
+        200:
+          description: A simple response
+          x-walder-input-text/html: text.pug
+  /missing-html:
+    get:
+      summary: Show some text
+      responses:
+        200:
+          description: Some text (from a template)
+          x-walder-input-text/html: missing-template.pug
+        300:
+          description: Some text (from html)
+          x-walder-input-text/html: missing-html.html
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html
