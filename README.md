@@ -354,7 +354,8 @@ Walder returns all errors and exits.
  
 At the moment, Walder validates the following:
 
-- The config files describes all variables in the GraphQL-LD query in the parameters section.
+- The config files describe all variables in the GraphQL-LD query in the parameters section.
+- The config files mention only existing files in `200~x-walder-input-text/html` entries.
 
 ## Error handling
 

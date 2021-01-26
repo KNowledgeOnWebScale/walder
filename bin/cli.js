@@ -25,12 +25,11 @@ async function main() {
     const walder = new Walder(program.config, {port: program.port, logging: program.log, cache: program.cache});
     await walder.activate();
   } catch (err) {
-    // IO_INVALID_REF errors are handled in walder.js,
-    // so we can ignore them and exit.
-    if (err.type !== 'IO_INVALID_REF') {
-      throw err;
-    } else {
+    // errors with some given types are handled already and shouldn't be thrown with a stacktrace etc.
+    if (['IO_INVALID_REF', 'VALIDATION_ERROR'].includes(err.type)) {
       process.exit(1);
+    } else {
+      throw err;
     }
   }
 }

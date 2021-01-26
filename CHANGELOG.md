@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Filter query/path parameters before substituting variables (see [issue 36](https://github.com/KNowledgeOnWebScale/walder/issues/36))
 - 404 error on /favicon.ico in examples (see [issue 31](https://github.com/KNowledgeOnWebScale/walder/issues/31))
 - Deprecation warning for x-walder-resources.path is wrong and does not appear (see [issue 52](https://github.com/KNowledgeOnWebScale/walder/issues/52))
+- Better logging when file is not found for route + detection at activation time + idem for default error pages (see [issue 48](https://github.com/KNowledgeOnWebScale/walder/issues/48))
 
 ## [2.0.3] - 2020-08-31
 
