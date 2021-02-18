@@ -33,6 +33,7 @@ Find out which APIs are built with Walder [here](#built-with-walder).
     - [RDF](#rdf)
   - [HTML templates](#html-templates)
     - [Access query results in templates](#access-query-results-in-templates)
+    - [Using layouts in templates](#using-layouts-in-templates)
 - [Input validation](#input-validation)
 - [Error handling](#error-handling)
   - [Errors](#errors)
@@ -347,6 +348,7 @@ while [handlebars](https://handlebarsjs.com/) renders another route's HTML.
 Walder does this all by looking at the file extension of the given template.
 
 #### Access query results in templates
+
 The results of the queries, specified in the configuration file for a route, are available for rendering in templates as JSON objects.
 
 If the route only has a single query, the one and only object is named `data`.
@@ -360,6 +362,37 @@ of the single query in the route `/music/{musician}` in [this configuration file
 
 [songs_movies.handlebars](example/views/songs_movies.handlebars) is an example of the consumption of the results
 of the two queries in the route `/artist/{artist}` in [this configuration file](example/config-multiple-queries.yaml).
+
+#### Using layouts in templates
+
+Using layouts is a great way to avoid repetition in route-specific templates.
+Broader HTML structures such as headers, footers, navigation bars and other contents, meant to appear in multiple route's,
+is preferable specified in *layout files*.
+
+A layout file can be specified at the top of any template file, as [front-matter](https://github.com/jxson/front-matter) metadata.
+The value of the metadata element `layout` should be a layout file, available at the `layouts` location defined in the configuration file.
+
+Example template file specifying a layout:
+```
+---
+layout: my-layout.pug
+---
+// template continues here
+```
+
+Walder puts the inner HTML contents generated from the template file into a JSON object named `content` and hands it over to
+the processing of the layout file.
+
+The layout file is yet another template. It expands the inner HTML contents in `content` at the position of its choice.
+
+A simple *pug* example (mind the `!{content}` expansion):
+```
+doctype html
+html(lang="en")
+    head
+        title I'm based on a layout
+    body !{content}
+```
 
 ## Input validation
 
