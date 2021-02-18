@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added tests for default error pages `*.pug`, `*.handlebars`, `*.md` (see [issue 49](https://github.com/KNowledgeOnWebScale/walder/issues/49))
+- Documented how to use layouts (see [issue 63](https://github.com/KNowledgeOnWebScale/walder/issues/63))
 
 ### Changed
 - Update dependencies
