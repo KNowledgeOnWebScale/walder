@@ -32,7 +32,7 @@ Find out which APIs are built with Walder [here](#built-with-walder).
   - [Content negotiation](#content-negotiation)
     - [RDF](#rdf)
   - [HTML templates](#html-templates)
-  - [Access query results in templates](#access-query-results-in-templates)
+    - [Access query results in templates](#access-query-results-in-templates)
 - [Input validation](#input-validation)
 - [Error handling](#error-handling)
   - [Errors](#errors)
@@ -346,7 +346,7 @@ You can use different template engines for different routes, e.g.,
 while [handlebars](https://handlebarsjs.com/) renders another route's HTML. 
 Walder does this all by looking at the file extension of the given template.
 
-### Access query results in templates
+#### Access query results in templates
 The results of the queries, specified in the configuration file for a route, are available for rendering in templates as JSON objects.
 
 If the route only has a single query, the one and only object is named `data`.
