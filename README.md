@@ -32,6 +32,7 @@ Find out which APIs are built with Walder [here](#built-with-walder).
   - [Content negotiation](#content-negotiation)
     - [RDF](#rdf)
   - [HTML templates](#html-templates)
+    - [Access query results in templates](#access-query-results-in-templates)
     - [Using layouts in templates](#using-layouts-in-templates)
 - [Input validation](#input-validation)
 - [Error handling](#error-handling)
@@ -345,6 +346,22 @@ You can use different template engines for different routes, e.g.,
 [pug](https://pugjs.org/api/getting-started.html) renders one route's HTML, 
 while [handlebars](https://handlebarsjs.com/) renders another route's HTML. 
 Walder does this all by looking at the file extension of the given template.
+
+#### Access query results in templates
+
+The results of the queries, specified in the configuration file for a route, are available for rendering in templates as JSON objects.
+
+If the route only has a single query, the one and only object is named `data`.
+
+If the route has multiple queries, each query's result is available in a separate object whose name equals the query name in the configuration file.
+
+Each object will be an array, unless the query was [singularized](https://github.com/rubensworks/graphql-to-sparql.js#singularizing-everything).
+
+[songs.handlebars](example/views/songs.handlebars) is an example of the consumption of the result
+of the single query in the route `/music/{musician}` in [this configuration file](example/config.yaml).
+
+[songs_movies.handlebars](example/views/songs_movies.handlebars) is an example of the consumption of the results
+of the two queries in the route `/artist/{artist}` in [this configuration file](example/config-multiple-queries.yaml).
 
 #### Using layouts in templates
 
