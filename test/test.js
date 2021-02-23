@@ -22,6 +22,7 @@ const CONFIG_FILE_DEFAULT_ERROR_PAGES = './resources/config-missing-default-erro
 const CONFIG_FILE_ERRORS_PUG = './resources/conf-x-walder-errors-pug.yaml'
 const CONFIG_FILE_ERRORS_HANDLEBARS = './resources/conf-x-walder-errors-handlebars.yaml'
 const CONFIG_FILE_ERRORS_MD = './resources/conf-x-walder-errors-md.yaml'
+const CONFIG_FILE_LENIENT = './resources/config-lenient.yaml'
 
 describe('Walder', function () {
 
@@ -569,5 +570,44 @@ describe('Walder', function () {
         this.walder.deactivate();
         done();
       });
+  });
+
+  describe('# Lenient handling', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_LENIENT);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error', lenient: true});
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    // Warning
+    //   Next test passes, however: in the end, mocha doesn't terminate.
+    //   According to https://mochajs.org/#-exit, the reason is that some resource wasn't cleaned up
+    // Possible workarounds (all tested and each workaround works on its own)
+    //   - add --exit option to mocha command line
+    //     (hides possible deeper cause)
+    //   - remove the bad datasource https://data.vlaanderen.be/id/adres/20470097 from the route specification in the config file
+    //     (makes this test useless of course)
+    // TODO
+    //   Find the cause
+    it('should tolerate bad dataset if lenient querying set', function (done) {
+      request(this.walder.app)
+        .get('/bad-jsonld')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .expect(checkText)
+        .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain("AA Tower");
+        expect(res.text).to.contain("https://data.vlaanderen.be/id/adres/20470097");
+      }
+    });
+
   });
 });
