@@ -1,0 +1,45 @@
+openapi: 3.0.2
+info: # OpenAPI metadata
+  title: "Test lenient"
+  version: 0.0.1
+x-walder-resources:
+  root: .
+  views: views
+
+paths:
+  /bad-jsonld:
+    get:
+      summary: Returns contact information.
+      x-walder-query:
+        graphql-query: >
+          {
+            id(_:KNOWS)
+            location @single {
+              name @single
+              address @single
+            }
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "schema": "http://schema.org/",
+              "location": "schema:location",
+              "address": "schema:address",
+              "name": "schema:name",
+              "KNOWS": "https://data.knows.idlab.ugent.be/person/office/#"
+            }
+          }
+        datasources:
+          sources:
+            - https://data.knows.idlab.ugent.be/person/office/#
+            - https://data.vlaanderen.be/id/adres/20470097
+      responses:
+        200:
+          x-walder-input-text/html: lenient.pug
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html

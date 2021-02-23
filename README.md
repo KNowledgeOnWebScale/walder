@@ -72,6 +72,7 @@ Options:
   -p, --port [portNumber]    server port number (default: 3000)
   -l, --log [level]          enable logging and set logging level (one of [error, warn, info, verbose, debug]) (default: "info")
   --no-cache                 disable Comunica default caching
+  --lenient                  turn Comunica errors on invalid data into warnings
   -h, --help                 output usage information
 ```
 
@@ -84,9 +85,10 @@ const Walder = require('.');
 const configFilePath = 'path/to/configfile';
 const port = 9000; // Defaults to 3000 
 const logging = 'info'; // Defaults to 'info' 
-const cache = false;  // Defaults to true 
+const cache = false;  // Defaults to true
+const lenient = true; // Defaults to false 
 
-const walder = new Walder(configFilePath, {port, logging, cache, cwd});
+const walder = new Walder(configFilePath, {port, logging, cache, lenient, cwd});
 
 walder.activate();    // Starts the server
 walder.deactivate();  // Stops the server
