@@ -17,6 +17,7 @@ describe('GraphQLLDParser', function () {
     this.sortingOptionsOutput = parseGraphQLLD(this.yamlData.paths['/music/{musician}/sorted']['get']['x-walder-query'], options);
     this.duplicateRemovalOptionsOutput = parseGraphQLLD(this.yamlData.paths['/music/{musician}/no_duplicates']['get']['x-walder-query'], options);
     this.smallerContextOutput = parseGraphQLLD(this.yamlData.paths['/movies2/{actor}']['get']['x-walder-query'], options);
+    this.lenientOutput = parseGraphQLLD(this.yamlData.paths['/movies/{actor}']['get']['x-walder-query'], {...options, lenient: true});
   });
 
   describe('# Functionality', function () {
@@ -28,7 +29,8 @@ describe('GraphQLLDParser', function () {
           "comunicaConfig": {
             "sources": [
               "http://fragments.dbpedia.org/2016-04/en"
-            ]
+            ],
+            "lenient": false
           },
           "context": {
             "@context": {
@@ -53,7 +55,8 @@ describe('GraphQLLDParser', function () {
           "comunicaConfig": {
             "sources": [
               "http://fragments.dbpedia.org/2016-04/en"
-            ]
+            ],
+            "lenient": false
           },
           "context": {
             "@context": {
@@ -94,7 +97,8 @@ describe('GraphQLLDParser', function () {
           "comunicaConfig": {
             "sources": [
               "http://fragments.dbpedia.org/2016-04/en"
-            ]
+            ],
+            "lenient": false
           },
           "context": {
             "@context": {
@@ -130,7 +134,8 @@ describe('GraphQLLDParser', function () {
           "comunicaConfig": {
             "sources": [
               "http://fragments.dbpedia.org/2016-04/en"
-            ]
+            ],
+            "lenient": false
           },
           "context": {
             "@context": {
@@ -143,6 +148,17 @@ describe('GraphQLLDParser', function () {
             }
           },
           "queries": { 'data': {'query': "{ id @single ... on Film { starring(label: $actor) @single }}"} },
+        }
+      )
+    });
+
+    it('should be able to set lenient to true in comunicaConfig', function () {
+      this.lenientOutput.should.have.deep.own.property("comunicaConfig",
+        {
+          "sources": [
+            "http://fragments.dbpedia.org/2016-04/en"
+          ],
+          "lenient": true
         }
       )
     });

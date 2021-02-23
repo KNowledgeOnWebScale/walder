@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added tests for default error pages `*.pug`, `*.handlebars`, `*.md` (see [issue 49](https://github.com/KNowledgeOnWebScale/walder/issues/49))
 - Documented the consumption of query results in templates (see [issue 62](https://github.com/KNowledgeOnWebScale/walder/issues/62))
 - Documented how to use layouts (see [issue 63](https://github.com/KNowledgeOnWebScale/walder/issues/63))
+- Supporting comunica lenient querying (see [issue 68](https://github.com/KNowledgeOnWebScale/walder/issues/68))
 
 ### Changed
 - Update dependencies
