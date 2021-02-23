@@ -586,15 +586,10 @@ describe('Walder', function () {
     });
 
     // Warning
-    //   Next test passes, however: in the end, mocha doesn't terminate.
-    //   According to https://mochajs.org/#-exit, the reason is that some resource wasn't cleaned up
-    // Possible workarounds (all tested and each workaround works on its own)
-    //   - add --exit option to mocha command line
-    //     (hides possible deeper cause)
-    //   - remove the bad datasource https://data.vlaanderen.be/id/adres/20470097 from the route specification in the config file
-    //     (makes this test useless of course)
-    // TODO
-    //   Find the cause
+    //   Next test passes, however: after the final report, mocha takes a long time before it terminates (minutes)
+    //   The delay seems due to the presence of the bad datasource https://data.vlaanderen.be/id/adres/20470097
+    //   from the route specification in the config file.
+    //   Removing it would make this test useless...
     it('should tolerate bad dataset if lenient querying set', function (done) {
       request(this.walder.app)
         .get('/bad-jsonld')
