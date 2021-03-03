@@ -33,9 +33,8 @@ Find out which APIs are built with Walder [here](#built-with-walder).
     - [RDF](#rdf)
   - [HTML templates](#html-templates)
     - [Accessing query results in view templates](#accessing-query-results-in-view-templates)
-    - [Accessing front-matter metadata in view templates](#accessing-front-matter-metadata-in-view-templates)
     - [Using layouts in view templates](#using-layouts-in-view-templates)
-    - [Accessing front-matter metadata in layout templates](#accessing-front-matter-metadata-in-layout-templates)
+    - [Accessing front-matter metadata in view templates and layout templates](#accessing-front-matter-metadata-in-view-templates-and-layout-templates)
 - [Input validation](#input-validation)
 - [Error handling](#error-handling)
   - [Errors](#errors)
@@ -367,26 +366,6 @@ of the single query in the route `/music/{musician}` in [this configuration file
 [songs_movies.handlebars](example/views/songs_movies.handlebars) is an example of the consumption of the results
 of the two queries in the route `/artist/{artist}` in [this configuration file](example/config-multiple-queries.yaml).
 
-#### Accessing front-matter metadata in view templates
-
-In addition to query results, Walder adds [front-matter](https://github.com/jxson/front-matter) metadata,
-specified in view templates, as additional attributes to the data.
-
-Each additional attribute's name is equal to the metadata field name provided.
-Do not use reserved metadata field name `layout` here.
-
-Example view template file specifying front-matter metadata (mind the `#{a1}`):
-```
---
-a1: Value for FrontMatter attribute a1!
----
-
-doctype html
-html(lang="en")
-    body
-        main a1: #{a1}
-```
-
 #### Using layouts in view templates
 
 Using layouts is a great way to avoid repetition in route-specific view templates.
@@ -418,16 +397,29 @@ html(lang="en")
     body !{content}
 ```
 
-#### Accessing front-matter metadata in layout templates
+#### Accessing front-matter metadata in view templates and layout templates
 
-It is handy if a layout template can be parametrized from its 'calling' view templates. Some usecases:
-- Set a title, specific to a view.
-- Control the appearance of a navigation bar.
+In addition to query results, Walder adds [front-matter](https://github.com/jxson/front-matter) metadata,
+specified in view templates, as additional attributes to the data.
 
-For this purpose, Walder collects all [front-matter](https://github.com/jxson/front-matter) metadata fields and adds them
-to the data forwarded to the layout template file into an object named `attributes` (in addition to object named `content`). 
+Each additional attribute's name is equal to the metadata field name provided.
+The following metadata field are reserved: `layout`, `content`, `data`, and the names assigned to queries in routes having multiple queries (see above).
 
-Example view template file, specifying a title that will be handled by the layout template:
+These attributes are available to the view template and to the layout template it refers to, if any.
+
+Example view template file specifying a front-matter metadata field and reading that field (mind the `#{a1}`):
+```
+--
+a1: Value for FrontMatter attribute a1!
+---
+
+doctype html
+html(lang="en")
+    body
+        main a1: #{a1}
+```
+
+Example view template file, specifying a layout template and another front-matter metadata field:
 ```
 ---
 layout: layout-fm.pug
@@ -437,13 +429,13 @@ a2: Value for FrontMatter attribute a2!
 main Lorem ipsum
 ```
 
-Example layout template layout-fm.pug for this case (mind the `#{attributes.a2}`):
+Example corresponding layout template (layout-fm.pug) reading that field (mind the `#{a2}`):
 ```
 doctype html
 html(lang="en")
     head
-        if attributes.a2
-            title #{attributes.a2}
+        if a2
+            title #{a2}
     body !{content}
 ```
 
