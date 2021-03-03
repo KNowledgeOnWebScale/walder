@@ -32,8 +32,10 @@ Find out which APIs are built with Walder [here](#built-with-walder).
   - [Content negotiation](#content-negotiation)
     - [RDF](#rdf)
   - [HTML templates](#html-templates)
-    - [Access query results in templates](#access-query-results-in-templates)
-    - [Using layouts in templates](#using-layouts-in-templates)
+    - [Accessing query results in view templates](#accessing-query-results-in-view-templates)
+    - [Accessing front-matter metadata in view templates](#accessing-front-matter-metadata-in-view-templates)
+    - [Using layouts in view templates](#using-layouts-in-view-templates)
+    - [Accessing front-matter metadata in layout templates](#accessing-front-matter-metadata-in-layout-templates)
 - [Input validation](#input-validation)
 - [Error handling](#error-handling)
   - [Errors](#errors)
@@ -106,10 +108,10 @@ info:  # OpenAPI metadata
   version: 0.1.0
 x-walder-resources:  # Directories used by Walder - OPTIONAL
   root:  # Path to the root folder of the directories used by Walder (absolute or relative to the directory containing the config file) - OPTIONAL (default: .)
-  views:  # Path to directory containing template (view) files (absolute or relative to the root folder) - OPTIONAL (default: views)
+  views:  # Path to directory containing view template files (absolute or relative to the root folder) - OPTIONAL (default: views)
   pipe-modules:  # Path to directory containing local pipe modules (absolute or relative to the root folder) - OPTIONAL (default: pipe-modules)
   public:  # Path to directory containing all files that should be available statically (e.g. stylesheets) (absolute or relative to the root folder) - OPTIONAL (default: public)
-  layouts: # Path to directory containing all files that can be used by template files (absolute or relative to the root folder) - OPTIONAL (default: layouts)
+  layouts: # Path to directory containing all layout template files that can be used by view template files (absolute or relative to the root folder) - OPTIONAL (default: layouts)
 x-walder-datasources:  # Default list of data sources
   - ...  # E.g. link to SPARQL endpoint or a GraphQL-LD query
 paths:  # List of path entries
@@ -117,7 +119,7 @@ paths:  # List of path entries
     ...
   path-entry-2:
     ...
-x-walder-errors: # Default error page views - status codes with files containing the HTML template (absolute path or relative to the views directory)
+x-walder-errors: # Default error page views - status codes with files containing the HTML view template (absolute path or relative to the views directory)
   404: ...
   500: ...
   ...
@@ -170,7 +172,7 @@ path:  # The path linked to this query
         parameters: # the parameters for the pipe module (OPTIONAL)
           - _data # (DEFAULT) this gives all the data, but all paths in the data object are supported (e.g. _data.0.employee)
           - ... # Additional parameters if you're function supports those (OPTIONAL)
-    responses:  # Status codes with files containing the HTML template (absolute path or relative to the views directory)
+    responses:  # Status codes with files containing the HTML view template (absolute path or relative to the views directory)
       200: ...  # (REQUIRED)
       500: ...  # (OPTIONAL)
 ```
@@ -349,13 +351,13 @@ You can use different template engines for different routes, e.g.,
 while [handlebars](https://handlebarsjs.com/) renders another route's HTML. 
 Walder does this all by looking at the file extension of the given template.
 
-#### Access query results in templates
+Templates can be used in views as well as in layouts. So we'll name them **view templates** and **layout templates** in order to distinguish.
 
-The results of the queries, specified in the configuration file for a route, are available for rendering in templates as JSON objects.
+#### Accessing query results in view templates
 
-If the route only has a single query, the one and only object is named `data`.
-
-If the route has multiple queries, each query's result is available in a separate object whose name equals the query name in the configuration file.
+The results of the queries, specified in the configuration file for a route, are available for rendering in view templates as data.
+- If the route only has a single query, the data contains an object named `data`.
+- If the route has multiple queries, each query's result is available in the data as a separate object whose name equals the query name in the configuration file.
 
 Each object will be an array, unless the query was [singularized](https://github.com/rubensworks/graphql-to-sparql.js#singularizing-everything).
 
@@ -365,34 +367,84 @@ of the single query in the route `/music/{musician}` in [this configuration file
 [songs_movies.handlebars](example/views/songs_movies.handlebars) is an example of the consumption of the results
 of the two queries in the route `/artist/{artist}` in [this configuration file](example/config-multiple-queries.yaml).
 
-#### Using layouts in templates
+#### Accessing front-matter metadata in view templates
 
-Using layouts is a great way to avoid repetition in route-specific templates.
+In addition to query results, Walder adds [front-matter](https://github.com/jxson/front-matter) metadata,
+specified in view templates, as additional attributes to the data.
+
+Each additional attribute's name is equal to the metadata field name provided.
+Do not use reserved metadata field name `layout` here.
+
+Example view template file specifying front-matter metadata (mind the `#{a1}`):
+```
+--
+a1: Value for FrontMatter attribute a1!
+---
+
+doctype html
+html(lang="en")
+    body
+        main a1: #{a1}
+```
+
+#### Using layouts in view templates
+
+Using layouts is a great way to avoid repetition in route-specific view templates.
 Broader HTML structures such as headers, footers, navigation bars and other contents, meant to appear in multiple route's,
 is preferable specified in *layout files*.
 
-A layout file can be specified at the top of any template file, as [front-matter](https://github.com/jxson/front-matter) metadata.
-The value of the metadata element `layout` should be a layout file, available at the `layouts` location defined in the configuration file.
+A layout template file can be specified in a view template file, by means of [front-matter](https://github.com/jxson/front-matter) metadata field `layout`.
+It should contain a filename, available at the `layouts` location defined in the configuration file.
+It may contain a relative path in front of the filename.
 
-Example template file specifying a layout:
+Example view template file specifying a layout:
 ```
 ---
 layout: my-layout.pug
 ---
-// template continues here
+// view template continues here
 ```
 
-Walder puts the inner HTML contents generated from the template file into a JSON object named `content` and hands it over to
-the processing of the layout file.
+Walder puts the inner HTML contents generated from the view template file into the data as an object named `content` hands over
+the data to the processing of the layout template file.
 
-The layout file is yet another template. It expands the inner HTML contents in `content` at the position of its choice.
+The layout template file is yet another template. It usually expands these inner HTML contents at the position of its choice.
 
-A simple *pug* example (mind the `!{content}` expansion):
+A simple *pug* example (mind the `!{content}`):
 ```
 doctype html
 html(lang="en")
     head
         title I'm based on a layout
+    body !{content}
+```
+
+#### Accessing front-matter metadata in layout templates
+
+I is handy if layout template can be parametrized from their 'calling' view templates. Some usecases:
+- Set a specific title.
+- Control the appearance of a navigation bar.
+
+For this purpose, Walder collects all [front-matter](https://github.com/jxson/front-matter) metadata fields and adds them
+to the data into an object named `attributes` (in addition to the already added object named `content`. 
+
+Example view template file, specifying a title that will be handled by the layout template:
+```
+---
+layout: layout-fm.pug
+a2: Value for FrontMatter attribute a2!
+---
+
+main Lorem ipsum
+```
+
+Example layout template layout-fm.pug for this case (mind the `#{attributes.a2}`):
+```
+doctype html
+html(lang="en")
+    head
+        if attributes.a2
+            title #{attributes.a2}
     body !{content}
 ```
 
@@ -442,10 +494,10 @@ the following paths lead to errors:
 * <http://localhost:3000/bad_pipeModule> &rarr; error `500` (Pipe modules: Could not apply the given pipe modules)
 * <http://localhost:3000/bad_query> &rarr; error `500` (GraphQL-LD: Could not execute the given query)
 
-The following config file excerpt will use the path specific `moviesServerError.handlebars` template on errors leading to status code `500` when navigating to `/movies`.
+The following config file excerpt will use the path specific `moviesServerError.handlebars` view template on errors leading to status code `500` when navigating to `/movies`.
 
 When the required query parameter `actor` is not passed, Walder returns the status code `404`. 
-Walder will use the default `error404.html` file since the config file has no path-specific HTML template for the corresponding status.
+Walder will use the default `error404.html` file since the config file has no path-specific HTML view template for the corresponding status.
 
 ```yaml
 ...

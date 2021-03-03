@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documented the consumption of query results in templates (see [issue 62](https://github.com/KNowledgeOnWebScale/walder/issues/62))
 - Documented how to use layouts (see [issue 63](https://github.com/KNowledgeOnWebScale/walder/issues/63))
 - Supporting comunica lenient querying (see [issue 68](https://github.com/KNowledgeOnWebScale/walder/issues/68))
+- FrontMatter metadata available in layout templates (see [issue 72](https://github.com/KNowledgeOnWebScale/walder/issues/72))
 
 ### Changed
 - Update dependencies
