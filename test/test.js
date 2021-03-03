@@ -633,7 +633,7 @@ describe('Walder', function () {
       }
     });
 
-    it('should provide FrontMatter metadata to layout template', function (done) {
+    it('should provide FrontMatter metadata to layout templates', function (done) {
       request(this.walder.app)
         .get('/text-fm-with-layout')
         .expect('Content-Type', /text\/html/)
