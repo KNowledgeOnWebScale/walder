@@ -390,8 +390,8 @@ html(lang="en")
 #### Using layouts in view templates
 
 Using layouts is a great way to avoid repetition in route-specific view templates.
-Broader HTML structures such as headers, footers, navigation bars and other contents, meant to appear in multiple route's,
-is preferable specified in *layout files*.
+Reusable HTML structures such as headers, footers, navigation bars and other contents, meant to appear in multiple route's,
+are preferable specified in *layout files*.
 
 A layout template file can be specified in a view template file, by means of [front-matter](https://github.com/jxson/front-matter) metadata field `layout`.
 It should contain a filename, available at the `layouts` location defined in the configuration file.
@@ -405,8 +405,7 @@ layout: my-layout.pug
 // view template continues here
 ```
 
-Walder puts the inner HTML contents generated from the view template file into the data as an object named `content` hands over
-the data to the processing of the layout template file.
+Walder puts the inner HTML contents generated from the view template file into the data forwarded to the layout template file as an object named `content`.
 
 The layout template file is yet another template. It usually expands these inner HTML contents at the position of its choice.
 
@@ -421,12 +420,12 @@ html(lang="en")
 
 #### Accessing front-matter metadata in layout templates
 
-I is handy if layout template can be parametrized from their 'calling' view templates. Some usecases:
-- Set a specific title.
+It is handy if a layout template can be parametrized from its 'calling' view templates. Some usecases:
+- Set a title, specific to a view.
 - Control the appearance of a navigation bar.
 
 For this purpose, Walder collects all [front-matter](https://github.com/jxson/front-matter) metadata fields and adds them
-to the data into an object named `attributes` (in addition to the already added object named `content`. 
+to the data forwarded to the layout template file into an object named `attributes` (in addition to object named `content`). 
 
 Example view template file, specifying a title that will be handled by the layout template:
 ```
