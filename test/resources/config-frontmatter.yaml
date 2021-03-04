@@ -1,0 +1,24 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: .
+  views: views
+  pipe-modules: pipe-modules
+  public: public
+paths:
+  /text-fm:
+    get:
+      summary: FrontMatter test in view template
+      responses:
+        200:
+          description: Page with FrontMatter attribute rendered from view template
+          x-walder-input-text/html: text-fm.pug
+  /text-fm-with-layout:
+    get:
+      summary: FrontMatter test in layout template
+      responses:
+        200:
+          description: Page with FrontMatter attribute rendered from layout template
+          x-walder-input-text/html: text-fm-with-layout.pug

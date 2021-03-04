@@ -23,6 +23,7 @@ const CONFIG_FILE_ERRORS_PUG = './resources/conf-x-walder-errors-pug.yaml'
 const CONFIG_FILE_ERRORS_HANDLEBARS = './resources/conf-x-walder-errors-handlebars.yaml'
 const CONFIG_FILE_ERRORS_MD = './resources/conf-x-walder-errors-md.yaml'
 const CONFIG_FILE_LENIENT = './resources/config-lenient.yaml'
+const CONFIG_FILE_FRONTMATTER = './resources/config-frontmatter.yaml'
 
 describe('Walder', function () {
 
@@ -604,5 +605,45 @@ describe('Walder', function () {
       }
     });
 
+  });
+
+  describe('# FrontMatter metadata handling', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_FRONTMATTER);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error'});
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    it('should provide FrontMatter metadata to view templates', function (done) {
+      request(this.walder.app)
+        .get('/text-fm')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .expect(checkText)
+        .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain("Value for FrontMatter attribute a1!");
+      }
+    });
+
+    it('should provide FrontMatter metadata to layout templates', function (done) {
+      request(this.walder.app)
+        .get('/text-fm-with-layout')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .expect(checkText)
+        .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain("Value for FrontMatter attribute a2!");
+      }
+    });
   });
 });
