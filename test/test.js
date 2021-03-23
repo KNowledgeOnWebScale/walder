@@ -308,7 +308,7 @@ describe('Walder', function () {
 
                   if (err) throw err;
 
-                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(1);
+                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineSourcesMap).length.should.equal(1);
                   done();
                 });
             });
@@ -326,7 +326,7 @@ describe('Walder', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(2);
+                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineSourcesMap).length.should.equal(2);
                   done();
                 });
             });
