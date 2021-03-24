@@ -1,0 +1,52 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: .
+  views: views
+  pipe-modules: pipe-modules
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /season/{team}/{year}:
+    get:
+      parameters:
+        - in: path
+          name: team
+          required: true
+          schema:
+            type: string
+          description: The target team
+        - in: path
+          name: year
+          required: true
+          schema:
+            type: string
+          description: The target year
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            type(_:Season)
+            team(_: $team)
+            year(_: $year)
+            abstract @single
+          }
+        json-ld-context: >
+          {
+            "Season": "http://dbpedia.org/ontology/NCAATeamSeason",
+            "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "team": {"@id": "http://dbpedia.org/property/team", "@language": "en"},
+            "year": {"@id": "http://dbpedia.org/ontology/year", "@type": "http://www.w3.org/2001/XMLSchema#gYear"},
+            "abstract": "http://dbpedia.org/ontology/abstract"
+          }
+
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html

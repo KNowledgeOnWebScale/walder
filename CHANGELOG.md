@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Better logging when file is not found for route + detection at activation time + idem for default error pages (see [issue 48](https://github.com/KNowledgeOnWebScale/walder/issues/48))
 - Dependency update to support handling of JSON-LD referring to http://schema.org (see [issue 64](https://github.com/KNowledgeOnWebScale/walder/issues/64))
 - If Walder is running and the data changes, the data isn't refetched and the query doesn't re-run, even with --no-cache option'  (see [issue 23](https://github.com/KNowledgeOnWebScale/walder/issues/23))
+- Multiple path parameters are not supported  (see [issue 81](https://github.com/KNowledgeOnWebScale/walder/issues/81))
 
 ## [2.0.3] - 2020-08-31
 
