@@ -24,6 +24,7 @@ const CONFIG_FILE_ERRORS_HANDLEBARS = './resources/conf-x-walder-errors-handleba
 const CONFIG_FILE_ERRORS_MD = './resources/conf-x-walder-errors-md.yaml'
 const CONFIG_FILE_LENIENT = './resources/config-lenient.yaml'
 const CONFIG_FILE_FRONTMATTER = './resources/config-frontmatter.yaml'
+const CONFIG_FILE_TWO_PATH_PARAMS = './resources/config-two-path-parameters.yaml'
 
 describe('Walder', function () {
 
@@ -643,6 +644,33 @@ describe('Walder', function () {
 
       function checkText(res) {
         expect(res.text).to.contain("Value for FrontMatter attribute a2!");
+      }
+    });
+  });
+
+  describe('# Parameters in path', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_TWO_PATH_PARAMS);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error'});
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    it('should process two parameters', function (done) {
+      request(this.walder.app)
+        .get('/season/Princeton%20Tigers/1869')
+        .set('Accept', 'text/turtle')
+        .expect('Content-Type', /text\/turtle/)
+        .expect(checkBody)
+        .end(done);
+
+      function checkBody(res) {
+        expect(res.text).to.contain("http://dbpedia.org/resource/1869_Princeton_Tigers_football_team");
       }
     });
   });
