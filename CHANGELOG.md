@@ -12,9 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documented how to use layouts (see [issue 63](https://github.com/KNowledgeOnWebScale/walder/issues/63))
 - Supporting comunica lenient querying (see [issue 68](https://github.com/KNowledgeOnWebScale/walder/issues/68))
 - FrontMatter metadata available in layout templates (see [issue 72](https://github.com/KNowledgeOnWebScale/walder/issues/72))
+- Logging to HtmlConverter
 
 ### Changed
 - Update dependencies
+- Methods of HtmlConverter are non-static anymore
+- Read file in HtmlConverter sync
+- Update deps: `fs-extra`
 
 ### Fixed
 - Filter query/path parameters before substituting variables (see [issue 36](https://github.com/KNowledgeOnWebScale/walder/issues/36))
