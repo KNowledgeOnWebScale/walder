@@ -17,12 +17,43 @@ const CONFIG_FILE = './resources/config.yaml';
 const CONFIG_FILE_ERRORS = './resources/config-errors.yaml';
 const CONFIG_FILE_NO_QUERY = './resources/config-no-query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config-image.yaml';
+const CONFIG_FILE_MISSING_HTML = './resources/config-missing-html.yaml';
+const CONFIG_FILE_DEFAULT_ERROR_PAGES = './resources/config-missing-default-error-pages.yaml';
+const CONFIG_FILE_ERRORS_PUG = './resources/conf-x-walder-errors-pug.yaml'
+const CONFIG_FILE_ERRORS_HANDLEBARS = './resources/conf-x-walder-errors-handlebars.yaml'
+const CONFIG_FILE_ERRORS_MD = './resources/conf-x-walder-errors-md.yaml'
+const CONFIG_FILE_LENIENT = './resources/config-lenient.yaml'
+const CONFIG_FILE_FRONTMATTER = './resources/config-frontmatter.yaml'
+const CONFIG_FILE_TWO_PATH_PARAMS = './resources/config-two-path-parameters.yaml'
 
 describe('Walder', function () {
 
   describe('# Activation', function () {
     it('should throw an error when no config file is given', function () {
       expect(() => new Walder()).to.throw('Configuration file is required.')
+    });
+
+    // remark: on request, not using chai-as-promised here
+    async function testActivationWithBadConfigFile(configFileName, textInErrorMessage) {
+      const configFile = path.resolve(__dirname, configFileName);
+      const walder = new Walder(configFile);
+      let error;
+      try {
+        await walder.activate();
+      } catch (e) {
+        error = e;
+      }
+      assert.isDefined(error);
+      error.should.be.instanceOf(Error);
+      error.message.should.contain(textInErrorMessage);
+    }
+
+    it('should throw an error when the config file contains missing HTML files in a route', async function () {
+      await testActivationWithBadConfigFile(CONFIG_FILE_MISSING_HTML, `Config file validation error for route '/missing-html' - 'get':`);
+    });
+
+    it('should throw an error when the config file contains missing HTML files in the default error pages', async function () {
+      let error = await testActivationWithBadConfigFile(CONFIG_FILE_DEFAULT_ERROR_PAGES, `Config file validation error for route 'any' - 'default error pages':`);
     });
 
     it('should be listening on the given port', async function () {
@@ -278,7 +309,7 @@ describe('Walder', function () {
 
                   if (err) throw err;
 
-                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(1);
+                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineSourcesMap).length.should.equal(1);
                   done();
                 });
             });
@@ -296,7 +327,7 @@ describe('Walder', function () {
                 .end((err, res) => {
                   if (err) throw err;
 
-                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineCache).length.should.equal(2);
+                  Object.keys(this.walder.requestHandler.graphQLLDHandler.comunicaEngineSourcesMap).length.should.equal(2);
                   done();
                 });
             });
@@ -373,12 +404,85 @@ describe('Walder', function () {
         .expect(400)
         .end(done);
     });
+  });
 
-    it('should return status 500 when requesting a page with missing template', function (done) {
+  describe('# Error pages (different from html)', function () {
+    async function activateWithConfigFile(configFilename) {
+      const configFile = path.resolve(__dirname, configFilename);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error'});
+      await this.walder.activate();
+    }
+
+    function checkResponse(route, textToBeContained, done) {
       request(this.walder.app)
-        .get('/missing-template')
-        .expect(500)
-        .end(done);
+          .get(route)
+          .expect('Content-Type', /text\/html/)
+          .expect(checkText)
+          .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain(textToBeContained);
+      }
+    }
+
+    function deactivate() {
+      this.walder.deactivate();
+    }
+
+    describe('## Error pages (pug)', function() {
+      before('Activating Walder', async function () {
+        await activateWithConfigFile(CONFIG_FILE_ERRORS_PUG);
+      });
+
+      after('Deactivating Walder', function () {
+        deactivate();
+      });
+
+      it('Should serve 404 page based on pug input', function (done) {
+        checkResponse('/thisPageDoesNotExit', 'This page was generated using error404alt.pug.', done);
+      });
+
+      it('Should serve 500 page based on pug input', function (done) {
+        checkResponse('/bad_query', 'This page was generated using error500alt.pug.', done);
+      });
+    });
+
+    describe('## Error pages (handlebars)', function() {
+      before('Activating Walder', async function () {
+        await activateWithConfigFile(CONFIG_FILE_ERRORS_HANDLEBARS);
+      });
+
+      after('Deactivating Walder', function () {
+        deactivate();
+      });
+
+      it('Should serve 404 page based on handlebars input', function (done) {
+        checkResponse('/thisPageDoesNotExit', 'This page was generated using error404alt.handlebars.', done);
+      });
+
+      it('Should serve 500 page based on handlebars input', function (done) {
+        checkResponse('/bad_query', 'This page was generated using error500alt.handlebars.', done);
+      });
+    });
+
+    describe('## Error pages (md)', function() {
+      before('Activating Walder', async function () {
+        await activateWithConfigFile(CONFIG_FILE_ERRORS_MD);
+      });
+
+      after('Deactivating Walder', function () {
+        deactivate();
+      });
+
+      it('Should serve 404 page based on md input', function (done) {
+        checkResponse('/thisPageDoesNotExit', 'This page was generated using error404alt.md.', done);
+      });
+
+      it('Should serve 500 page based on md input', function (done) {
+        checkResponse('/bad_query', 'This page was generated using error500alt.md.', done);
+      });
     });
   });
 
@@ -468,5 +572,106 @@ describe('Walder', function () {
         this.walder.deactivate();
         done();
       });
+  });
+
+  describe('# Lenient handling', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_LENIENT);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error', lenient: true});
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    // Warning
+    //   Next test passes, however: after the final report, mocha takes a long time before it terminates (minutes)
+    //   The delay seems due to the presence of the bad datasource https://data.vlaanderen.be/id/adres/20470097
+    //   from the route specification in the config file.
+    //   Removing it would make this test useless...
+    it('should tolerate bad dataset if lenient querying set', function (done) {
+      request(this.walder.app)
+        .get('/bad-jsonld')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .expect(checkText)
+        .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain("AA Tower");
+        expect(res.text).to.contain("https://data.vlaanderen.be/id/adres/20470097");
+      }
+    });
+
+  });
+
+  describe('# FrontMatter metadata handling', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_FRONTMATTER);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error'});
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    it('should provide FrontMatter metadata to view templates', function (done) {
+      request(this.walder.app)
+        .get('/text-fm')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .expect(checkText)
+        .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain("Value for FrontMatter attribute a1!");
+      }
+    });
+
+    it('should provide FrontMatter metadata to layout templates', function (done) {
+      request(this.walder.app)
+        .get('/text-fm-with-layout')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .expect(checkText)
+        .end(done);
+
+      function checkText(res) {
+        expect(res.text).to.contain("Value for FrontMatter attribute a2!");
+      }
+    });
+  });
+
+  describe('# Parameters in path', function () {
+    before('Activating Walder', function () {
+      const configFile = path.resolve(__dirname, CONFIG_FILE_TWO_PATH_PARAMS);
+      const port = 9000;
+
+      this.walder = new Walder(configFile, {port, logging: 'error'});
+      this.walder.activate();
+    });
+
+    after('Deactivating Walder', function () {
+      this.walder.deactivate();
+    });
+
+    it('should process two parameters', function (done) {
+      request(this.walder.app)
+        .get('/season/Princeton%20Tigers/1869')
+        .set('Accept', 'text/turtle')
+        .expect('Content-Type', /text\/turtle/)
+        .expect(checkBody)
+        .end(done);
+
+      function checkBody(res) {
+        expect(res.text).to.contain("http://dbpedia.org/resource/1869_Princeton_Tigers_football_team");
+      }
+    });
   });
 });

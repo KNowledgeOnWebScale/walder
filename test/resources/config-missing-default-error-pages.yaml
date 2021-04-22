@@ -5,18 +5,20 @@ info:
 x-walder-resources:
   root: .
   views: views
+  pipe-modules: pipe-modules
+  public: public
 paths:
-  /:
+  /simple:
     get:
-      summary: Show text
+      summary: A simple path
       responses:
         200:
-          description: a text
+          description: A simple response
           x-walder-input-text/html: text.pug
 x-walder-errors:
   404:
     description: page not found error
-    x-walder-input-text/html: error404.html
+    x-walder-input-text/html: error404notExisting.html
   500:
     description: internal server error
-    x-walder-input-text/html: error500.html
+    x-walder-input-text/html: error500notExisting.html

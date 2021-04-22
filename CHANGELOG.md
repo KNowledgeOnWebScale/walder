@@ -6,12 +6,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.1.0] - 2021-04-22
+
+### Added
+- Added tests for default error pages `*.pug`, `*.handlebars`, `*.md` (see [issue 49](https://github.com/KNowledgeOnWebScale/walder/issues/49))
+- Documented the consumption of query results in templates (see [issue 62](https://github.com/KNowledgeOnWebScale/walder/issues/62))
+- Documented how to use layouts (see [issue 63](https://github.com/KNowledgeOnWebScale/walder/issues/63))
+- Supporting comunica lenient querying (see [issue 68](https://github.com/KNowledgeOnWebScale/walder/issues/68))
+- FrontMatter metadata available in layout templates (see [issue 72](https://github.com/KNowledgeOnWebScale/walder/issues/72))
+- Logging to HtmlConverter
+- Default support for Nunjucks templates
+
+### Changed
+- Update dependencies
+- Methods of HtmlConverter are non-static anymore
+- Read file in HtmlConverter sync
+- Update deps: `fs-extra`
+
+### Fixed
+- Filter query/path parameters before substituting variables (see [issue 36](https://github.com/KNowledgeOnWebScale/walder/issues/36))
+- 404 error on /favicon.ico in examples (see [issue 31](https://github.com/KNowledgeOnWebScale/walder/issues/31))
+- Deprecation warning for x-walder-resources.path is wrong and does not appear (see [issue 52](https://github.com/KNowledgeOnWebScale/walder/issues/52))
+- Better logging when file is not found for route + detection at activation time + idem for default error pages (see [issue 48](https://github.com/KNowledgeOnWebScale/walder/issues/48))
+- Dependency update to support handling of JSON-LD referring to http://schema.org (see [issue 64](https://github.com/KNowledgeOnWebScale/walder/issues/64))
+- If Walder is running and the data changes, the data isn't refetched and the query doesn't re-run, even with --no-cache option'  (see [issue 23](https://github.com/KNowledgeOnWebScale/walder/issues/23))
+- Multiple path parameters are not supported  (see [issue 81](https://github.com/KNowledgeOnWebScale/walder/issues/81))
+
 ## [2.0.3] - 2020-08-31
 
 ### Fixed
 - Example config.yaml: cannot read variable writer (see [issue 29](https://github.com/KNowledgeOnWebScale/walder/issues/29))
 - Example config-errors.yaml: 404 view is not used (see [issue 34](https://github.com/KNowledgeOnWebScale/walder/issues/34))
 - Example config-errors.yaml: 404 is given for the wrong reason (see [issue 33](https://github.com/KNowledgeOnWebScale/walder/issues/33))
+<<<<<<< HEAD
+- Fix README: multiple config incorrect movies path
+=======
+>>>>>>> origin/master
 
 ### Changed
 - Update Comunica dependencies
@@ -98,6 +128,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+<<<<<<< HEAD
+[2.1.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.3...v2.1.0
+=======
+>>>>>>> origin/master
 [2.0.3]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.0...v2.0.1

@@ -1,6 +1,6 @@
 {
   "name": "walder",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "main": "./lib/walder",
   "scripts": {
     "start": "node ./bin/cli.js",
@@ -10,8 +10,8 @@
     "walder": "./bin/cli.js"
   },
   "dependencies": {
-    "@comunica/core": "^1.15.0",
-    "@comunica/utils-datasource": "^1.16.0",
+    "@comunica/core": "^1.18.0",
+    "@comunica/utils-datasource": "^1.18.0",
     "accepts": "^1.3.7",
     "axios": "^0.19.0",
     "commander": "^5.0.0",
@@ -19,9 +19,9 @@
     "debug": "~2.6.9",
     "express": "~4.17.1",
     "front-matter": "^3.1.0",
-    "fs-extra": "^9.0.0",
-    "graphql-ld": "^1.1.0",
-    "graphql-ld-comunica": "^1.1.1",
+    "fs-extra": "^9.1.0",
+    "graphql-ld": "^1.2.0",
+    "graphql-ld-comunica": "^1.2.0",
     "handlebars": "^4.1.2",
     "jade-to-handlebars": "^2.3.0",
     "json-refs": "^3.0.15",
@@ -30,6 +30,7 @@
     "markdown-it": "^10.0.0",
     "morgan": "~1.10.0",
     "n3": "^1.2.0",
+    "nunjucks": "^3.2.3",
     "object-path": "^0.11.4",
     "pug": "^2.0.4",
     "tmp": "^0.1.0",

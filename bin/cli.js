@@ -12,6 +12,7 @@ program
   .option('-p, --port <portNumber>', 'server port number', 3000)
   .option('-l, --log <level>', 'enable logging and set logging level (one of [error, warn, info, verbose, debug])', 'info')
   .option('--no-cache', 'disable Comunica default caching')
+  .option('--lenient', 'turn Comunica errors on invalid data into warnings')
   .parse(process.argv);
 
 if (!program.config) {
@@ -22,15 +23,14 @@ main();
 
 async function main() {
   try {
-    const walder = new Walder(program.config, {port: program.port, logging: program.log, cache: program.cache});
+    const walder = new Walder(program.config, {port: program.port, logging: program.log, cache: program.cache, lenient: program.lenient});
     await walder.activate();
   } catch (err) {
-    // IO_INVALID_REF errors are handled in walder.js,
-    // so we can ignore them and exit.
-    if (err.type !== 'IO_INVALID_REF') {
-      throw err;
-    } else {
+    // errors with some given types are handled already and shouldn't be thrown with a stacktrace etc.
+    if (['IO_INVALID_REF', 'VALIDATION_ERROR'].includes(err.type)) {
       process.exit(1);
+    } else {
+      throw err;
     }
   }
 }
