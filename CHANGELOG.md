@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### HACKS
+- For debugging purposes: increased loglevel of GraphQL-LD input query and output results to verbose
 - For debugging purposes: hardcoded GraphQL-LD query results for KNoWS site in graphql-ld-handler.js
 
 ### Added
