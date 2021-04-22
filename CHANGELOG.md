@@ -38,7 +38,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Example config.yaml: cannot read variable writer (see [issue 29](https://github.com/KNowledgeOnWebScale/walder/issues/29))
 - Example config-errors.yaml: 404 view is not used (see [issue 34](https://github.com/KNowledgeOnWebScale/walder/issues/34))
 - Example config-errors.yaml: 404 is given for the wrong reason (see [issue 33](https://github.com/KNowledgeOnWebScale/walder/issues/33))
+<<<<<<< HEAD
 - Fix README: multiple config incorrect movies path
+=======
+>>>>>>> origin/master
 
 ### Changed
 - Update Comunica dependencies
@@ -125,7 +128,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+<<<<<<< HEAD
 [2.1.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.3...v2.1.0
+=======
+>>>>>>> origin/master
 [2.0.3]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.0...v2.0.1
