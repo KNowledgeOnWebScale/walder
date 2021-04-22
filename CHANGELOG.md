@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### HACKS
+- For debugging purposes: increased loglevel of GraphQL-LD input query and output results to verbose
+- For debugging purposes: moved comunicaEngine.invalidateHttpCache() forward in time as much as possible
+
 ### Added
 - Added tests for default error pages `*.pug`, `*.handlebars`, `*.md` (see [issue 49](https://github.com/KNowledgeOnWebScale/walder/issues/49))
 - Documented the consumption of query results in templates (see [issue 62](https://github.com/KNowledgeOnWebScale/walder/issues/62))
