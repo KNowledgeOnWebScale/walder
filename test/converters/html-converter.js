@@ -38,7 +38,7 @@ describe('HtmlConverter', function () {
       html.should.deep.equal(EX_3_OUTPUT);
     });
 
-    it('should be able to convert the given MD that extend a liquid layout that in turn also extend a liquid layout', async () => {
+    it('should be able to convert the given Markdown that extends a liquid layout that in turn also extends a liquid layout to html', async () => {
       const converter = new HtmlConverter();
       const html = await converter.convert(EX_5_HTML_INFO, EX_5_OUTPUT);
       isHTML(html).should.be.true;
