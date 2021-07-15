@@ -10,6 +10,8 @@ const EX_3_DATA = require('../resources/example-data').EX_3_HTML_CONVERTER_DATA;
 const EX_3_OUTPUT = require('../resources/example-data').EX_3_HTML_CONVERTER_OUTPUT;
 const EX_4_HTML_INFO = require('../resources/example-data').EX_4_HTML_CONVERTER_HTML_INFO;
 const EX_4_OUTPUT = require('../resources/example-data').EX_4_HTML_CONVERTER_OUTPUT;
+const EX_5_HTML_INFO = require('../resources/example-data').EX_5_HTML_CONVERTER_HTML_INFO;
+const EX_5_OUTPUT = require('../resources/example-data').EX_5_HTML_CONVERTER_OUTPUT;
 
 describe('HtmlConverter', function () {
 
@@ -34,6 +36,13 @@ describe('HtmlConverter', function () {
       const html = await converter.convert(EX_3_HTML_INFO, EX_3_DATA);
       isHTML(html).should.be.true;
       html.should.deep.equal(EX_3_OUTPUT);
+    });
+
+    it('should be able to convert the given Markdown that extends a liquid layout that in turn also extends a liquid layout to html', async () => {
+      const converter = new HtmlConverter();
+      const html = await converter.convert(EX_5_HTML_INFO, EX_5_OUTPUT);
+      isHTML(html).should.be.true;
+      html.should.deep.equal(EX_5_OUTPUT);
     });
 
   })
