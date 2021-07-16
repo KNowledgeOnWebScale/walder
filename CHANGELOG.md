@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-###Fixed
+### Added
+- template files are only loaded once
+
+### Fixed
 - html-convertor can't convert a template using a layout that in turn extends another layout
 ## [2.1.0] - 2021-04-22
 
