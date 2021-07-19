@@ -8,8 +8,15 @@ describe('PipeModuleLoader', function () {
         const htmlInfo = new HTMLInfo(undefined, "test_template_loader_temp.txt");
         const templateLoader = new TemplateLoader();
         fs.writeFileSync(htmlInfo.file, "test");
-        const init = templateLoader.load(htmlInfo);
+        templateLoader.load(htmlInfo);
         fs.unlinkSync(htmlInfo.file);
-        templateLoader.load(htmlInfo).should.deep.equal(init)
-    })
+        templateLoader.getTemplateFromCache(htmlInfo).body.should.deep.equal("test");
+    });
+
+    it('should return a string with the content of a layout, when a template extending that layout has been cached earlier', function () {
+        const htmlInfo = new HTMLInfo("pug", "test/resources/views/layout_test.pug", "test", "test/resources/layouts");
+        const templateLoader = new TemplateLoader();
+        templateLoader.load(htmlInfo);
+        console.log(templateLoader.getTemplateFromCache(new HTMLInfo("pug", "test\\resources\\layouts\\simple_layout.pug")));
+    });
 });

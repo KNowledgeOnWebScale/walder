@@ -1,4 +1,5 @@
 const path = require('path');
+const HTMLInfo = require("../../lib/models/html-info");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
@@ -47,11 +48,12 @@ const EX_4_HTML_CONVERTER_OUTPUT = '<!DOCTYPE html><html lang="en"><head><title>
   '<p>This is an introduction to something cool.</p>\n' +
   '</body></html>';
 
-const EX_5_HTML_CONVERTER_HTML_INFO = {
-  engine: 'md',
-  file: path.resolve('test/resources/layout-in-layout-test/page.md'),
-  layoutsDir: path.resolve('test/resources/layout-in-layout-test/')
-};
+const EX_5_HTML_CONVERTER_HTML_INFO = new HTMLInfo(
+  'md',
+  path.resolve('test/resources/layout-in-layout-test/page.md'),
+  'test',
+  path.resolve('test/resources/layout-in-layout-test/')
+);
 const EX_5_HTML_CONVERTER_OUTPUT = '<body><p>test</p>\n</body>';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +65,7 @@ const EX_5_HTML_CONVERTER_OUTPUT = '<body><p>test</p>\n</body>';
 const EX_1_RDF_CONVERTER_GRAPHQLLD = {
   context: {
     "@context": {
-      "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+      "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
       "starring": "http://dbpedia.org/ontology/starring"
     }
   }
