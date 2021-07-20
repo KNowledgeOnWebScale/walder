@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
-- template files are only loaded once and then cached
+- template files are loaded once and cached at the start
 
 ### Fixed
 - html-convertor can't convert a template using a layout that in turn extends another layout
