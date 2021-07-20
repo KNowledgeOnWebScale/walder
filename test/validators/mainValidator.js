@@ -39,7 +39,6 @@ describe('MainValidator', function () {
         try {
           await validateConfig(true);
         } catch (e) {
-          console.log(e);
           assert.fail("Has thrown");
         }
       });
