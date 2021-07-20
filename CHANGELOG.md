@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - template files are loaded once at the start and then cached with their front-matter (see [issue 87](https://github.com/KNowledgeOnWebScale/walder/issues/87))
+- error when integer in graphql query variable can't be parsed
 
 ### Fixed
 - html-convertor can't convert a template using a layout that in turn extends another layout
