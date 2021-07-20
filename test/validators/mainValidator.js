@@ -10,6 +10,8 @@ const parseParameter = require('../../lib/parsers/parameter-parser');
 const YAML = require('yaml');
 const fs = require('fs');
 const Path = require('path');
+const TemplateLoader = require("../../lib/loaders/template-loader");
+const createLogger = require("../../lib/create-logger");
 
 const CONFIG_FILE = '../resources/config.yaml';
 
@@ -23,7 +25,7 @@ describe('MainValidator', function () {
         const path = '/movies/{actor}';
         const method = 'get';
 
-        const mainValidator = new MainValidator();
+        const mainValidator = new MainValidator({templateLoader: new TemplateLoader(), logger: createLogger()});
 
         const routeInfo = new RouteInfo(path, method);
         const graphQLLDInfo = parseGraphQLLD(yamlData.paths[path][method]['x-walder-query'], {});
@@ -37,6 +39,7 @@ describe('MainValidator', function () {
         try {
           await validateConfig(true);
         } catch (e) {
+          console.log(e);
           assert.fail("Has thrown");
         }
       });

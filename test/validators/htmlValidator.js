@@ -9,6 +9,7 @@ const parseHTML = require('../../lib/parsers/html-parser');
 const YAML = require('yaml');
 const fs = require('fs');
 const Path = require('path');
+const TemplateLoader = require("../../lib/loaders/template-loader");
 
 const CONFIG_FILE = '../resources/config-missing-html.yaml';
 
@@ -19,7 +20,7 @@ describe('HTMLValidator', function () {
       const file = fs.readFileSync(fileAbsPath, 'utf8');
       this.yamlData = YAML.parse(file);
       this.resources = parseResources(this.yamlData['x-walder-resources'], Path.dirname(fileAbsPath));
-      this.htmlValidator = new HTMLValidator();
+      this.htmlValidator = new HTMLValidator({templateLoader: new TemplateLoader()});
     });
 
     describe('# Files', function () {
