@@ -17,6 +17,6 @@ describe('PipeModuleLoader', function () {
         const htmlInfo = new HTMLInfo("pug", "test/resources/views/layout_test.pug", "test", "test/resources/layouts");
         const templateLoader = new TemplateLoader();
         templateLoader.load(htmlInfo);
-        console.log(templateLoader.getTemplateFromCache(new HTMLInfo("pug", "test\\resources\\layouts\\simple_layout.pug")));
+        console.log(templateLoader.getTemplateFromCache(new HTMLInfo("pug", "test\\resources\\layouts\\simple-layout.pug")));
     });
 });
