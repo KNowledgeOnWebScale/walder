@@ -22,7 +22,7 @@ describe('HtmlConverter', function () {
   describe('# Functionality', function () {
     it('should be able to convert the given JSON to HTML using the given template and engine', async () => {
       const templateLoader = new TemplateLoader();
-      const converter = new HtmlConverter({templateLoader: templateLoader});
+      const converter = new HtmlConverter({templateLoader});
       templateLoader.load(EX_1_HTML_INFO);
       const html = await converter.convert(EX_1_HTML_INFO, EX_1_DATA);
       isHTML(html).should.be.true;
@@ -30,7 +30,7 @@ describe('HtmlConverter', function () {
 
     it('should be able to convert the given Markdown to HTML', async () => {
       const templateLoader = new TemplateLoader();
-      const converter = new HtmlConverter({templateLoader: templateLoader});
+      const converter = new HtmlConverter({templateLoader});
       templateLoader.load(EX_2_HTML_INFO);
       const html = await converter.convert(EX_2_HTML_INFO, null);
       isHTML(html).should.be.true;
@@ -38,7 +38,7 @@ describe('HtmlConverter', function () {
 
     it('should be able to convert the given Pug with front matter to HTML', async () => {
       const templateLoader = new TemplateLoader();
-      const converter = new HtmlConverter({templateLoader: templateLoader});
+      const converter = new HtmlConverter({templateLoader});
       templateLoader.load(EX_3_HTML_INFO);
       const html = await converter.convert(EX_3_HTML_INFO, EX_3_DATA);
       isHTML(html).should.be.true;
@@ -47,7 +47,7 @@ describe('HtmlConverter', function () {
 
     it('should be able to convert the given Markdown that extends a liquid layout that in turn also extends a liquid layout to html', async () => {
       const templateLoader = new TemplateLoader();
-      const converter = new HtmlConverter({templateLoader: templateLoader});
+      const converter = new HtmlConverter({templateLoader});
       templateLoader.load(EX_5_HTML_INFO);
       const html = await converter.convert(EX_5_HTML_INFO, EX_5_OUTPUT);
       isHTML(html).should.be.true;
