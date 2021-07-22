@@ -1,0 +1,17 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: .
+  views: views
+  pipe-modules: pipe-modules
+  public: public
+paths:
+  /njk:
+    get:
+      summary: Show some text
+      responses:
+        200:
+          description: Some text (from a template)
+          x-walder-input-text/html: test.njk
