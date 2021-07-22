@@ -12,10 +12,6 @@ describe('HtmlParser', function () {
       const file = fs.readFileSync(path.resolve(__dirname, CONFIG_FILE), 'utf8');
       const yamlData = YAML.parse(file);
       this.output = parseHTML(yamlData.paths['/movies/{actor}']['get'].responses, '', '');
-
-      const njkFile = fs.readFileSync(path.resolve(__dirname, NJK_CONFIG_FILE), 'utf8');
-      const njkYamlData = YAML.parse(njkFile);
-      this.njkOutput = parseHTML(njkYamlData.paths['/njk']['get'].responses, '', '');
     });
 
     describe('# Functionality', function () {
@@ -33,7 +29,9 @@ describe('HtmlParser', function () {
       });
 
       it('should be able to recognize .njk as a nunjuck file', function () {
-        this.njkOutput['200'].engine.should.eql('nunjuck');
+        const njkFile = fs.readFileSync(path.resolve(__dirname, NJK_CONFIG_FILE), 'utf8');
+        const njkYamlData = YAML.parse(njkFile);
+        parseHTML(njkYamlData.paths['/njk']['get'].responses, '', '')['200'].engine.should.eql('nunjuck');
       });
 
     });
