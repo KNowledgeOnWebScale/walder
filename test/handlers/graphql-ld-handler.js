@@ -41,7 +41,6 @@ describe('GraphQLLDHandler', function () {
     expect(() => handler._substituteVariables(query, variables, definedParameters)).to.throw();
   });
 
-
   it('string variable in query', () => {
     const handler = new GraphQLLDHandler();
     const query = '{ id @single name @single review @single { rating(value: $value) }}';
