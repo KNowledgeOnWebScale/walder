@@ -13,7 +13,7 @@ describe('RdfConverter', function () {
 
   describe('# Functionality', function () {
     it('should be able to convert the given JSON to JSON-LD', async () => {
-      const data = await RdfConverter.convert(
+      const data = await new RdfConverter().convert(
         RDF_TYPES.JSON_LD,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
         ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
@@ -27,7 +27,7 @@ describe('RdfConverter', function () {
     });
 
     it('should be able to convert the given JSON to Turtle', async () => {
-      const data = await RdfConverter.convert(
+      const data = await new RdfConverter().convert(
         RDF_TYPES.TURTLE,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
         ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
@@ -38,7 +38,7 @@ describe('RdfConverter', function () {
     });
 
     it('should be able to convert the given JSON to N-Triples', async () => {
-      const data = await RdfConverter.convert(
+      const data = await new RdfConverter().convert(
         RDF_TYPES.NT,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
         ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
@@ -49,7 +49,7 @@ describe('RdfConverter', function () {
     });
 
     it('should be able to convert the given JSON to N-Quads', async () => {
-      const data = await RdfConverter.convert(
+      const data = await new RdfConverter().convert(
         RDF_TYPES.NQ,
         ExampleData.EX_1_RDF_CONVERTER_DATA,
         ExampleData.EX_1_RDF_CONVERTER_GRAPHQLLD);
