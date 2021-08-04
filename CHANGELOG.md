@@ -14,9 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - html-convertor can't convert a template using a layout that in turn extends another layout
 - class RdfConverter does not obey Convertor interface (see [issue 58](https://github.com/KNowledgeOnWebScale/walder/issues/58))
+- Fix memory leak  (see [issue 83](https://github.com/KNowledgeOnWebScale/walder/issues/83))
 
 ### Changed
-- Update dependencies
+- Update Comunica deps  (see [issue 98](https://github.com/KNowledgeOnWebScale/walder/issues/98))
 
 ## [2.1.0] - 2021-04-22
 
