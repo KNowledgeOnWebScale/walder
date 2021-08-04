@@ -24,19 +24,3 @@ jobs:
         run: yarn install
       - name: Run tests
         run: yarn run test
-      - name: Submit coverage results
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
-          flag-name: run-${{ matrix.node-version }}
-          parallel: true
-
-  coveralls:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Consolidate test coverage from different jobs
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true
