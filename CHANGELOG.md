@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - html-convertor can't convert a template using a layout that in turn extends another layout
 - class RdfConverter does not obey Convertor interface (see [issue 58](https://github.com/KNowledgeOnWebScale/walder/issues/58))
 
+### Changed
+- Update dependencies
+
 ## [2.1.0] - 2021-04-22
 
 ### Added

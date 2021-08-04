@@ -10,8 +10,8 @@
     "walder": "./bin/cli.js"
   },
   "dependencies": {
-    "@comunica/core": "^1.18.0",
-    "@comunica/utils-datasource": "^1.18.0",
+    "@comunica/core": "^1.21.1",
+    "@comunica/utils-datasource": "^1.21.1",
     "accepts": "^1.3.7",
     "axios": "^0.19.0",
     "commander": "^5.0.0",
@@ -20,8 +20,8 @@
     "express": "~4.17.1",
     "front-matter": "^3.1.0",
     "fs-extra": "^9.1.0",
-    "graphql-ld": "^1.2.0",
-    "graphql-ld-comunica": "^1.2.0",
+    "graphql-ld": "^1.3.0",
+    "graphql-ld-comunica": "^1.2.1",
     "handlebars": "^4.1.2",
     "jade-to-handlebars": "^2.3.0",
     "json-refs": "^3.0.15",
@@ -38,10 +38,10 @@
     "yaml": "^1.6.0"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
     "is-html": "^2.0.0",
-    "mocha": "^7.1.1",
-    "supertest": "^4.0.2",
+    "supertest": "^6.1.4",
     "tinyliquid": "^0.2.34"
   },
   "license": "MIT",
