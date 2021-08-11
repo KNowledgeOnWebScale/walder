@@ -15,11 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - template files are loaded once at the start and then cached with their front-matter (see [issue 87](https://github.com/KNowledgeOnWebScale/walder/issues/87))
 - .njk is interpreted as a nunjuck template (see [issue 75](https://github.com/KNowledgeOnWebScale/walder/issues/75))
 - error when integer in graphql query variable can't be parsed (see [issue 84](https://github.com/KNowledgeOnWebScale/walder/issues/84))
+- file validation error message now reflects when error originates from layout file
 
 ### Fixed
 - html-convertor can't convert a template using a layout that in turn extends another layout
 - class RdfConverter does not obey Convertor interface (see [issue 58](https://github.com/KNowledgeOnWebScale/walder/issues/58))
 - Fix memory leak  (see [issue 83](https://github.com/KNowledgeOnWebScale/walder/issues/83))
+- Incorrect error when frontmatter is invalid (see [issue 105](https://github.com/KNowledgeOnWebScale/walder/issues/105))
 
 ### Changed
 - Update Comunica deps  (see [issue 98](https://github.com/KNowledgeOnWebScale/walder/issues/98))
