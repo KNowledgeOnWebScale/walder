@@ -39,9 +39,21 @@ describe('HTMLValidator', function () {
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
         const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
+
         output.should.be.a.string;
         output.should.include('missing-template.pug');
         output.should.include('missing-html.html');
+      });
+
+      it('Should return an error string when there is an unavailable layout', async function () {
+        const path = '/missing-layout';
+        const method = 'get';
+        const routeInfo = new RouteInfo(path, method);
+        const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
+        const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
+
+        output.should.be.a.string;
+        output.should.include('missing.pug');
       });
     })
   }
