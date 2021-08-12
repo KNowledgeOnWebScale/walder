@@ -91,7 +91,7 @@ describe('Walder', function () {
         .end(done);
 
       function checkBody(res) {
-        return isHTML(res.body).should.be.true;
+        return isHTML(res.text).should.be.true;
       }
     });
 
@@ -119,7 +119,7 @@ describe('Walder', function () {
         .end(done);
 
       function checkBody(res) {
-        return isHTML(res.body).should.be.true;
+        return isHTML(res.text).should.be.true;
       }
     });
 
