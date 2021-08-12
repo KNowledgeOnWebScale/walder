@@ -12,14 +12,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.2.0] - 2021-08-04
 
 ### Added
-- template files are loaded once at the start and then cached with their front-matter (see [issue 87](https://github.com/KNowledgeOnWebScale/walder/issues/87))
+- Template files are loaded once at the start and then cached with their front-matter (see [issue 87](https://github.com/KNowledgeOnWebScale/walder/issues/87))
 - .njk is interpreted as a nunjuck template (see [issue 75](https://github.com/KNowledgeOnWebScale/walder/issues/75))
-- error when integer in graphql query variable can't be parsed (see [issue 84](https://github.com/KNowledgeOnWebScale/walder/issues/84))
+- Error when integer in graphql query variable can't be parsed (see [issue 84](https://github.com/KNowledgeOnWebScale/walder/issues/84))
 
 ### Fixed
 - html-convertor can't convert a template using a layout that in turn extends another layout
-- class RdfConverter does not obey Convertor interface (see [issue 58](https://github.com/KNowledgeOnWebScale/walder/issues/58))
+- Class RdfConverter does not obey Convertor interface (see [issue 58](https://github.com/KNowledgeOnWebScale/walder/issues/58))
 - Fix memory leak  (see [issue 83](https://github.com/KNowledgeOnWebScale/walder/issues/83))
+- Tests passing wrongly (see [issue 60](https://github.com/KNowledgeOnWebScale/walder/issues/60))
 
 ### Changed
 - Update Comunica deps  (see [issue 98](https://github.com/KNowledgeOnWebScale/walder/issues/98))
