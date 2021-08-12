@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Class RdfConverter does not obey Convertor interface (see [issue 58](https://github.com/KNowledgeOnWebScale/walder/issues/58))
 - Fix memory leak  (see [issue 83](https://github.com/KNowledgeOnWebScale/walder/issues/83))
 - Tests passing wrongly (see [issue 60](https://github.com/KNowledgeOnWebScale/walder/issues/60))
+- Config-file-parser shouldn't export async function (see [issue 54](https://github.com/KNowledgeOnWebScale/walder/issues/54))
 
 ### Changed
 - Update Comunica deps  (see [issue 98](https://github.com/KNowledgeOnWebScale/walder/issues/98))
