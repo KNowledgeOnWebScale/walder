@@ -45,6 +45,9 @@ describe('HTMLValidator', function () {
         output.should.include('missing-html.html');
       });
 
+      /**
+       * If template A extends layout B and B has invalid frontmatter or does not exist. The error must point to B and not to A.
+       */
       it('Should return an error string when there is an unavailable layout pointing to the layout file', async function () {
         const path = '/missing-layout';
         const method = 'get';
