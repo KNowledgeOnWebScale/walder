@@ -25,6 +25,20 @@ paths:
         300:
           description: Some text (from html)
           x-walder-input-text/html: missing-html.html
+  /missing-layout:
+    get:
+      summary: Show some text
+      responses:
+        200:
+          description: Some text (from a template)
+          x-walder-input-text/html: missing-layout.pug
+  /invalid-frontmatter:
+    get:
+      summary: Show some text
+      responses:
+        200:
+          description: Some text (from a template)
+          x-walder-input-text/html: invalid-frontmatter.pug
 x-walder-errors:
   404:
     description: page not found error
