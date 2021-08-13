@@ -17,7 +17,7 @@ const CONFIG_FILE = './resources/config.yaml';
 const CONFIG_FILE_ERRORS = './resources/config-errors.yaml';
 const CONFIG_FILE_NO_QUERY = './resources/config-no-query.yaml';
 const CONFIG_FILE_IMAGE = './resources/config-image.yaml';
-const CONFIG_FILE_MISSING_HTML = './resources/config-htmlvalidator.yaml';
+const CONFIG_FILE_HTMLVALIDATOR = './resources/config-htmlvalidator.yaml';
 const CONFIG_FILE_DEFAULT_ERROR_PAGES = './resources/config-missing-default-error-pages.yaml';
 const CONFIG_FILE_ERRORS_PUG = './resources/conf-x-walder-errors-pug.yaml'
 const CONFIG_FILE_ERRORS_HANDLEBARS = './resources/conf-x-walder-errors-handlebars.yaml'
@@ -49,7 +49,7 @@ describe('Walder', function () {
     }
 
     it('should throw an error when the config file contains missing HTML files in a route', async function () {
-      await testActivationWithBadConfigFile(CONFIG_FILE_MISSING_HTML, `Config file validation error for route '/missing-html' - 'get':`);
+      await testActivationWithBadConfigFile(CONFIG_FILE_HTMLVALIDATOR, `Config file validation error for route '/missing-html' - 'get':`);
     });
 
     it('should throw an error when the config file contains missing HTML files in the default error pages', async function () {
