@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Switch to Github actions for CI  (see [issue 102](https://github.com/KNowledgeOnWebScale/walder/issues/102))
+- Update `graphql-ld` dep
 
 ## [2.2.0] - 2021-08-04
 
