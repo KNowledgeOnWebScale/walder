@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Switch to Github actions for CI  (see [issue 102](https://github.com/KNowledgeOnWebScale/walder/issues/102))
 - Update `graphql-ld` dep
 
+### Fixed
+- Config-file-parser shouldn't export async function (see [issue 54](https://github.com/KNowledgeOnWebScale/walder/issues/54))
+
 ## [2.2.0] - 2021-08-04
 
 ### Added
