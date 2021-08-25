@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Support async pipe modules (see [issue 112](https://github.com/KNowledgeOnWebScale/walder/issues/112))
+
 ### Changed
 - Switch to Github actions for CI  (see [issue 102](https://github.com/KNowledgeOnWebScale/walder/issues/102))
 - Update `graphql-ld` dep

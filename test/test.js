@@ -351,6 +351,21 @@ describe('Walder', function () {
           assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
         }
       });
+
+      it('should support async pipe module', function (done) {
+        request(this.walder.app)
+          .get('/movies-async/Angelina%20Jolie')
+          .set('Accept', 'application/json')
+          .expect(check)
+          .end(done);
+
+        function check(res) {
+          const origLength = res.body.data.length;
+          const filteredData = filter(res.body.data);
+
+          assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
+        }
+      });
     })
   });
 
