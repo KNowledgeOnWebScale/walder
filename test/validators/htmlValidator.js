@@ -11,7 +11,7 @@ const fs = require('fs');
 const Path = require('path');
 const TemplateLoader = require("../../lib/loaders/template-loader");
 
-const CONFIG_FILE = '../resources/config-missing-html.yaml';
+const CONFIG_FILE = '../resources/config-htmlvalidator.yaml';
 
 describe('HTMLValidator', function () {
   {
@@ -39,9 +39,35 @@ describe('HTMLValidator', function () {
         const routeInfo = new RouteInfo(path, method);
         const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
         const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
+
         output.should.be.a.string;
         output.should.include('missing-template.pug');
         output.should.include('missing-html.html');
+      });
+
+      /**
+       * If template A extends layout B and B has invalid frontmatter or does not exist. The error must point to B and not to A.
+       */
+      it('Should return an error string when there is an unavailable layout pointing to the layout file', async function () {
+        const path = '/missing-layout';
+        const method = 'get';
+        const routeInfo = new RouteInfo(path, method);
+        const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
+        const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
+
+        output.should.be.a.string;
+        output.should.include('missing.pug');
+      });
+
+      it('Should return an error string when there is invalid frontmatter', async function () {
+        const path = '/invalid-frontmatter';
+        const method = 'get';
+        const routeInfo = new RouteInfo(path, method);
+        const htmlInfoDictionary = parseHTML(this.yamlData.paths[path][method].responses, this.resources.views, this.resources.layouts);
+        const output = await this.htmlValidator.validate({routeInfo, htmlInfoDictionary});
+
+        output.should.be.a.string;
+        output.should.include('invalid-frontmatter.pug');
       });
     })
   }
