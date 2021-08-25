@@ -7,10 +7,6 @@ const N3 = require('n3');
 
 describe('RdfConverter', function () {
 
-  before(function () {
-
-  });
-
   describe('# Functionality', function () {
     it('should be able to convert the given JSON to JSON-LD', async () => {
       const data = await new RdfConverter().convert(
@@ -57,6 +53,17 @@ describe('RdfConverter', function () {
       const parser = new N3.Parser({format: 'N-Quads'});
       // If 'N3' can parse it, then it must be valid turtle
       parser.parse(data).length.should.be.above(0);
+    });
+
+    it('should be able to convert empty JSON to N-Quads', async () => {
+      const data = await new RdfConverter().convert(
+        RDF_TYPES.NQ,
+        ExampleData.EX_2_RDF_CONVERTER_DATA,
+        ExampleData.EX_2_RDF_CONVERTER_GRAPHQLLD);
+
+      const parser = new N3.Parser({format: 'N-Quads'});
+      // If 'N3' can parse it, then it must be valid turtle
+      parser.parse(data).length.should.be.equal(0);
     });
   })
 });

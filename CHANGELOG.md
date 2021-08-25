@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Config-file-parser shouldn't export async function (see [issue 54](https://github.com/KNowledgeOnWebScale/walder/issues/54))
 - Enable logging of express again (see [issue 43](https://github.com/KNowledgeOnWebScale/walder/issues/43))
+- Throws error when converting empty data to Turtle
 
 ## [2.2.0] - 2021-08-04
 

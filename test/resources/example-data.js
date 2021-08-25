@@ -88,6 +88,19 @@ const EX_1_RDF_CONVERTER_DATA = {
   ]
 };
 
+const EX_2_RDF_CONVERTER_GRAPHQLLD = {
+  context: {
+    "@context": {
+      "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
+      "starring": "http://dbpedia.org/ontology/starring"
+    }
+  }
+};
+
+const EX_2_RDF_CONVERTER_DATA = {
+  data: []
+};
+
 
 module.exports = {
   EX_1_HTML_CONVERTER_HTML_INFO,
@@ -102,4 +115,6 @@ module.exports = {
   EX_5_HTML_CONVERTER_OUTPUT,
   EX_1_RDF_CONVERTER_GRAPHQLLD,
   EX_1_RDF_CONVERTER_DATA,
+  EX_2_RDF_CONVERTER_GRAPHQLLD,
+  EX_2_RDF_CONVERTER_DATA,
 };
