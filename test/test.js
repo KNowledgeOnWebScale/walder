@@ -688,5 +688,77 @@ describe('Walder', function () {
         expect(res.text).to.contain("http://dbpedia.org/resource/1869_Princeton_Tigers_football_team");
       }
     });
+
+    describe('should check minimum of integer', () => {
+      it('minimum', function (done) {
+        request(this.walder.app)
+          .get('/season-2/1869')
+          .set('Accept', 'text/turtle')
+          .expect('Content-Type', /text\/turtle/)
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          expect(res.text).to.contain("http://dbpedia.org/resource/1869_Princeton_Tigers_football_team");
+        }
+      });
+
+      it('above minimum', function (done) {
+        request(this.walder.app)
+          .get('/season-2/1870')
+          .set('Accept', 'text/turtle')
+          .expect('Content-Type', /text\/turtle/)
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          expect(res.text).to.contain("http://dbpedia.org/resource/1870_Columbia_football_team");
+        }
+      });
+
+      it('below minimum', function (done) {
+        request(this.walder.app)
+          .get('/season-2/1800')
+          .set('Accept', 'text/turtle')
+          .expect(400)
+          .end(done);
+      });
+    });
+
+    describe('should check maximum of integer', () => {
+      it('maximum', function (done) {
+        request(this.walder.app)
+          .get('/season-2/1870')
+          .set('Accept', 'text/turtle')
+          .expect('Content-Type', /text\/turtle/)
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          expect(res.text).to.contain("http://dbpedia.org/resource/1870_Columbia_football_team");
+        }
+      });
+
+      it('below maximum', function (done) {
+        request(this.walder.app)
+          .get('/season-2/1869')
+          .set('Accept', 'text/turtle')
+          .expect('Content-Type', /text\/turtle/)
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          expect(res.text).to.contain("http://dbpedia.org/resource/1869_Princeton_Tigers_football_team");
+        }
+      });
+
+      it('above maximum', function (done) {
+        request(this.walder.app)
+          .get('/season-2/1900')
+          .set('Accept', 'text/turtle')
+          .expect(400)
+          .end(done);
+      });
+    });
   });
 });

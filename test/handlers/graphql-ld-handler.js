@@ -18,7 +18,7 @@ describe('GraphQLLDHandler', function () {
         "in": "path"
       }
     };
-    const expectedNewQuery = '{ id @single name @single review @single { rating(value: 1) }}';
+    const expectedNewQuery = '{ id @single name @single review @single { rating(value: "1") }}';
     const actualNewQuery = handler._substituteVariables(query, variables, definedParameters);
     actualNewQuery.should.eql(expectedNewQuery);
   });

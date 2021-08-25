@@ -23,6 +23,8 @@ describe('ParameterParser', function () {
               in: 'path',
               required: true,
               type: 'string',
+              maximum: undefined,
+              minimum: undefined,
               description: 'The target actor'
             }
           }

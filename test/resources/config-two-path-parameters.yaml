@@ -43,6 +43,34 @@ paths:
             "abstract": "http://dbpedia.org/ontology/abstract"
           }
 
+  /season-2/{year}:
+    get:
+      parameters:
+        - in: path
+          name: year
+          required: true
+          schema:
+            type: integer
+            minimum: 1869
+            maximum: 1870
+          description: The target year
+      x-walder-query:
+        graphql-query: >
+          {
+            id @single
+            type(_:Season)
+            year(_: $year)
+            abstract @single
+          }
+        json-ld-context: >
+          {
+            "Season": "http://dbpedia.org/ontology/NCAATeamSeason",
+            "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+            "team": {"@id": "http://dbpedia.org/property/team", "@language": "en"},
+            "year": {"@id": "http://dbpedia.org/ontology/year", "@type": "http://www.w3.org/2001/XMLSchema#gYear"},
+            "abstract": "http://dbpedia.org/ontology/abstract"
+          }
+
 x-walder-errors:
   404:
     description: page not found error
