@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.2.1] - 2021-08-26
+
 ### Added
 - Support async pipe modules (see [issue 112](https://github.com/KNowledgeOnWebScale/walder/issues/112))
 - Support minimum/maximum of parameters (see [issue 24](https://github.com/KNowledgeOnWebScale/walder/issues/24))
@@ -157,6 +159,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+[2.2.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.3...v2.1.0
 [2.0.3]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.0.2...v2.0.3
