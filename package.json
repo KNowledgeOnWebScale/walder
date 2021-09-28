@@ -28,6 +28,7 @@
     "jsonld": "^1.6.2",
     "jsonpath": "^1.0.2",
     "markdown-it": "^10.0.0",
+    "markdown-it-footnote": "^3.0.3",
     "morgan": "~1.10.0",
     "n3": "^1.2.0",
     "nunjucks": "^3.2.3",
