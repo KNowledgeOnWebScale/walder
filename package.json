@@ -1,6 +1,6 @@
 {
   "name": "walder",
-  "version": "2.2.2",
+  "version": "3.0.0",
   "main": "./lib/walder",
   "scripts": {
     "start": "node ./bin/cli.js",
