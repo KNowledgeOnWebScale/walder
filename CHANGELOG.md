@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Handling of query results in pipe modules
+
+### Fixed 
+- GraphQLLDInfoValidator not strict enough when validating variables (see [issue 55](https://github.com/KNowledgeOnWebScale/walder/issues/55))
+
 ## [2.2.2] - 2021-09-29
 
 ### Added

@@ -24,7 +24,8 @@ describe('PipeModuleParser', function () {
           {
             "name": "filterT",
             "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filter-t.js'),
-            "parameters": []
+            "parameters": [],
+            queryResults: undefined
           }]
       )
     });
@@ -34,7 +35,8 @@ describe('PipeModuleParser', function () {
             {
               "name": "filterT_withParameters",
               "source": Path.resolve(this.yamlData['x-walder-resources'].root, this.yamlData['x-walder-resources']['pipe-modules'], 'filter-t-with-parameters.js'),
-              "parameters": ["_data", true]
+              "parameters": ["_data", true],
+              queryResults: undefined
             }]
       )
     });

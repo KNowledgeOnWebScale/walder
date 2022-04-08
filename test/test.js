@@ -256,8 +256,8 @@ describe('Walder', function () {
             .end(done);
 
         function checkBody(res) {
-          for(let i = 0; i < res.body.data.length - 1; i++) {
-            assert(res.body.data[i].label >= res.body.data[i+1].label, 'data is not sorted in descending order');
+          for(let i = 0; i < res.body.length - 1; i++) {
+            assert(res.body[i].label >= res.body[i+1].label, 'data is not sorted in descending order');
           }
         }
       })
@@ -348,7 +348,7 @@ describe('Walder', function () {
           const origLength = res.body.data.length;
           const filteredData = filter(res.body.data);
 
-          assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
+          assert.lengthOf(filteredData, origLength, 'Pipe module probably not applied');
         }
       });
 
@@ -363,7 +363,34 @@ describe('Walder', function () {
           const origLength = res.body.data.length;
           const filteredData = filter(res.body.data);
 
-          assert.lengthOf(filteredData.data, origLength, 'Pipe module probably not applied');
+          assert.lengthOf(filteredData, origLength, 'Pipe module probably not applied');
+        }
+      });
+
+      it('should add query key to pipe module', function (done) {
+        request(this.walder.app)
+          .get('/movies-query-key/Angelina%20Jolie')
+          .set('Accept', 'application/json')
+          .expect(check)
+          .end(done);
+
+        function check(res) {
+          const origLength = res.body.movies.length;
+          const filteredData = filter(res.body.movies);
+
+          assert.lengthOf(filteredData, origLength, 'Pipe module probably not applied');
+        }
+      });
+
+      it('should all query results to pipe module', function (done) {
+        request(this.walder.app)
+          .get('/movies-query-combine/Angelina%20Jolie/Brad%20Pitt/')
+          .set('Accept', 'application/json')
+          .expect(check)
+          .end(done);
+
+        function check(res) {
+          assert.deepEqual([{id: 'http://example.com/my-movie'}], res.body.movies3, 'Pipe module probably not applied');
         }
       });
     })
