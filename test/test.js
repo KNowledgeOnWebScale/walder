@@ -382,7 +382,7 @@ describe('Walder', function () {
         }
       });
 
-      it('should all query results to pipe module', function (done) {
+      it('should give all query results to pipe module', function (done) {
         request(this.walder.app)
           .get('/movies-query-combine/Angelina%20Jolie/Brad%20Pitt/')
           .set('Accept', 'application/json')
