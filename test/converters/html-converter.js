@@ -49,7 +49,7 @@ describe('HtmlConverter', function () {
       const templateLoader = new TemplateLoader();
       const converter = new HtmlConverter({templateLoader});
       templateLoader.load(EX_5_HTML_INFO);
-      const html = await converter.convert(EX_5_HTML_INFO, EX_5_OUTPUT);
+      const html = await converter.convert(EX_5_HTML_INFO, null, EX_5_OUTPUT);
       isHTML(html).should.be.true;
       html.should.deep.equal(EX_5_OUTPUT);
     });

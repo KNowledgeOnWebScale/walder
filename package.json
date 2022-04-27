@@ -34,6 +34,7 @@
     "nunjucks": "^3.2.3",
     "object-path": "^0.11.4",
     "pug": "^2.0.4",
+    "sparqljson-to-tree": "^2.1.0",
     "tmp": "^0.1.0",
     "winston": "^3.2.1",
     "yaml": "^1.6.0"

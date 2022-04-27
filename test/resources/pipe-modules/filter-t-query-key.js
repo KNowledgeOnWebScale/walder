@@ -3,7 +3,7 @@ module.exports.filterT = (data, queryKey) => {
     let filteredData = [];
 
     for (const o of data) {
-      if (o.id.match(/T/)) {
+      if (o.id.value.match(/T/)) {
         filteredData.push(o);
       }
     }
