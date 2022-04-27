@@ -292,6 +292,19 @@ describe('Walder', function () {
         }
       })
 
+      it('id with value should be in results', function (done) {
+        request(this.walder.app)
+          .get('/angelina')
+          .set('Accept', 'application/json')
+          .expect(checkBody)
+          .end(done);
+
+        function checkBody(res) {
+          assert(res.body.data.length > 0, 'no results returned');
+          assert(res.body.data[0].id.value === 'http://dbpedia.org/resource/Angelina_Jolie', 'no results returned');
+        }
+      })
+
       describe('### Caching', function () {
         it('should be able to reuse comunica query engines when the data sources are the same', function (done) {
           // Do two requests with the same data sources, only one query engine should be found in the cache

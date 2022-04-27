@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Keep named nodes when returning RDF results of query (see [issue 120](https://github.com/KNowledgeOnWebScale/walder/issues/120))
 - Blank node is returned when IRI is expected when requesting Turtle (see [issue 116](https://github.com/KNowledgeOnWebScale/walder/issues/116))
 
+### Changed
+- Static IDs are included in query results.
+
 ## [3.0.0] - 2022-04-08
 
 ### Changed
