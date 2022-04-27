@@ -301,7 +301,7 @@ describe('Walder', function () {
 
         function checkBody(res) {
           assert(res.body.data.length > 0, 'no results returned');
-          assert(res.body.data[0].id.value === 'http://dbpedia.org/resource/Angelina_Jolie', 'no results returned');
+          assert(res.body.data[0].id.value === 'http://dbpedia.org/resource/Angelina_Jolie', 'correct id not provided');
         }
       })
 
