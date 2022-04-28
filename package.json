@@ -23,7 +23,7 @@
     "graphql": "^16.4.0",
     "graphql-ld": "^1.4.0",
     "graphql-ld-comunica": "^1.2.1",
-    "handlebars": "^4.1.2",
+    "handlebars": "^4.7.7",
     "jade-to-handlebars": "^2.3.0",
     "json-refs": "^3.0.15",
     "jsonld": "^1.6.2",
