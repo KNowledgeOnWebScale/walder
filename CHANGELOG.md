@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [4.0.0] - 2022-05-02
+
 ### Fixed
 - Keep named nodes when returning RDF results of query (see [issue 120](https://github.com/KNowledgeOnWebScale/walder/issues/120))
 - Blank node is returned when IRI is expected when requesting Turtle (see [issue 116](https://github.com/KNowledgeOnWebScale/walder/issues/116))
@@ -182,6 +184,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+[4.0.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.2.2...v3.0.0
 [2.2.2]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.2.0...v2.2.1
