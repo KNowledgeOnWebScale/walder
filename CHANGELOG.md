@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Clarify GraphQL-LD error when certificate fails (see [issue 80](https://github.com/KNowledgeOnWebScale/walder/issues/80))
+
 ### Changed
 - Use `namedNode` in `graphql-ld-handler.js`.
 
