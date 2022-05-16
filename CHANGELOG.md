@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Use `namedNode` in `graphql-ld-handler.js`.
+
 ## [4.0.0] - 2022-05-02
 
 ### Fixed
