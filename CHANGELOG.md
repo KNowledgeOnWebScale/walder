@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Clarify GraphQL-LD error when certificate fails (see [issue 80](https://github.com/KNowledgeOnWebScale/walder/issues/80))
+- Add query results as JSON-LD to HTML output (see [issue 125](https://github.com/KNowledgeOnWebScale/walder/issues/125))
 
 ### Changed
 - Use `namedNode` in `graphql-ld-handler.js`.
