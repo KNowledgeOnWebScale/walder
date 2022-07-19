@@ -1,7 +1,6 @@
 require('chai').should();
 const expect = require('chai').expect;
 const GraphQLLDHandler = require('../../lib/handlers/graphql-ld-handler');
-const {should} = require("chai");
 
 describe('GraphQLLDHandler', function () {
 
@@ -198,5 +197,62 @@ describe('GraphQLLDHandler', function () {
     expect(error).to.not.equal(undefined);
     expect(error.message).to.include('Code: CERT_HAS_EXPIRED');
     expect(error.message).to.include('data source: https://revoked.badssl.com/');
+  });
+
+  it('Query data sources that includes query', async () => {
+    this.timeout(60000)
+    const handler = new GraphQLLDHandler(null, './test/resources/pipe-modules');
+    const graphQLLDInfo = {
+      "queries": {
+        "employees": {
+          "query": `
+          {
+            id @single
+            employer(_:team)
+            name @single
+          }`
+        },
+      },
+      "context": {
+        "@context": {
+          "schema": "http://schema.org/",
+          "foaf": "http://xmlns.com/foaf/0.1/",
+          "name": "foaf:name",
+          "employer": {"@reverse": "schema:employee"},
+          "knows": "https://data.knows.idlab.ugent.be/person/office/#",
+          "team": "knows:team"
+        }
+      },
+      "comunicaConfig": {
+        "sources": [
+          "https://data.knows.idlab.ugent.be/person/office/employees.ttl",
+          {
+            'graphql-query': `  {
+                id @single
+                employer(_:team)
+              }`,
+            'json-ld-context': `  {
+                "schema": "http://schema.org/",
+                "employer": {"@reverse": "schema:employee"},
+                "knows": "https://data.knows.idlab.ugent.be/person/office/#",
+                "team": "knows:team"
+              }`,
+            datasources: {
+              sources: ['https://data.knows.idlab.ugent.be/person/office/employees.ttl']
+            },
+            postprocessing: {
+              getIds: {
+                source: 'get-ids.js'
+              }
+            }
+          }
+        ]
+      },
+      "cache": false,
+      "parameters": {}
+    };
+
+    const result = await handler.handle(graphQLLDInfo, {}, {});
+    result.employees.length.should.be.greaterThan(10);
   });
 });
