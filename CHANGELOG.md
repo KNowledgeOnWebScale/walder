@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Use `namedNode` in `graphql-ld-handler.js`.
 
+### Fixed
+- Query for data sources within a path.
+
 ## [4.0.0] - 2022-05-02
 
 ### Fixed
