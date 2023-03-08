@@ -1,0 +1,47 @@
+openapi: 3.0.2
+info:
+  title: 'Example site'
+  version: 0.1.0
+x-walder-resources:
+  root: ./
+  views: views
+  pipe-modules: pipeModules
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /:
+    get:
+      summary: Returns a list of directors of movies starring Brad Pitt
+      x-walder-query:
+        sparql-query: >
+          CONSTRUCT {
+            ?movie dbpedia-owl:starring [ rdfs:label "Brad Pitt"@en ];
+                               rdfs:label ?title;
+                               dbpedia-owl:director [ 
+                                a dbpedia-owl:Director;
+                                rdfs:label ?name ].
+          }
+          WHERE {
+            ?movie dbpedia-owl:starring [ rdfs:label "Brad Pitt"@en ];
+                   rdfs:label ?title;
+                   dbpedia-owl:director [ rdfs:label ?name ].
+            FILTER LANGMATCHES(LANG(?title), "EN")
+            FILTER LANGMATCHES(LANG(?name),  "EN")
+          }
+        json-ld-frame: >
+          {
+            "@context": {"@vocab": "http://www.w3.org/2000/01/rdf-schema#"},
+            "@type": "http://dbpedia.org/ontology/Director"
+          }
+      responses:
+        200:
+          description: list of directors of movies starring Brad Pitt
+          x-walder-input-text/html: directors-sparql.pug
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html

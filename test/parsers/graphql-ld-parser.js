@@ -1,5 +1,5 @@
 require('chai').should();
-const parseGraphQLLD = require('../../lib/parsers/graphql-ld-parser');
+const parseGraphQLLD = require('../../lib/parsers/query-parser');
 
 const CONFIG_FILE = '../resources/config.yaml';
 const YAML = require('yaml');

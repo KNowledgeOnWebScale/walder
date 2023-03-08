@@ -1,0 +1,31 @@
+// Mixins
+mixin publicationCard(publication)
+    .col-sm-4
+        .card
+            .card-body
+                h5.card-title
+                    | #{publication.name["@value"]}
+                p.card-text
+                    | by!{' '}
+                    //+authors(publication.authors)
+                p
+                    | #{publication.abstract["@value"]}
+                a.btn.btn-primary(href=publication["@id"]) Read more
+
+mixin authors(authors)
+  each key, index in Object.keys(authors)
+    - var author = authors[index];
+    span #{author.fName}
+    if index < Object.keys(authors).length - 1
+        span ,!{' '}
+// End mixins
+
+.row.section-title
+    .col-sm-12
+        h3 Latest publications
+.row.section-cards
+  each publication in data["@graph"]
+      +publicationCard(publication)
+.row.pl-3
+    .col-sm-12
+        a(href='/research/publications') See all publications

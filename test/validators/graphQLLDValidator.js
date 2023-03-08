@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 
 const GraphQLLDValidator = require('../../lib/validators/graphql-ld-validator');
 const RouteInfo = require('../../lib/models/route-info');
-const parseGraphQLLD = require('../../lib/parsers/graphql-ld-parser');
+const parseGraphQLLD = require('../../lib/parsers/query-parser');
 const parseParameter = require('../../lib/parsers/parameter-parser');
 
 const YAML = require('yaml');
