@@ -7,3 +7,13 @@ module.exports.filterT = (data) => {
   }
   return filteredData;
 };
+
+module.exports.filterTSparql = (data) => {
+  const filteredData = [];
+  for (const quad of data) {
+    if (quad.subject.value.match(/T/)) {
+      filteredData.push(quad);
+    }
+  }
+  return filteredData;
+};

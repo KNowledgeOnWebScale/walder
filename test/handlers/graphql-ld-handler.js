@@ -19,7 +19,7 @@ describe('GraphQLLDHandler', function () {
       }
     };
     const expectedNewQuery = '{ id @single name @single review @single { rating(value: "1") }}';
-    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters);
+    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters, '$', 'GRAPHQL');
     actualNewQuery.should.eql(expectedNewQuery);
   });
 
@@ -56,7 +56,7 @@ describe('GraphQLLDHandler', function () {
       }
     };
     const expectedNewQuery = '{ id @single name @single review @single { rating(value: "1") }}';
-    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters);
+    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters, '$', 'GRAPHQL');
 
     actualNewQuery.should.eql(expectedNewQuery);
   });

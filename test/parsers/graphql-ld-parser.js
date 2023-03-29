@@ -43,6 +43,8 @@ describe('GraphQLLDParser', function () {
             }
           },
           "queries": {'data': {'query': "{ id @single ... on Film { starring(label: $actor) @single }}"}},
+          "type": "graphql-ld",
+          "jsonldFrame": undefined
         }
       )
     });
@@ -58,6 +60,8 @@ describe('GraphQLLDParser', function () {
             ],
             "lenient": false
           },
+          "type": "graphql-ld",
+          "jsonldFrame": undefined,
           "context": {
             "@context": {
               "label": "http://www.w3.org/2000/01/rdf-schema#label",
@@ -100,6 +104,8 @@ describe('GraphQLLDParser', function () {
             ],
             "lenient": false
           },
+          "type": "graphql-ld",
+          "jsonldFrame": undefined,
           "context": {
             "@context": {
               "label": "http://www.w3.org/2000/01/rdf-schema#label",
@@ -137,6 +143,8 @@ describe('GraphQLLDParser', function () {
             ],
             "lenient": false
           },
+          "type": "graphql-ld",
+          "jsonldFrame": undefined,
           "context": {
             "@context": {
               "Film": "http://dbpedia.org/ontology/Film",

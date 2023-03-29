@@ -1,0 +1,51 @@
+openapi: 3.0.2
+info:
+  title: 'Example site with SPARQL queries and framing'
+  version: 0.1.0
+x-walder-resources:
+  root: .
+  views: ../views/sparql
+  pipe-modules: ../pipe-modules/sparql
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query: >
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          CONSTRUCT {
+            ?film a dbo:Film.
+          } WHERE {
+            ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?actor@en
+              ]
+          }
+        json-ld-frame: >
+          {
+            "@context": {"@vocab": "http://dbpedia.org/ontology/"},
+            "@type": "Film"
+          }
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies-frame.pug
+
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html
