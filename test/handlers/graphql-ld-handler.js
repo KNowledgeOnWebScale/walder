@@ -62,7 +62,7 @@ describe('GraphQLLDHandler', function () {
   });
 
   it('Query data source with expired certificate', async () => {
-    const handler = new GraphQLLDHandler();
+    const handler = new GraphQLLDHandler(undefined, undefined, () => {});
     const graphQLLDInfo = {
       "queries": {
         "projects": {
@@ -108,7 +108,7 @@ describe('GraphQLLDHandler', function () {
   });
 
   it('Query data source with self-signed certificate', async () => {
-    const handler = new GraphQLLDHandler();
+    const handler = new GraphQLLDHandler(undefined, undefined, () => {});
     const graphQLLDInfo = {
       "queries": {
         "projects": {
@@ -154,7 +154,7 @@ describe('GraphQLLDHandler', function () {
   });
 
   it.skip('Query data source with revoked certificate', async () => {
-    const handler = new GraphQLLDHandler();
+    const handler = new GraphQLLDHandler(undefined, undefined, () => {});
     const graphQLLDInfo = {
       "queries": {
         "projects": {
