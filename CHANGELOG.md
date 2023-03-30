@@ -6,9 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [4.1.0] - 2023-03-30
+
 ### Added
 - Clarify GraphQL-LD error when certificate fails (see [issue 80](https://github.com/KNowledgeOnWebScale/walder/issues/80))
 - Add query results as JSON-LD to HTML output (see [issue 125](https://github.com/KNowledgeOnWebScale/walder/issues/125))
+- Support for SPARQL queries
 
 ### Changed
 - Use `namedNode` in `graphql-ld-handler.js`.
@@ -194,6 +197,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Add pipe modules to routing callback
 - CLI
 
+<<<<<<< HEAD
+=======
+[4.1.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.0.0...v4.1.0
+>>>>>>> development
 [4.0.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v3.0.0...v4.0.0
 [3.0.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.2.2...v3.0.0
 [2.2.2]: https://github.com/KNowledgeOnWebScale/walder/compare/v2.2.1...v2.2.2
