@@ -96,7 +96,8 @@ const EX_1_RDF_CONVERTER_GRAPHQLLD = {
       "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
       "starring": "http://dbpedia.org/ontology/starring"
     }
-  }
+  },
+  type: 'graphql-ld'
 };
 
 const EX_1_RDF_CONVERTER_DATA = {

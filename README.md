@@ -160,6 +160,8 @@ path:  # The path linked to this query
     x-walder-query:
       graphql-query: ...  # One or more GraphQL queries
       json-ld-context: ...  # The JSON-LD corresponding to the GraphQL query
+      sparql-query: ... # One or more SPARQL queries
+      json-ld-frame: ... # A JSON-LD frame that should be applied to the result of a SPARQL query 
       options: # Global options that will be applied to all the graphql-queries of this path (OPTIONAL)
       datasources:  # Query specific datasources (OPTIONAL)
         additional: ...  # Boolean stating that the following datasources are meant to be used on top of the default ones
@@ -170,7 +172,7 @@ path:  # The path linked to this query
         source: ...  # Path leading to source code of the pipe module (absolute path or relative to the pipe-modules directory)
         parameters: # the parameters for the pipe module (OPTIONAL)
           - _data # (DEFAULT) this gives all the data, but all paths in the data object are supported (e.g. _data.0.employee)
-          - ... # Additional parameters if you're function supports those (OPTIONAL)
+          - ... # Additional parameters if your function supports those (OPTIONAL)
     responses:  # Status codes with files containing the HTML view template (absolute path or relative to the views directory)
       200: ...  # (REQUIRED)
       500: ...  # (OPTIONAL)
@@ -196,7 +198,7 @@ that have 'star' in the title, using pipe modules.
 For example, <http://localhost:3000/music/David%20Bowie/postprocessed> returns a list of songs by David Bowie that 
 have 'star' in the title.
 
-### Options
+### Options for GraphQL-LD queries
 
 In the path entry above, 
 the user defined `options` as a global (optional) identifier that Walder uses for every query of that path.
@@ -334,14 +336,22 @@ Walder makes the following output formats available:
 
 #### RDF
 
-Since Walder uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) to execute the GraphQL queries, 
-which return JSON data, 
+Walder uses [graphql-ld-comunica](https://www.npmjs.com/package/graphql-ld-comunica) 
+to execute the GraphQL queries
+and [@comunica/query-sparql](https://github.com/comunica/comunica/tree/master/engines/query-sparql) 
+to execute SPARQL queries.
+The result of a GraphQL-LD query is a JSON data. 
 Walder first converts it into JSON-LD. 
-This enables easy conversion to other RDF formats.
+This enables conversion to other RDF formats during content negotiation.
+The result of a SPARQL query is an array of quads.
+If a JSON-LD frame is specified, the quads are converted to JSON-LD.
+Due to the importance of content negotiation,
+only CONSTRUCT queries are supported.
 
 ### HTML templates
 
-Walder uses [consolidate](https://www.npmjs.com/package/consolidate) to automatically retrieve the corresponding engine for a given template. 
+Walder uses [consolidate](https://www.npmjs.com/package/consolidate) 
+to automatically retrieve the corresponding engine for a given template. 
 This means that the [supported template engines](https://www.npmjs.com/package/consolidate#supported-template-engines) 
 are dependent on consolidate.
 
@@ -354,25 +364,33 @@ Templates can be used in views as well as in layouts. So we'll name them **view 
 
 #### Accessing query results in view templates
 
-The results of the queries, specified in the configuration file for a route, are available for rendering in view templates as data.
+The results of the queries, specified in the configuration file for a route, 
+are available for rendering in view templates as data.
 - If the route only has a single query, the data contains an object named `data`.
-- If the route has multiple queries, each query's result is available in the data as a separate object whose name equals the query name in the configuration file.
+- If the route has multiple queries, 
+each query's result is available in the data as a separate object 
+whose name equals the query name in the configuration file.
 
-Each object will be an array, unless the query was [singularized](https://github.com/rubensworks/graphql-to-sparql.js#singularizing-everything).
-
+In the case of a GraphQL-LD query,
+each object will be an array, 
+unless the query was [singularized](https://github.com/rubensworks/graphql-to-sparql.js#singularizing-everything).
 [songs.handlebars](example/views/songs.handlebars) is an example of the consumption of the result
 of the single query in the route `/music/{musician}` in [this configuration file](example/config.yaml).
-
 [songs_movies.handlebars](example/views/songs_movies.handlebars) is an example of the consumption of the results
 of the two queries in the route `/artist/{artist}` in [this configuration file](example/config-multiple-queries.yaml).
+
+In the case of a SPARQL query, 
+each object is an array of quads if no JSON-LD frame is specified.
+Else it will be a JSON-LD object.
 
 #### Using layouts in view templates
 
 Using layouts is a great way to avoid repetition in route-specific view templates.
-Reusable HTML structures such as headers, footers, navigation bars and other contents, meant to appear in multiple route's,
+Reusable HTML structures such as headers, footers, navigation bars and other contents, meant to appear in multiple routes,
 are preferable specified in *layout files*.
 
-A layout template file can be specified in a view template file, by means of [front-matter](https://github.com/jxson/front-matter) metadata field `layout`.
+A layout template file can be specified in a view template file, 
+by means of [front-matter](https://github.com/jxson/front-matter) metadata field `layout`.
 It should contain a filename, available at the `layouts` location defined in the configuration file.
 It may contain a relative path in front of the filename.
 
@@ -384,9 +402,11 @@ layout: my-layout.pug
 // view template continues here
 ```
 
-Walder puts the inner HTML contents generated from the view template file into the data forwarded to the layout template file as an object named `content`.
+Walder puts the inner HTML contents generated from the view template file into the data forwarded to 
+the layout template file as an object named `content`.
 
-The layout template file is yet another template. It usually expands these inner HTML contents at the position of its choice.
+The layout template file is yet another template. 
+It usually expands these inner HTML contents at the position of its choice.
 
 A simple *pug* example (mind the `!{content}`):
 ```
@@ -403,7 +423,8 @@ In addition to query results, Walder adds [front-matter](https://github.com/jxso
 specified in view templates, as additional attributes to the data.
 
 Each additional attribute's name is equal to the metadata field name provided.
-The following metadata field are reserved: `layout`, `content`, `data`, and the names assigned to queries in routes having multiple queries (see above).
+The following metadata field are reserved: `layout`, `content`, `data`, and 
+the names assigned to queries in routes having multiple queries (see above).
 
 These attributes are available to the view template and to the layout template it refers to, if any.
 
@@ -448,7 +469,7 @@ Walder returns all errors and exits.
  
 At the moment, Walder validates the following:
 
-- The config files describe all variables in the GraphQL-LD query in the parameters section.
+- The config files describe all variables in the query in the parameters section.
 - The config files mention only existing files in `200~x-walder-input-text/html` entries.
 
 ## Error handling

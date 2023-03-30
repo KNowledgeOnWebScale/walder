@@ -19,7 +19,7 @@ describe('GraphQLLDHandler', function () {
       }
     };
     const expectedNewQuery = '{ id @single name @single review @single { rating(value: "1") }}';
-    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters);
+    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters, '$', 'GRAPHQL');
     actualNewQuery.should.eql(expectedNewQuery);
   });
 
@@ -56,13 +56,13 @@ describe('GraphQLLDHandler', function () {
       }
     };
     const expectedNewQuery = '{ id @single name @single review @single { rating(value: "1") }}';
-    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters);
+    const actualNewQuery = handler._substituteVariables(query, variables, definedParameters, '$', 'GRAPHQL');
 
     actualNewQuery.should.eql(expectedNewQuery);
   });
 
   it('Query data source with expired certificate', async () => {
-    const handler = new GraphQLLDHandler();
+    const handler = new GraphQLLDHandler(undefined, undefined, () => {});
     const graphQLLDInfo = {
       "queries": {
         "projects": {
@@ -108,7 +108,7 @@ describe('GraphQLLDHandler', function () {
   });
 
   it('Query data source with self-signed certificate', async () => {
-    const handler = new GraphQLLDHandler();
+    const handler = new GraphQLLDHandler(undefined, undefined, () => {});
     const graphQLLDInfo = {
       "queries": {
         "projects": {
@@ -154,7 +154,7 @@ describe('GraphQLLDHandler', function () {
   });
 
   it.skip('Query data source with revoked certificate', async () => {
-    const handler = new GraphQLLDHandler();
+    const handler = new GraphQLLDHandler(undefined, undefined, () => {});
     const graphQLLDInfo = {
       "queries": {
         "projects": {

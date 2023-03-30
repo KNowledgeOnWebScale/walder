@@ -4,7 +4,7 @@ const assert = require('chai').assert;
 
 const MainValidator = require('../../lib/validators/main-validator');
 const RouteInfo = require('../../lib/models/route-info');
-const parseGraphQLLD = require('../../lib/parsers/graphql-ld-parser');
+const parseGraphQLLD = require('../../lib/parsers/query-parser');
 const parseParameter = require('../../lib/parsers/parameter-parser');
 
 const YAML = require('yaml');
