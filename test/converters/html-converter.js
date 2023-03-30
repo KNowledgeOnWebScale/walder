@@ -1,5 +1,6 @@
 require('chai').should();
 const isHTML = require('is-html');
+const cheerio = require("cheerio");
 const HtmlConverter = require('../../lib/converters/html-converter');
 const TemplateLoader = require("../../lib/loaders/template-loader");
 
@@ -9,15 +10,14 @@ const EX_2_HTML_INFO = require('../resources/example-data').EX_2_HTML_CONVERTER_
 const EX_3_HTML_INFO = require('../resources/example-data').EX_3_HTML_CONVERTER_HTML_INFO;
 const EX_3_DATA = require('../resources/example-data').EX_3_HTML_CONVERTER_DATA;
 const EX_3_OUTPUT = require('../resources/example-data').EX_3_HTML_CONVERTER_OUTPUT;
-const EX_4_HTML_INFO = require('../resources/example-data').EX_4_HTML_CONVERTER_HTML_INFO;
-const EX_4_OUTPUT = require('../resources/example-data').EX_4_HTML_CONVERTER_OUTPUT;
 const EX_5_HTML_INFO = require('../resources/example-data').EX_5_HTML_CONVERTER_HTML_INFO;
 const EX_5_OUTPUT = require('../resources/example-data').EX_5_HTML_CONVERTER_OUTPUT;
+const EX_6_HTML_INFO = require('../resources/example-data').EX_6_HTML_CONVERTER_HTML_INFO;
+const EX_6_DATA = require('../resources/example-data').EX_6_HTML_CONVERTER_DATA;
+const EX_6_JSONLD = require('../resources/example-data').EX_6_HTML_CONVERTER_JSONLD;
+
 
 describe('HtmlConverter', function () {
-
-  before(function () {
-  });
 
   describe('# Functionality', function () {
     it('should be able to convert the given JSON to HTML using the given template and engine', async () => {
@@ -49,10 +49,22 @@ describe('HtmlConverter', function () {
       const templateLoader = new TemplateLoader();
       const converter = new HtmlConverter({templateLoader});
       templateLoader.load(EX_5_HTML_INFO);
-      const html = await converter.convert(EX_5_HTML_INFO, EX_5_OUTPUT);
+      const html = await converter.convert(EX_5_HTML_INFO);
       isHTML(html).should.be.true;
       html.should.deep.equal(EX_5_OUTPUT);
     });
 
+    it('should be able to include query results as JSON-LD in HTML', async () => {
+      const templateLoader = new TemplateLoader();
+      const converter = new HtmlConverter({templateLoader});
+      templateLoader.load(EX_6_HTML_INFO);
+      const html = await converter.convert(EX_6_HTML_INFO, EX_6_DATA, EX_6_JSONLD);
+      isHTML(html).should.be.true;
+      const $ = cheerio.load(html);
+      const scripts = $("script");
+      scripts.length.should.equal(1);
+      const actualJSONLD = JSON.parse(scripts[0].children[0].data);
+      actualJSONLD.should.deep.equal(EX_6_JSONLD);
+    });
   })
 });

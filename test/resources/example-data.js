@@ -1,5 +1,7 @@
 const path = require('path');
 const HTMLInfo = require("../../lib/models/html-info");
+const { DataFactory } = require('n3');
+const { namedNode, literal, defaultGraph, quad } = DataFactory;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
@@ -14,13 +16,13 @@ const EX_1_HTML_CONVERTER_HTML_INFO = {
 const EX_1_HTML_CONVERTER_DATA = {
   data: [
     {
-      id: 'http://dbpedia.org/resource/A_Mighty_Heart_(film)'
+      id: {termType: "namedNode", value: 'http://dbpedia.org/resource/A_Mighty_Heart_(film)'}
     },
     {
-      id: 'http://dbpedia.org/resource/Alexander_(2004_film)'
+      id: {termType: "namedNode", value: 'http://dbpedia.org/resource/Alexander_(2004_film)'}
     },
     {
-      id: 'http://dbpedia.org/resource/Beowulf_(2007_film)'
+      id: {termType: "namedNode", value: 'http://dbpedia.org/resource/Beowulf_(2007_film)'}
     }
   ]
 };
@@ -56,6 +58,32 @@ const EX_5_HTML_CONVERTER_HTML_INFO = new HTMLInfo(
 );
 const EX_5_HTML_CONVERTER_OUTPUT = '<body><p>test</p>\n</body>';
 
+const EX_6_HTML_CONVERTER_HTML_INFO = {
+  engine: 'pug',
+  file: path.resolve('test/resources/view-with-jsonld.pug')
+};
+const EX_6_HTML_CONVERTER_DATA = {
+  data: [
+    {
+      id: {termType: "namedNode", value: 'http://dbpedia.org/resource/A_Mighty_Heart_(film)'}
+    },
+    {
+      id: {termType: "namedNode", value: 'http://dbpedia.org/resource/Alexander_(2004_film)'}
+    },
+    {
+      id: {termType: "namedNode", value: 'http://dbpedia.org/resource/Beowulf_(2007_film)'}
+    }
+  ]
+};
+const EX_6_HTML_CONVERTER_JSONLD = {
+  "@context": "http://schema.org/",
+  "@type": "Person",
+  "name": "Jane Doe",
+  "jobTitle": "Professor",
+  "telephone": "(425) 123-4567",
+  "url": "http://www.janedoe.com"
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
 //                                                    RdfConverter                                                    //
@@ -68,22 +96,23 @@ const EX_1_RDF_CONVERTER_GRAPHQLLD = {
       "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en"},
       "starring": "http://dbpedia.org/ontology/starring"
     }
-  }
+  },
+  type: 'graphql-ld'
 };
 
 const EX_1_RDF_CONVERTER_DATA = {
   data: [
     {
-      "id": "http://dbpedia.org/resource/A_Mighty_Heart_(film)",
-      "starring": "http://dbpedia.org/resource/Angelina_Jolie"
+      "id": {termType: "namedNode", value: "http://dbpedia.org/resource/A_Mighty_Heart_(film)"},
+      "starring": {termType: "namedNode", value: "http://dbpedia.org/resource/Angelina_Jolie"}
     },
     {
-      "id": "http://dbpedia.org/resource/Alexander_(2004_film)",
-      "starring": "http://dbpedia.org/resource/Angelina_Jolie"
+      "id": {termType: "namedNode", value: "http://dbpedia.org/resource/Alexander_(2004_film)"},
+      "starring": {termType: "namedNode", value: "http://dbpedia.org/resource/Angelina_Jolie"}
     },
     {
-      "id": "http://dbpedia.org/resource/Beowulf_(2007_film)",
-      "starring": "http://dbpedia.org/resource/Angelina_Jolie"
+      "id": {termType: "namedNode", value: "http://dbpedia.org/resource/Beowulf_(2007_film)"},
+      "starring": {termType: "namedNode", value: "http://dbpedia.org/resource/Angelina_Jolie"}
     }
   ]
 };
@@ -113,6 +142,9 @@ module.exports = {
   EX_4_HTML_CONVERTER_OUTPUT,
   EX_5_HTML_CONVERTER_HTML_INFO,
   EX_5_HTML_CONVERTER_OUTPUT,
+  EX_6_HTML_CONVERTER_HTML_INFO,
+  EX_6_HTML_CONVERTER_DATA,
+  EX_6_HTML_CONVERTER_JSONLD,
   EX_1_RDF_CONVERTER_GRAPHQLLD,
   EX_1_RDF_CONVERTER_DATA,
   EX_2_RDF_CONVERTER_GRAPHQLLD,

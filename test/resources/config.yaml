@@ -414,6 +414,28 @@ paths:
         200:
           description: list of songs
           x-walder-input-text/html: artist-writer.pug
+
+  /angelina:
+    get:
+      summary: Return information about Angelina Jolie
+      x-walder-query:
+        graphql-query: >
+          {
+            id(_:angelina)
+            label
+          }
+        json-ld-context: >
+          {
+            "@context": {
+              "birthDate": "http://dbpedia.org/ontology/birthDate",
+              "label": { "@id": "http://www.w3.org/2000/01/rdf-schema#label", "@language": "en" },
+              "angelina": "http://dbpedia.org/resource/Angelina_Jolie"
+            }
+          }
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
 x-walder-errors:
   404:
     description: page not found error

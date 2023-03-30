@@ -1,0 +1,12 @@
+doctype html
+html(lang="en")
+    head
+        title Layout
+    body
+        script(type="application/ld+json") !{_queryResultsAsJSONLD}
+
+        h1 Movies
+        div
+            ul
+              each val in data
+                  li: a(href=val.id)= val.id

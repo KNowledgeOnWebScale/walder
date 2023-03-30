@@ -1,0 +1,324 @@
+openapi: 3.0.2
+info:
+  title: 'Example site with SPARQL queries'
+  version: 0.1.0
+x-walder-resources:
+  root: .
+  views: ../views/sparql
+  pipe-modules: ../pipe-modules/sparql
+  public: public
+x-walder-datasources:
+  - http://fragments.dbpedia.org/2016-04/en
+paths:
+  /movies2/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query: >
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          CONSTRUCT {
+            ?film a dbo:Film.
+          } WHERE {
+            ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?actor
+              ]
+          }
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+
+  /movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query: >
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          CONSTRUCT {
+            ?film a dbo:Film.
+          } WHERE {
+            ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?actor@en
+              ]
+          }
+      x-walder-postprocessing:
+        filterT:
+          source: filter-t.js
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+  /movies-async/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query: >
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          CONSTRUCT {
+            ?film a dbo:Film.
+          } WHERE {
+            ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?actor@en
+              ]
+          }
+      x-walder-postprocessing:
+        filterT:
+          source: filter-t-async.js
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+  /movies-query-key/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query:
+          movies: >
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            CONSTRUCT {
+              ?film a dbo:Film.
+            } WHERE {
+              ?film a dbo:Film;
+                dbo:starring [
+                  rdfs:label ?actor@en
+                ]
+            }
+      x-walder-postprocessing:
+        filterT:
+          source: filter-t-query-key.js
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies-query-key.pug
+  /movies-query-combine/{actor1}/{actor2}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor1
+          required: true
+          schema:
+            type: string
+          description: The first target actor
+        - in: path
+          name: actor2
+          required: true
+          schema:
+            type: string
+          description: The second target actor
+      x-walder-query:
+        sparql-query:
+          movies1: >
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            CONSTRUCT {
+              ?film a dbo:Film.
+            } WHERE {
+              ?film a dbo:Film;
+                dbo:starring [
+                  rdfs:label ?actor1@en
+                ]
+            }
+          movies2: >
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            CONSTRUCT {
+              ?film a dbo:Film.
+            } WHERE {
+              ?film a dbo:Film;
+                dbo:starring [
+                  rdfs:label ?actor2@en
+                ]
+            }
+      x-walder-postprocessing:
+        combine:
+          source: combine.js
+          queryResults:
+            - movies1
+            - movies2
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies-combine.pug
+  /more_movies/{actor}:
+    get:
+      summary: Returns a list of the all movies the given actor stars in
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query: >
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          CONSTRUCT {
+            ?film a dbo:Film.
+          } WHERE {
+            ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?actor@en
+              ]
+          }
+        datasources:
+          additional: true
+          sources:
+            - http://data.linkeddatafragments.org/harvard
+      x-walder-postprocessing:
+        filterT:
+          source: filter-t.js
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+  /artist/{artist}:
+    get:
+      summary: Returns a list of songs and movies for a given artist.
+      parameters:
+        - in: path
+          name: artist
+          required: true
+          schema:
+            type: string
+          description: The target artist
+      x-walder-query:
+        sparql-query:
+          songs: >
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            CONSTRUCT {
+              ?song a dbo:Song.
+            } WHERE {
+              ?song a dbo:Song; 
+                rdfs:label ?label;
+                dbo:artist [
+                  rdfs:label ?artist@en
+                ].
+            }
+          films: >
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            CONSTRUCT {
+              ?film a dbo:Film.
+            } WHERE {
+              ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?artist@en
+              ]
+            }
+      responses:
+        200:
+          description: list of songs and movies
+          x-walder-input-text/html: songs-movies.handlebars
+  /movies/{actor}/postprocessed:
+    get:
+      summary: Returns a list of the all movies the given actor stars in, filtered on movie titles containing 'A' and 'T'
+      parameters:
+        - in: path
+          name: actor
+          required: true
+          schema:
+            type: string
+          description: The target actor
+      x-walder-query:
+        sparql-query: >
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          CONSTRUCT {
+            ?film a dbo:Film.
+          } WHERE {
+            ?film a dbo:Film;
+              dbo:starring [
+                rdfs:label ?actor
+              ]
+          }
+      x-walder-postprocessing:
+        filterT_withParameters:
+          source: filter-t-with-parameters.js
+          parameters:
+            - _data
+            - true
+      responses:
+        200:
+          description: list of movies
+          x-walder-input-text/html: movies.pug
+  /artist2/{artist}:
+    get:
+      summary: Returns a list of a given artist's songs written by a specific person.
+      parameters:
+        - in: path
+          name: artist
+          required: true
+          schema:
+            type: string
+          description: The target artist
+        - in: query
+          name: writer
+          required: true
+          schema:
+            type: string
+      x-walder-query:
+        sparql-query: >
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX dbo: <http://dbpedia.org/ontology/>
+          CONSTRUCT {
+            ?song a dbo:Song.
+          } WHERE {
+            ?song a dbo:Song; 
+              rdfs:label ?label;
+              dbo:artist [
+                rdfs:label ?artist@en
+              ];
+              dbo:writer [
+                rdfs:label ?writer@en
+              ].
+          }
+      responses:
+        200:
+          description: list of songs
+          x-walder-input-text/html: artist-writer.pug
+
+x-walder-errors:
+  404:
+    description: page not found error
+    x-walder-input-text/html: error404.html
+  500:
+    description: internal server error
+    x-walder-input-text/html: error500.html
