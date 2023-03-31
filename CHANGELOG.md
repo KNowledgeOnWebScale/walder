@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [4.1.1] - 2023-03-31
+
 ### Changed
 - Update Comunica deps
 
@@ -202,6 +204,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <<<<<<< HEAD
 =======
+[4.1.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.0.0...v4.1.0
 >>>>>>> development
 [4.0.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v3.0.0...v4.0.0
