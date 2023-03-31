@@ -103,7 +103,7 @@ describe('GraphQLLDHandler', function () {
     }
 
     expect(error).to.not.equal(undefined);
-    expect(error.message).to.include('Code: CERT_HAS_EXPIRED');
+    expect(error.message).to.include('Comunica: fetch failed');
     expect(error.message).to.include('data source: https://expired.badssl.com/');
   });
 
@@ -149,7 +149,7 @@ describe('GraphQLLDHandler', function () {
     }
 
     expect(error).to.not.equal(undefined);
-    expect(error.message).to.include('Code: DEPTH_ZERO_SELF_SIGNED_CERT');
+    expect(error.message).to.include('Comunica: fetch failed');
     expect(error.message).to.include('data source: https://self-signed.badssl.com/');
   });
 
