@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Make query results available in layouts
+
 ## [4.1.1] - 2023-03-31
 
 ### Changed

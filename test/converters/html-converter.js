@@ -15,7 +15,8 @@ const EX_5_OUTPUT = require('../resources/example-data').EX_5_HTML_CONVERTER_OUT
 const EX_6_HTML_INFO = require('../resources/example-data').EX_6_HTML_CONVERTER_HTML_INFO;
 const EX_6_DATA = require('../resources/example-data').EX_6_HTML_CONVERTER_DATA;
 const EX_6_JSONLD = require('../resources/example-data').EX_6_HTML_CONVERTER_JSONLD;
-
+const EX_7_HTML_INFO = require('../resources/example-data').EX_7_HTML_CONVERTER_HTML_INFO;
+const EX_7_DATA = require('../resources/example-data').EX_7_HTML_CONVERTER_DATA;
 
 describe('HtmlConverter', function () {
 
@@ -65,6 +66,15 @@ describe('HtmlConverter', function () {
       scripts.length.should.equal(1);
       const actualJSONLD = JSON.parse(scripts[0].children[0].data);
       actualJSONLD.should.deep.equal(EX_6_JSONLD);
+    });
+
+    it('should be able to use query results in layout', async () => {
+      const templateLoader = new TemplateLoader();
+      const converter = new HtmlConverter({templateLoader});
+      templateLoader.load(EX_7_HTML_INFO);
+      const html = await converter.convert(EX_7_HTML_INFO, EX_7_DATA, null);
+      isHTML(html).should.be.true;
+      html.should.include('<div>My Title</div>');
     });
   })
 });

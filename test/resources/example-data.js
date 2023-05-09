@@ -84,6 +84,17 @@ const EX_6_HTML_CONVERTER_JSONLD = {
   "url": "http://www.janedoe.com"
 };
 
+const EX_7_HTML_CONVERTER_HTML_INFO = {
+  engine: 'md',
+  file: path.resolve('test/resources/layout-query-results-test/views/text.md'),
+  layoutsDir: path.resolve('test/resources/layout-query-results-test/layouts')
+};
+const EX_7_HTML_CONVERTER_DATA = {
+  article: {
+    title: 'My Title'
+  }
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
 //                                                    RdfConverter                                                    //
@@ -149,4 +160,6 @@ module.exports = {
   EX_1_RDF_CONVERTER_DATA,
   EX_2_RDF_CONVERTER_GRAPHQLLD,
   EX_2_RDF_CONVERTER_DATA,
+  EX_7_HTML_CONVERTER_HTML_INFO,
+  EX_7_HTML_CONVERTER_DATA
 };
