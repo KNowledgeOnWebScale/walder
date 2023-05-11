@@ -6,9 +6,7 @@
     "start": "node ./bin/cli.js",
     "test": "mocha --recursive \"./test/\" --timeout 60000 "
   },
-  "bin": {
-    "walder": "./bin/cli.js"
-  },
+  "bin": "./bin/cli.js",
   "dependencies": {
     "@comunica/core": "^2.6.8",
     "@comunica/query-sparql": "2.5.2",
@@ -55,5 +53,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/KNowledgeOnWebScale/walder.git"
-  }
+  },
+  "packageManager": "yarn@3.5.1"
 }
