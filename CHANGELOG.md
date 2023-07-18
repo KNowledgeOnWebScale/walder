@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [4.1.3] - 2023-07-18
+
 ### Updated
 - Lock file to fix bug in Comunica
 
@@ -212,6 +214,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <<<<<<< HEAD
 =======
+[4.1.3]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.1.2...v4.1.3
 [4.1.2]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.1.1...v4.1.2
 [4.1.1]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.1.0...v4.1.1
 [4.1.0]: https://github.com/KNowledgeOnWebScale/walder/compare/v4.0.0...v4.1.0
