@@ -27,7 +27,7 @@ Find out which APIs are built with Walder [here](#built-with-walder).
     - [Resources](#resources)
     - [Path entry](#path-entry)
   - [Example](#example)
-  - [Options](#options)
+  - [Options for GraphQL-LD queries](#options-for-graphql-ld-queries)
   - [Multiple config files](#multiple-config-files)
   - [Content negotiation](#content-negotiation)
     - [RDF](#rdf)
